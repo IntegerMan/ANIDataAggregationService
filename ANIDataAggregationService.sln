@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANIDataAggregationService", "ANIDataAggregationService\ANIDataAggregationService.csproj", "{7697B111-B21F-45FD-9E72-87F2C5738958}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C8ADC26-0C80-4952-A9BA-DD496D2D70BD}"
+	ProjectSection(SolutionItems) = preProject
+		YahooWeatherCodes.csv = YahooWeatherCodes.csv
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
