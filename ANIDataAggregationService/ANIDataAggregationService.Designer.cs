@@ -28,10 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this.components = new System.ComponentModel.Container();
+            this.timerInterval = new System.Windows.Forms.Timer(this.components);
+            // 
+            // timerInterval
+            // 
+            this.timerInterval.Interval = 90000;
+            // 
+            // ANIDataAggregationService
+            // 
+            this.ServiceName = "ANIDataAggregationService";
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timerInterval;
     }
 }

@@ -14,12 +14,10 @@ namespace ANIDataAggregationService
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
+            ServiceBase.Run(new ServiceBase[] 
             { 
                 new ANIDataAggregationService() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            });
         }
     }
 }
