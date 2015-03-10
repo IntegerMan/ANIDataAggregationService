@@ -1,0 +1,1 @@
+﻿sc create ANIDataAggregationService binPath=C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\ANIDataAggregationService.exe

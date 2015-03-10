@@ -30,19 +30,28 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timerInterval = new System.Windows.Forms.Timer(this.components);
+            this.logger = new System.Diagnostics.EventLog();
+            ((System.ComponentModel.ISupportInitialize)(this.logger)).BeginInit();
             // 
             // timerInterval
             // 
             this.timerInterval.Interval = 90000;
             // 
+            // logger
+            // 
+            this.logger.Log = "Application";
+            this.logger.Source = "ANIDataAggregationService";
+            // 
             // ANIDataAggregationService
             // 
             this.ServiceName = "ANIDataAggregationService";
+            ((System.ComponentModel.ISupportInitialize)(this.logger)).EndInit();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer timerInterval;
+        protected System.Windows.Forms.Timer timerInterval;
+        protected System.Diagnostics.EventLog logger;
     }
 }
