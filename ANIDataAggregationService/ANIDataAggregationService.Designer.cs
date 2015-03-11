@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timerInterval = new System.Windows.Forms.Timer(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.logger = new System.Diagnostics.EventLog();
             ((System.ComponentModel.ISupportInitialize)(this.logger)).BeginInit();
             // 
-            // timerInterval
+            // timer
             // 
-            this.timerInterval.Interval = 90000;
+            this.timer.Interval = 90000;
             // 
             // logger
             // 
@@ -51,7 +51,7 @@
 
         #endregion
 
-        protected System.Windows.Forms.Timer timerInterval;
+        protected System.Windows.Forms.Timer timer;
         protected System.Diagnostics.EventLog logger;
     }
 }
