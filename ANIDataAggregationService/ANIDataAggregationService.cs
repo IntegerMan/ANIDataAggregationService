@@ -27,10 +27,12 @@ namespace ANIDataAggregationService
         /// <param name="args">The arguments.</param>
         protected override void OnStart(string[] args)
         {
+            // Log that we're attempting start
             mLogger = new ServiceLogger(this.EventLog);
-            mWeatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, mLogger);
+            mLogger.Log("Starting Service");
 
             // Kick into action immediately
+            mWeatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, mLogger);
             this.ProcessData();
 
             // Start the timer
