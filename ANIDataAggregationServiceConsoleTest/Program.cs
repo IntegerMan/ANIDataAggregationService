@@ -12,7 +12,7 @@ namespace ANIDataAggregationServiceConsoleTest
         static void Main(string[] args)
         {
 
-            var processor = new WeatherForecastRecordingProcessor();
+            var processor = new WeatherForecastRecordingProcessor(1, 43035);
             processor.RecordTomorrowsWeatherPrediction();
 
         }

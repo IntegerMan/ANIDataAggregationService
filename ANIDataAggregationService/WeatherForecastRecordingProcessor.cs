@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
+using ANIDataAggregationService.AniDataSetTableAdapters;
 
 namespace ANIDataAggregationService
 {
@@ -12,31 +13,53 @@ namespace ANIDataAggregationService
     {
         const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
 
-        public string ZipCode { get; set; }
+        /// <summary>
+        /// Gets or sets the zip code.
+        /// </summary>
+        /// <value>The zip code.</value>
+        public int ZipCode { get; set; }
 
-        public WeatherForecastRecordingProcessor(string zipCode = "43035")
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeatherForecastRecordingProcessor"/> class.
+        /// </summary>
+        /// <param name="zipCode">The zip code.</param>
+        public WeatherForecastRecordingProcessor(int creatorNodeID, int zipCode = 43035)
         {
+            this.CreatorNodeID = creatorNodeID;
             this.ZipCode = zipCode;
         }
+
+        /// <summary>
+        /// Gets or sets the ID of the node responsible for creating prediction entries.
+        /// </summary>
+        /// <value>The creator node identifier.</value>
+        public int CreatorNodeID { get; set; }
 
         /// <summary>
         /// Gets tomorrow's weather prediction for this zip code and records it in the database.
         /// </summary>
         public void RecordTomorrowsWeatherPrediction()
         {
-            var forecasts = GetWeatherForecast();
+            var forecasts = GetWeatherForecast(this.ZipCode);
 
+            var adapter = new QueriesTableAdapter();
+
+            foreach (var forecast in forecasts)
+            {
+                adapter.InsertUpdateWeatherPrediction(forecast.Date, this.CreatorNodeID, forecast.ZipCode, forecast.Low, forecast.High, forecast.Code);
+            }
         }
 
         /// <summary>
         /// Gets the weather forecasts from a web service and converts them into domain objects which are then yielded.
         /// </summary>
+        /// <param name="zipCode">The zip code.</param>
         /// <returns>A yielded enumerable of WeatherForecast objects representing forecasts for the next 5 days including today.</returns>
-        private IEnumerable<WeatherForecast> GetWeatherForecast()
+        private IEnumerable<WeatherForecast> GetWeatherForecast(int zipCode)
         {
 
             // Grab the data from a GET request based on our zip code.
-            var uriString = string.Format("http://xml.weather.yahoo.com/forecastrss/{0}_f.xml", this.ZipCode);
+            var uriString = string.Format("http://xml.weather.yahoo.com/forecastrss/{0}_f.xml", zipCode);
             var request = WebRequest.Create(uriString);
             var response = request.GetResponse();
 
@@ -66,6 +89,7 @@ namespace ANIDataAggregationService
                 foreach (var forecastElement in forecasts)
                 {
                     var forecast = new WeatherForecast();
+                    forecast.ZipCode = ZipCode;
 
                     var dateAttribute = forecastElement.Attribute("date");
                     forecast.Date = DateTime.Parse(dateAttribute.Value);
