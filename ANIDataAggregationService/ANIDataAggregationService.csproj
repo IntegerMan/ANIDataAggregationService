@@ -92,6 +92,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ServiceLogger.cs" />
     <Compile Include="SQL2008_753919_prodDataSet.cs">
       <DependentUpon>SQL2008_753919_prodDataSet.xsd</DependentUpon>
     </Compile>

@@ -9,7 +9,9 @@ namespace ANIDataAggregationService
     /// </summary>
     public partial class ANIDataAggregationService : ServiceBase
     {
-        private const string EventLogSource = "ANI Data Aggregation Service";
+        private const int CreatorNodeId = 1;
+        private WeatherForecastRecordingProcessor mWeatherForecastProcessor;
+        private ServiceLogger mLogger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ANIDataAggregationService"/> class.
@@ -17,24 +19,6 @@ namespace ANIDataAggregationService
         public ANIDataAggregationService()
         {
             InitializeComponent();
-       }
-
-        /// <summary>
-        /// Logs the specified message to the event log.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        private void Log(string message)
-        {
-            this.logger.WriteEntry(message, EventLogEntryType.Information);
-        }
-
-        /// <summary>
-        /// Logs a warning message to the event log.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        private void Warn(string message)
-        {
-            this.logger.WriteEntry(message, EventLogEntryType.Warning);
         }
 
         /// <summary>
@@ -43,6 +27,9 @@ namespace ANIDataAggregationService
         /// <param name="args">The arguments.</param>
         protected override void OnStart(string[] args)
         {
+            mLogger = new ServiceLogger(this.EventLog);
+            mWeatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, mLogger);
+
             this.timer.Tick += Timer_Tick;
             this.timer.Start();
         }
@@ -54,7 +41,7 @@ namespace ANIDataAggregationService
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            this.Log("Evaluating now.");
+            mWeatherForecastProcessor.RecordWeatherForecasts();
         }
 
         /// <summary>

@@ -13,6 +13,8 @@ namespace ANIDataAggregationService
     {
         const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
 
+        private ServiceLogger mLogger;
+
         /// <summary>
         /// Gets or sets the zip code.
         /// </summary>
@@ -20,12 +22,17 @@ namespace ANIDataAggregationService
         public int ZipCode { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WeatherForecastRecordingProcessor"/> class.
+        /// Initializes a new instance of the <see cref="WeatherForecastRecordingProcessor" /> class.
         /// </summary>
+        /// <param name="creatorNodeId">The creator node identifier.</param>
+        /// <param name="logger">The logger.</param>
         /// <param name="zipCode">The zip code.</param>
-        public WeatherForecastRecordingProcessor(int creatorNodeID, int zipCode = 43035)
+        public WeatherForecastRecordingProcessor(int creatorNodeId, ServiceLogger logger, int zipCode = 43035)
         {
-            this.CreatorNodeID = creatorNodeID;
+            // Ensure logger exists
+            mLogger = logger ?? new ServiceLogger();
+
+            this.CreatorNodeId = creatorNodeId;
             this.ZipCode = zipCode;
         }
 
@@ -33,12 +40,12 @@ namespace ANIDataAggregationService
         /// Gets or sets the ID of the node responsible for creating prediction entries.
         /// </summary>
         /// <value>The creator node identifier.</value>
-        public int CreatorNodeID { get; set; }
+        public int CreatorNodeId { get; set; }
 
         /// <summary>
         /// Gets tomorrow's weather prediction for this zip code and records it in the database.
         /// </summary>
-        public void RecordTomorrowsWeatherPrediction()
+        public void RecordWeatherForecasts()
         {
             var forecasts = GetWeatherForecast(this.ZipCode);
 
@@ -46,7 +53,8 @@ namespace ANIDataAggregationService
 
             foreach (var forecast in forecasts)
             {
-                adapter.InsertUpdateWeatherPrediction(forecast.Date, this.CreatorNodeID, forecast.ZipCode, forecast.Low, forecast.High, forecast.Code);
+                mLogger.Log(string.Format("Logging Forecast for {0}: {1}/{2} and code: {3}", forecast.Date.ToShortDateString(), forecast.Low, forecast.High, forecast.Code));
+                adapter.InsertUpdateWeatherPrediction(forecast.Date, this.CreatorNodeId, forecast.ZipCode, forecast.Low, forecast.High, forecast.Code);
             }
         }
 
