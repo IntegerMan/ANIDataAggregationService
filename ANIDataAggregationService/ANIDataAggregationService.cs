@@ -37,7 +37,7 @@ namespace ANIDataAggregationService
 
             // Start the timer
             this.timer.Tick += Timer_Tick;
-            this.timer.Interval = TimeSpan.FromHours(3).Milliseconds;
+            this.timer.Interval = (int) TimeSpan.FromHours(3).TotalMilliseconds;
             this.timer.Start();
         }
 
