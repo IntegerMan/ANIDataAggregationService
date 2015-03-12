@@ -30,7 +30,12 @@ namespace ANIDataAggregationService
             mLogger = new ServiceLogger(this.EventLog);
             mWeatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, mLogger);
 
+            // Kick into action immediately
+            this.ProcessData();
+
+            // Start the timer
             this.timer.Tick += Timer_Tick;
+            this.timer.Interval = 60 * 100 * 15;
             this.timer.Start();
         }
 
@@ -40,6 +45,14 @@ namespace ANIDataAggregationService
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Timer_Tick(object sender, EventArgs e)
+        {
+            ProcessData();
+        }
+
+        /// <summary>
+        /// Processes the weather data.
+        /// </summary>
+        private void ProcessData()
         {
             try
             {
