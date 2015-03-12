@@ -1,0 +1,1 @@
+sc create ANIDataAggregationService binPath=bin\ANIDataAggregationService.exe start=auto
