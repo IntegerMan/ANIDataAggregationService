@@ -41,7 +41,14 @@ namespace ANIDataAggregationService
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            mWeatherForecastProcessor.RecordWeatherForecasts();
+            try
+            {
+                mWeatherForecastProcessor.RecordWeatherForecasts();
+            }
+            catch (Exception ex)
+            {
+                mLogger.Error("Problem processing aggregated data: " + ex.Message);
+            }
         }
 
         /// <summary>

@@ -54,5 +54,21 @@ namespace ANIDataAggregationService
                 Console.WriteLine("WARN: {0}", message);
             }
         }
+
+        /// <summary>
+        /// Logs the specified error message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void Error(string message)
+        {
+            if (mEventLog != null)
+            {
+                mEventLog.WriteEntry(message, EventLogEntryType.Error);
+            }
+            else
+            {
+                Console.WriteLine("ERROR: {0}", message);
+            }
+        }
     }
 }
