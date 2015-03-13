@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceProcess;
+using System.Timers;
 
 namespace ANIDataAggregationService
 {
@@ -10,8 +10,9 @@ namespace ANIDataAggregationService
     public partial class ANIDataAggregationService : ServiceBase
     {
         private const int CreatorNodeId = 1;
-        private WeatherForecastRecordingProcessor mWeatherForecastProcessor;
-        private ServiceLogger mLogger;
+        private WeatherForecastRecordingProcessor _weatherForecastProcessor;
+        private ServiceLogger _logger;
+        private Timer _weatherTimer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ANIDataAggregationService"/> class.
@@ -28,17 +29,17 @@ namespace ANIDataAggregationService
         protected override void OnStart(string[] args)
         {
             // Log that we're attempting start
-            mLogger = new ServiceLogger(this.EventLog);
-            mLogger.Log("Starting Service");
+            _logger = new ServiceLogger(EventLog);
+            _logger.Log("Starting ANI Service");
 
             // Kick into action immediately
-            mWeatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, mLogger);
-            this.ProcessData();
+            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger);
+            ProcessWeatherData();
 
             // Start the timer
-            this.timer.Tick += Timer_Tick;
-            this.timer.Interval = (int) TimeSpan.FromHours(3).TotalMilliseconds;
-            this.timer.Start();
+            _weatherTimer = new Timer(TimeSpan.FromHours(3).TotalMilliseconds);
+            _weatherTimer.Elapsed += Timer_Tick;
+            _weatherTimer.Start();
         }
 
         /// <summary>
@@ -48,21 +49,22 @@ namespace ANIDataAggregationService
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            ProcessData();
+            _logger.Log("Timer Tick");
+            ProcessWeatherData();
         }
 
         /// <summary>
         /// Processes the weather data.
         /// </summary>
-        private void ProcessData()
+        private void ProcessWeatherData()
         {
             try
             {
-                mWeatherForecastProcessor.RecordWeatherForecasts();
+                _weatherForecastProcessor.RecordWeatherForecasts();
             }
             catch (Exception ex)
             {
-                mLogger.Error("Problem processing aggregated data: " + ex.Message);
+                _logger.Error("Problem processing weather data: " + ex.Message);
             }
         }
 
@@ -71,7 +73,7 @@ namespace ANIDataAggregationService
         /// </summary>
         protected override void OnStop()
         {
-            this.timer.Stop();
+            _weatherTimer.Stop();
         }
 
         /// <summary>
@@ -79,7 +81,7 @@ namespace ANIDataAggregationService
         /// </summary>
         protected override void OnPause()
         {
-            this.timer.Stop();
+            _weatherTimer.Stop();
 
             base.OnPause();
         }
@@ -89,7 +91,7 @@ namespace ANIDataAggregationService
         /// </summary>
         protected override void OnContinue()
         {
-            this.timer.Start();
+            _weatherTimer.Start();
 
             base.OnContinue();
         }
