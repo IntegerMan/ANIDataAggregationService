@@ -1,0 +1,16 @@
+c:\users\matt\documents\visual studio 2013\Projects\ANIDataAggregationService\ANIDataAggregationService\bin\Debug\ANIDataAggregationService.exe.config
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.ANIDataAggregationService.resources
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.csproj.GenerateResource.Cache
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.exe
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.pdb
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.TrustInfo.xml
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.exe.manifest
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.application
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\obj\Debug\ANIDataAggregationService.ProjectInstaller.resources
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\ANIDataAggregationService.exe.config
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\ANIDataAggregationService.exe.manifest
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\ANIDataAggregationService.application
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\ANIDataAggregationService.exe
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\ANIDataAggregationService.pdb
+C:\Users\Matt\Documents\GitHub\ANIDataAggregationService\ANIDataAggregationService\bin\encog-core-cs.dll
