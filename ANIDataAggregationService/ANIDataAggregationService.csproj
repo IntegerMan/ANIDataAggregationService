@@ -82,6 +82,7 @@
     <Compile Include="ANIDataAggregationService.Designer.cs">
       <DependentUpon>ANIDataAggregationService.cs</DependentUpon>
     </Compile>
+    <Compile Include="AreaMonitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>

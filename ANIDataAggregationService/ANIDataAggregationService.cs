@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Timers;
 
@@ -33,7 +34,8 @@ namespace ANIDataAggregationService
             _logger.Log("Starting ANI Service");
 
             // Kick into action immediately
-            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger);
+            var watchedZipCodes = AreaMonitor.GetWatchedZipCodes();
+            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger, watchedZipCodes);
             ProcessWeatherData();
 
             // Start the timer

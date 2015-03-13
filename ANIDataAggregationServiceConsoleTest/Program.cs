@@ -11,8 +11,8 @@ namespace ANIDataAggregationServiceConsoleTest
     {
         static void Main(string[] args)
         {
-
-            var processor = new WeatherForecastRecordingProcessor(1, null, 43035);
+            var zipCodes = AreaMonitor.GetWatchedZipCodes();
+            var processor = new WeatherForecastRecordingProcessor(1, null, zipCodes);
             processor.RecordWeatherForecasts();
 
         }

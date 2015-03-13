@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Xml.Linq;
 using ANIDataAggregationService.AniDataSetTableAdapters;
 
@@ -13,27 +12,27 @@ namespace ANIDataAggregationService
     {
         const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
 
-        private ServiceLogger mLogger;
+        private readonly ServiceLogger _logger;
 
         /// <summary>
-        /// Gets or sets the zip code.
+        /// Gets or sets the zip codes to monitor.
         /// </summary>
-        /// <value>The zip code.</value>
-        public int ZipCode { get; set; }
+        /// <value>The zip codes.</value>
+        public IEnumerable<int> ZipCodes { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WeatherForecastRecordingProcessor" /> class.
         /// </summary>
         /// <param name="creatorNodeId">The creator node identifier.</param>
         /// <param name="logger">The logger.</param>
-        /// <param name="zipCode">The zip code.</param>
-        public WeatherForecastRecordingProcessor(int creatorNodeId, ServiceLogger logger, int zipCode = 43035)
+        /// <param name="zipCodes">The zip codes to monitor.</param>
+        public WeatherForecastRecordingProcessor(int creatorNodeId, ServiceLogger logger, IEnumerable<int> zipCodes)
         {
             // Ensure logger exists
-            mLogger = logger ?? new ServiceLogger();
+            _logger = logger ?? new ServiceLogger();
 
             this.CreatorNodeId = creatorNodeId;
-            this.ZipCode = zipCode;
+            this.ZipCodes = zipCodes.ToList();
         }
 
         /// <summary>
@@ -47,14 +46,27 @@ namespace ANIDataAggregationService
         /// </summary>
         public void RecordWeatherForecasts()
         {
-            var forecasts = GetWeatherForecast(this.ZipCode);
-
-            var adapter = new QueriesTableAdapter();
-
-            foreach (var forecast in forecasts)
+            foreach (var zipCode in this.ZipCodes)
             {
-                mLogger.Log(string.Format("Logging Forecast for {0}: {1}/{2} and code: {3}", forecast.Date.ToShortDateString(), forecast.Low, forecast.High, forecast.Code));
-                adapter.InsertUpdateWeatherPrediction(forecast.Date, this.CreatorNodeId, forecast.ZipCode, forecast.Low, forecast.High, forecast.Code);
+                try
+                {
+                    var forecasts = GetWeatherForecast(zipCode);
+
+                    var adapter = new QueriesTableAdapter();
+
+                    foreach (var forecast in forecasts)
+                    {
+                        _logger.Log(string.Format("Logging Forecast for {4} on {0}: {1}/{2} and code: {3}",
+                            forecast.Date.ToShortDateString(), forecast.Low, forecast.High, forecast.Code,
+                            forecast.ZipCode));
+                        adapter.InsertUpdateWeatherPrediction(forecast.Date, this.CreatorNodeId, forecast.ZipCode,
+                            forecast.Low, forecast.High, forecast.Code);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(string.Format("Problem parsing zip code {0}: {1}", zipCode, ex.Message));
+                }
             }
         }
 
@@ -96,8 +108,7 @@ namespace ANIDataAggregationService
                 // Parse the forecast elements into forecast objects
                 foreach (var forecastElement in forecasts)
                 {
-                    var forecast = new WeatherForecast();
-                    forecast.ZipCode = ZipCode;
+                    var forecast = new WeatherForecast {ZipCode = zipCode};
 
                     var dateAttribute = forecastElement.Attribute("date");
                     forecast.Date = DateTime.Parse(dateAttribute.Value);
