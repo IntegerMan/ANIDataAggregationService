@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace ANIDataAggregationService.Traffic
 {
@@ -37,6 +38,18 @@ namespace ANIDataAggregationService.Traffic
                         responseData = reader.ReadToEnd();
                     }
                 }
+            }
+
+            if (!string.IsNullOrWhiteSpace(responseData))
+            {
+                var trafficData = JObject.Parse(responseData);
+                var resources = trafficData["resourceSets"].First["resources"];
+
+                foreach (var resource in resources)
+                {
+                    int i = 42;                    
+                }
+
             }
         }
     }

@@ -63,6 +63,7 @@
     <Reference Include="encog-core-cs">
       <HintPath>..\packages\encog-dotnet-core.3.3.0\lib\net35\encog-core-cs.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -82,6 +83,7 @@
     <Compile Include="ANIDataAggregationService.Designer.cs">
       <DependentUpon>ANIDataAggregationService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Traffic\TrafficIncident.cs" />
     <Compile Include="Util\AreaMonitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
