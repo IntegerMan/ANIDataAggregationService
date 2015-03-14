@@ -81,7 +81,8 @@ AS
         TI_EndLocationID = @EndLocationID,
         TI_ModifiedTimeUTC = @ModifiedTimeUTC,
         TI_StartTimeUTC = @StartTimeUTC,
-        TI_EndTimeUTC = @EndTimeUTC
+        TI_EndTimeUTC = @EndTimeUTC,
+        TI_LastEncounteredTimeUTC = SYSUTCDATETIME()
     WHERE TI_ID = @IncidentID
 
   END
@@ -92,8 +93,8 @@ AS
     SET IDENTITY_INSERT dbo.TrafficIncidents ON
 
     -- Actually insert
-    INSERT INTO dbo.TrafficIncidents (TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID, TI_StartTimeUTC, TI_EndTimeUTC)
-      VALUES (@IncidentID, @Congsestion, @Description, @Detour, @Lane, @SeverityID, @TypeID, @RoadClosed, @Verified, @LocationID, @EndLocationID, @CreatedTimeUTC, @ModifiedTimeUTC, @CreatorUserNodeID, @StartTimeUTC, @EndTimeUTC);
+    INSERT INTO dbo.TrafficIncidents (TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID, TI_StartTimeUTC, TI_EndTimeUTC, TI_LastEncounteredTimeUTC)
+      VALUES (@IncidentID, @Congsestion, @Description, @Detour, @Lane, @SeverityID, @TypeID, @RoadClosed, @Verified, @LocationID, @EndLocationID, @CreatedTimeUTC, @ModifiedTimeUTC, @CreatorUserNodeID, @StartTimeUTC, @EndTimeUTC, SYSUTCDATETIME());
 
     -- Not sure we need to do this, but probably should for safety
     SET IDENTITY_INSERT dbo.TrafficIncidents OFF
