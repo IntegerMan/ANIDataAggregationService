@@ -19,7 +19,7 @@ namespace ANIDataAggregationServiceConsoleTest
             processor.RecordWeatherForecasts();
             */
 
-            var processor = new TrafficRecordingProcessor(Settings.Default.BingMapsKey);
+            var processor = new TrafficRecordingProcessor(1, null, Settings.Default.BingMapsKey);
 
             // Focus on the Columbus area
             const double West = 40.198316;

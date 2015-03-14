@@ -99,10 +99,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Util\ServiceLogger.cs" />
-    <Compile Include="AniDataSet.cs">
+    <Compile Include="Database\AniDataSet.cs">
       <DependentUpon>AniDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="AniDataSet.Designer.cs">
+    <Compile Include="Database\AniDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AniDataSet.xsd</DependentUpon>
@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Database\ANI.dbd" />
     <None Include="install.bat" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -120,15 +121,15 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="AniDataSet.xsc">
+    <None Include="Database\AniDataSet.xsc">
       <DependentUpon>AniDataSet.xsd</DependentUpon>
     </None>
-    <None Include="AniDataSet.xsd">
+    <None Include="Database\AniDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>AniDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="AniDataSet.xss">
+    <None Include="Database\AniDataSet.xss">
       <DependentUpon>AniDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
@@ -154,6 +155,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Database\InsertUpdateWeatherPrediction.sql" />
+    <Content Include="Database\InsertUpdateTrafficIncident.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

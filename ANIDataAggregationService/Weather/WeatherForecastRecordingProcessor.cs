@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
-using ANIDataAggregationService.AniDataSetTableAdapters;
+using ANIDataAggregationService.Database.AniDataSetTableAdapters;
 
 namespace ANIDataAggregationService
 {
