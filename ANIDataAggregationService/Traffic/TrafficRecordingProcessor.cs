@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +19,7 @@ namespace ANIDataAggregationService.Traffic
         {
 
             // Request Traffic from around the area.
-            var url = string.Format("http://dev.virtualearth.net/REST/v1/Traffic/Incidents/{0},{1},{2},{3}?key={4}",
+            var url = string.Format("http://dev.virtualearth.net/REST/v1/Traffic/Incidents/{0},{1},{2},{3}?includeLocationCodes=true&key={4}",
                 eastLongitude,
                 northLatitude,
                 westLongitude,
@@ -40,6 +42,8 @@ namespace ANIDataAggregationService.Traffic
                 }
             }
 
+            var incidents = new List<TrafficIncident>();
+
             if (!string.IsNullOrWhiteSpace(responseData))
             {
                 var trafficData = JObject.Parse(responseData);
@@ -47,10 +51,40 @@ namespace ANIDataAggregationService.Traffic
 
                 foreach (var resource in resources)
                 {
-                    int i = 42;                    
+
+                    var incident = new TrafficIncident
+                    {
+                        Latitude = resource["point"]["coordinates"].First.Value<double>(),
+                        Longitude = resource["point"]["coordinates"].Last.Value<double>(),
+                        IncidentId = resource.Value<long>("incidentId"),
+                        Description = resource.Value<string>("description"),
+                        IsClosed = resource.Value<bool>("roadClosed"),
+                        IsVerified = resource.Value<bool>("verified"),
+                        IncidentType = resource.Value<int>("type"),
+                        Severity = resource.Value<int>("severity"),
+                        Detour = resource.Value<string>("detour"),
+                        Lane = resource.Value<string>("lane"),
+                        StartTimeUTC = resource.Value<DateTime>("start"),
+                        EndTimeUTC = resource.Value<DateTime>("end"),
+                        ModifiedTimeUTC = resource.Value<DateTime>("lastModified"),
+                        Congestion = resource.Value<string>("congestion")
+                    };
+
+                    // Set the to location
+                    var toPoint = resource["toPoint"];
+                    if (toPoint != null)
+                    {
+                        incident.ToLatitude = toPoint["coordinates"].First.Value<double>();
+                        incident.ToLongitude = toPoint["coordinates"].Last.Value<double>();
+                    }
+
+                    incidents.Add(incident);
                 }
 
             }
+
+            int i = 42;                    
+
         }
     }
 }
