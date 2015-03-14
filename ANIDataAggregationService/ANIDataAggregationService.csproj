@@ -82,7 +82,7 @@
     <Compile Include="ANIDataAggregationService.Designer.cs">
       <DependentUpon>ANIDataAggregationService.cs</DependentUpon>
     </Compile>
-    <Compile Include="AreaMonitor.cs" />
+    <Compile Include="Util\AreaMonitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -96,17 +96,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ServiceLogger.cs" />
-    <Compile Include="SQL2008_753919_prodDataSet.cs">
-      <DependentUpon>SQL2008_753919_prodDataSet.xsd</DependentUpon>
+    <Compile Include="Util\ServiceLogger.cs" />
+    <Compile Include="AniDataSet.cs">
+      <DependentUpon>AniDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="SQL2008_753919_prodDataSet.Designer.cs">
+    <Compile Include="AniDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SQL2008_753919_prodDataSet.xsd</DependentUpon>
+      <DependentUpon>AniDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="WeatherForecast.cs" />
-    <Compile Include="WeatherForecastRecordingProcessor.cs" />
+    <Compile Include="Traffic\TrafficRecordingProcessor.cs" />
+    <Compile Include="Weather\WeatherForecast.cs" />
+    <Compile Include="Weather\WeatherForecastRecordingProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -117,16 +118,16 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="SQL2008_753919_prodDataSet.xsc">
-      <DependentUpon>SQL2008_753919_prodDataSet.xsd</DependentUpon>
+    <None Include="AniDataSet.xsc">
+      <DependentUpon>AniDataSet.xsd</DependentUpon>
     </None>
-    <None Include="SQL2008_753919_prodDataSet.xsd">
+    <None Include="AniDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SQL2008_753919_prodDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>AniDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="SQL2008_753919_prodDataSet.xss">
-      <DependentUpon>SQL2008_753919_prodDataSet.xsd</DependentUpon>
+    <None Include="AniDataSet.xss">
+      <DependentUpon>AniDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
