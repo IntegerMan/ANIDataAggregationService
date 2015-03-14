@@ -4902,6 +4902,10 @@ namespace ANIDataAggregationService.Database {
             
             private global::System.Data.DataColumn columnTI_CreatedUserNodeID;
             
+            private global::System.Data.DataColumn columnTI_StartTimeUTC;
+            
+            private global::System.Data.DataColumn columnTI_EndTimeUTC;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TrafficIncidentsDataTable() {
@@ -5049,6 +5053,22 @@ namespace ANIDataAggregationService.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TI_StartTimeUTCColumn {
+                get {
+                    return this.columnTI_StartTimeUTC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TI_EndTimeUTCColumn {
+                get {
+                    return this.columnTI_EndTimeUTC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -5084,7 +5104,7 @@ namespace ANIDataAggregationService.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TrafficIncidentsRow AddTrafficIncidentsRow(string TI_Congestion, string TI_Description, string TI_Detour, string TI_Lane, TrafficIncidentSeveritiesRow parentTrafficIncidentSeveritiesRowByFK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID, TrafficIncidentTypesRow parentTrafficIncidentTypesRowByFK_TrafficIncidents_TrafficIncidentType_TIT_ID, bool TI_RoadClosed, bool TI_Verified, int TI_LocationID, int TI_EndLocationID, System.DateTime TI_CreatedTimeUTC, System.DateTime TI_ModifiedTimeUTC, UserNodesRow parentUserNodesRowByFK_TrafficIncidents_UserNodes_UN_ID) {
+            public TrafficIncidentsRow AddTrafficIncidentsRow(string TI_Congestion, string TI_Description, string TI_Detour, string TI_Lane, TrafficIncidentSeveritiesRow parentTrafficIncidentSeveritiesRowByFK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID, TrafficIncidentTypesRow parentTrafficIncidentTypesRowByFK_TrafficIncidents_TrafficIncidentType_TIT_ID, bool TI_RoadClosed, bool TI_Verified, int TI_LocationID, int TI_EndLocationID, System.DateTime TI_CreatedTimeUTC, System.DateTime TI_ModifiedTimeUTC, UserNodesRow parentUserNodesRowByFK_TrafficIncidents_UserNodes_UN_ID, System.DateTime TI_StartTimeUTC, System.DateTime TI_EndTimeUTC) {
                 TrafficIncidentsRow rowTrafficIncidentsRow = ((TrafficIncidentsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -5100,7 +5120,9 @@ namespace ANIDataAggregationService.Database {
                         TI_EndLocationID,
                         TI_CreatedTimeUTC,
                         TI_ModifiedTimeUTC,
-                        null};
+                        null,
+                        TI_StartTimeUTC,
+                        TI_EndTimeUTC};
                 if ((parentTrafficIncidentSeveritiesRowByFK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID != null)) {
                     columnValuesArray[5] = parentTrafficIncidentSeveritiesRowByFK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID[0];
                 }
@@ -5153,6 +5175,8 @@ namespace ANIDataAggregationService.Database {
                 this.columnTI_CreatedTimeUTC = base.Columns["TI_CreatedTimeUTC"];
                 this.columnTI_ModifiedTimeUTC = base.Columns["TI_ModifiedTimeUTC"];
                 this.columnTI_CreatedUserNodeID = base.Columns["TI_CreatedUserNodeID"];
+                this.columnTI_StartTimeUTC = base.Columns["TI_StartTimeUTC"];
+                this.columnTI_EndTimeUTC = base.Columns["TI_EndTimeUTC"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5186,6 +5210,10 @@ namespace ANIDataAggregationService.Database {
                 base.Columns.Add(this.columnTI_ModifiedTimeUTC);
                 this.columnTI_CreatedUserNodeID = new global::System.Data.DataColumn("TI_CreatedUserNodeID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTI_CreatedUserNodeID);
+                this.columnTI_StartTimeUTC = new global::System.Data.DataColumn("TI_StartTimeUTC", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTI_StartTimeUTC);
+                this.columnTI_EndTimeUTC = new global::System.Data.DataColumn("TI_EndTimeUTC", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTI_EndTimeUTC);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTI_ID}, true));
                 this.columnTI_ID.AutoIncrement = true;
@@ -7598,6 +7626,38 @@ namespace ANIDataAggregationService.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime TI_StartTimeUTC {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableTrafficIncidents.TI_StartTimeUTCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TI_StartTimeUTC\' in table \'TrafficIncidents\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTrafficIncidents.TI_StartTimeUTCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime TI_EndTimeUTC {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableTrafficIncidents.TI_EndTimeUTCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TI_EndTimeUTC\' in table \'TrafficIncidents\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTrafficIncidents.TI_EndTimeUTCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TrafficIncidentSeveritiesRow TrafficIncidentSeveritiesRow {
                 get {
                     return ((TrafficIncidentSeveritiesRow)(this.GetParentRow(this.Table.ParentRelations["FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID"])));
@@ -7687,6 +7747,30 @@ namespace ANIDataAggregationService.Database {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTI_EndLocationIDNull() {
                 this[this.tableTrafficIncidents.TI_EndLocationIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTI_StartTimeUTCNull() {
+                return this.IsNull(this.tableTrafficIncidents.TI_StartTimeUTCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTI_StartTimeUTCNull() {
+                this[this.tableTrafficIncidents.TI_StartTimeUTCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTI_EndTimeUTCNull() {
+                return this.IsNull(this.tableTrafficIncidents.TI_EndTimeUTCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTI_EndTimeUTCNull() {
+                this[this.tableTrafficIncidents.TI_EndTimeUTCColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -12968,10 +13052,12 @@ SELECT ZIP_ID, ZIP_Name, ZIP_State, ZIP_LocationID FROM ZipCodes WHERE (ZIP_ID =
             tableMapping.ColumnMappings.Add("TI_CreatedTimeUTC", "TI_CreatedTimeUTC");
             tableMapping.ColumnMappings.Add("TI_ModifiedTimeUTC", "TI_ModifiedTimeUTC");
             tableMapping.ColumnMappings.Add("TI_CreatedUserNodeID", "TI_CreatedUserNodeID");
+            tableMapping.ColumnMappings.Add("TI_StartTimeUTC", "TI_StartTimeUTC");
+            tableMapping.ColumnMappings.Add("TI_EndTimeUTC", "TI_EndTimeUTC");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[TrafficIncidents] WHERE (([TI_ID] = @Original_TI_ID) AND ([TI_Severity] = @Original_TI_Severity) AND ([TI_Type] = @Original_TI_Type) AND ([TI_RoadClosed] = @Original_TI_RoadClosed) AND ([TI_Verified] = @Original_TI_Verified) AND ([TI_LocationID] = @Original_TI_LocationID) AND ((@IsNull_TI_EndLocationID = 1 AND [TI_EndLocationID] IS NULL) OR ([TI_EndLocationID] = @Original_TI_EndLocationID)) AND ([TI_CreatedTimeUTC] = @Original_TI_CreatedTimeUTC) AND ([TI_ModifiedTimeUTC] = @Original_TI_ModifiedTimeUTC) AND ([TI_CreatedUserNodeID] = @Original_TI_CreatedUserNodeID))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [TrafficIncidents] WHERE (([TI_ID] = @Original_TI_ID) AND ([TI_Severity] = @Original_TI_Severity) AND ([TI_Type] = @Original_TI_Type) AND ([TI_RoadClosed] = @Original_TI_RoadClosed) AND ([TI_Verified] = @Original_TI_Verified) AND ([TI_LocationID] = @Original_TI_LocationID) AND ((@IsNull_TI_EndLocationID = 1 AND [TI_EndLocationID] IS NULL) OR ([TI_EndLocationID] = @Original_TI_EndLocationID)) AND ([TI_CreatedTimeUTC] = @Original_TI_CreatedTimeUTC) AND ([TI_ModifiedTimeUTC] = @Original_TI_ModifiedTimeUTC) AND ([TI_CreatedUserNodeID] = @Original_TI_CreatedUserNodeID) AND ((@IsNull_TI_EndTimeUTC = 1 AND [TI_EndTimeUTC] IS NULL) OR ([TI_EndTimeUTC] = @Original_TI_EndTimeUTC)) AND ((@IsNull_TI_StartTimeUTC = 1 AND [TI_StartTimeUTC] IS NULL) OR ([TI_StartTimeUTC] = @Original_TI_StartTimeUTC)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_ID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_Severity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Severity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -12984,10 +13070,14 @@ SELECT ZIP_ID, ZIP_Name, ZIP_State, ZIP_LocationID FROM ZipCodes WHERE (ZIP_ID =
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_CreatedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_ModifiedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ModifiedTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_CreatedUserNodeID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedUserNodeID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TI_EndTimeUTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_EndTimeUTC", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_EndTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_EndTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TI_StartTimeUTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_StartTimeUTC", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_StartTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_StartTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[TrafficIncidents] ([TI_Congestion], [TI_Description], [TI_Detour], [TI_Lane], [TI_Severity], [TI_Type], [TI_RoadClosed], [TI_Verified], [TI_LocationID], [TI_EndLocationID], [TI_CreatedTimeUTC], [TI_ModifiedTimeUTC], [TI_CreatedUserNodeID]) VALUES (@TI_Congestion, @TI_Description, @TI_Detour, @TI_Lane, @TI_Severity, @TI_Type, @TI_RoadClosed, @TI_Verified, @TI_LocationID, @TI_EndLocationID, @TI_CreatedTimeUTC, @TI_ModifiedTimeUTC, @TI_CreatedUserNodeID);
-SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID FROM TrafficIncidents WHERE (TI_ID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [TrafficIncidents] ([TI_Congestion], [TI_Description], [TI_Detour], [TI_Lane], [TI_Severity], [TI_Type], [TI_RoadClosed], [TI_Verified], [TI_LocationID], [TI_EndLocationID], [TI_CreatedTimeUTC], [TI_ModifiedTimeUTC], [TI_CreatedUserNodeID], [TI_EndTimeUTC], [TI_StartTimeUTC]) VALUES (@TI_Congestion, @TI_Description, @TI_Detour, @TI_Lane, @TI_Severity, @TI_Type, @TI_RoadClosed, @TI_Verified, @TI_LocationID, @TI_EndLocationID, @TI_CreatedTimeUTC, @TI_ModifiedTimeUTC, @TI_CreatedUserNodeID, @TI_EndTimeUTC, @TI_StartTimeUTC);
+SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID, TI_EndTimeUTC, TI_StartTimeUTC FROM TrafficIncidents WHERE (TI_ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_Congestion", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Congestion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -13002,10 +13092,31 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_CreatedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_ModifiedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ModifiedTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_CreatedUserNodeID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedUserNodeID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_EndTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_EndTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_StartTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_StartTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[TrafficIncidents] SET [TI_Congestion] = @TI_Congestion, [TI_Description] = @TI_Description, [TI_Detour] = @TI_Detour, [TI_Lane] = @TI_Lane, [TI_Severity] = @TI_Severity, [TI_Type] = @TI_Type, [TI_RoadClosed] = @TI_RoadClosed, [TI_Verified] = @TI_Verified, [TI_LocationID] = @TI_LocationID, [TI_EndLocationID] = @TI_EndLocationID, [TI_CreatedTimeUTC] = @TI_CreatedTimeUTC, [TI_ModifiedTimeUTC] = @TI_ModifiedTimeUTC, [TI_CreatedUserNodeID] = @TI_CreatedUserNodeID WHERE (([TI_ID] = @Original_TI_ID) AND ([TI_Severity] = @Original_TI_Severity) AND ([TI_Type] = @Original_TI_Type) AND ([TI_RoadClosed] = @Original_TI_RoadClosed) AND ([TI_Verified] = @Original_TI_Verified) AND ([TI_LocationID] = @Original_TI_LocationID) AND ((@IsNull_TI_EndLocationID = 1 AND [TI_EndLocationID] IS NULL) OR ([TI_EndLocationID] = @Original_TI_EndLocationID)) AND ([TI_CreatedTimeUTC] = @Original_TI_CreatedTimeUTC) AND ([TI_ModifiedTimeUTC] = @Original_TI_ModifiedTimeUTC) AND ([TI_CreatedUserNodeID] = @Original_TI_CreatedUserNodeID));
-SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID FROM TrafficIncidents WHERE (TI_ID = @TI_ID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [TrafficIncidents] SET [TI_Congestion] = @TI_Congestion, [TI_Description] " +
+                "= @TI_Description, [TI_Detour] = @TI_Detour, [TI_Lane] = @TI_Lane, [TI_Severity]" +
+                " = @TI_Severity, [TI_Type] = @TI_Type, [TI_RoadClosed] = @TI_RoadClosed, [TI_Ver" +
+                "ified] = @TI_Verified, [TI_LocationID] = @TI_LocationID, [TI_EndLocationID] = @T" +
+                "I_EndLocationID, [TI_CreatedTimeUTC] = @TI_CreatedTimeUTC, [TI_ModifiedTimeUTC] " +
+                "= @TI_ModifiedTimeUTC, [TI_CreatedUserNodeID] = @TI_CreatedUserNodeID, [TI_EndTi" +
+                "meUTC] = @TI_EndTimeUTC, [TI_StartTimeUTC] = @TI_StartTimeUTC WHERE (([TI_ID] = " +
+                "@Original_TI_ID) AND ([TI_Severity] = @Original_TI_Severity) AND ([TI_Type] = @O" +
+                "riginal_TI_Type) AND ([TI_RoadClosed] = @Original_TI_RoadClosed) AND ([TI_Verifi" +
+                "ed] = @Original_TI_Verified) AND ([TI_LocationID] = @Original_TI_LocationID) AND" +
+                " ((@IsNull_TI_EndLocationID = 1 AND [TI_EndLocationID] IS NULL) OR ([TI_EndLocat" +
+                "ionID] = @Original_TI_EndLocationID)) AND ([TI_CreatedTimeUTC] = @Original_TI_Cr" +
+                "eatedTimeUTC) AND ([TI_ModifiedTimeUTC] = @Original_TI_ModifiedTimeUTC) AND ([TI" +
+                "_CreatedUserNodeID] = @Original_TI_CreatedUserNodeID) AND ((@IsNull_TI_EndTimeUT" +
+                "C = 1 AND [TI_EndTimeUTC] IS NULL) OR ([TI_EndTimeUTC] = @Original_TI_EndTimeUTC" +
+                ")) AND ((@IsNull_TI_StartTimeUTC = 1 AND [TI_StartTimeUTC] IS NULL) OR ([TI_Star" +
+                "tTimeUTC] = @Original_TI_StartTimeUTC)));\r\nSELECT TI_ID, TI_Congestion, TI_Descr" +
+                "iption, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI" +
+                "_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_Created" +
+                "UserNodeID, TI_EndTimeUTC, TI_StartTimeUTC FROM TrafficIncidents WHERE (TI_ID = " +
+                "@TI_ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_Congestion", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Congestion", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -13020,6 +13131,8 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_CreatedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_ModifiedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ModifiedTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_CreatedUserNodeID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedUserNodeID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_EndTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_EndTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_StartTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_StartTimeUTC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_ID", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_Severity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Severity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_Type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -13031,6 +13144,10 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_CreatedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_ModifiedTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ModifiedTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_CreatedUserNodeID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_CreatedUserNodeID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TI_EndTimeUTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_EndTimeUTC", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_EndTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_EndTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TI_StartTimeUTC", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_StartTimeUTC", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TI_StartTimeUTC", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TI_StartTimeUTC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TI_ID", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 0, 0, "TI_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -13047,9 +13164,7 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_" +
-                "Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTim" +
-                "eUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID FROM dbo.TrafficIncidents";
+            this._commandCollection[0].CommandText = @"SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID, TI_EndTimeUTC, TI_StartTimeUTC FROM TrafficIncidents";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -13110,7 +13225,7 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_TI_ID, int Original_TI_Severity, int Original_TI_Type, bool Original_TI_RoadClosed, bool Original_TI_Verified, int Original_TI_LocationID, global::System.Nullable<int> Original_TI_EndLocationID, System.DateTime Original_TI_CreatedTimeUTC, System.DateTime Original_TI_ModifiedTimeUTC, int Original_TI_CreatedUserNodeID) {
+        public virtual int Delete(long Original_TI_ID, int Original_TI_Severity, int Original_TI_Type, bool Original_TI_RoadClosed, bool Original_TI_Verified, int Original_TI_LocationID, global::System.Nullable<int> Original_TI_EndLocationID, System.DateTime Original_TI_CreatedTimeUTC, System.DateTime Original_TI_ModifiedTimeUTC, int Original_TI_CreatedUserNodeID, global::System.Nullable<global::System.DateTime> Original_TI_EndTimeUTC, global::System.Nullable<global::System.DateTime> Original_TI_StartTimeUTC) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_TI_ID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_TI_Severity));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_TI_Type));
@@ -13128,6 +13243,22 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_TI_CreatedTimeUTC));
             this.Adapter.DeleteCommand.Parameters[9].Value = ((System.DateTime)(Original_TI_ModifiedTimeUTC));
             this.Adapter.DeleteCommand.Parameters[10].Value = ((int)(Original_TI_CreatedUserNodeID));
+            if ((Original_TI_EndTimeUTC.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((System.DateTime)(Original_TI_EndTimeUTC.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((Original_TI_StartTimeUTC.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((System.DateTime)(Original_TI_StartTimeUTC.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -13148,7 +13279,7 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string TI_Congestion, string TI_Description, string TI_Detour, string TI_Lane, int TI_Severity, int TI_Type, bool TI_RoadClosed, bool TI_Verified, int TI_LocationID, global::System.Nullable<int> TI_EndLocationID, System.DateTime TI_CreatedTimeUTC, System.DateTime TI_ModifiedTimeUTC, int TI_CreatedUserNodeID) {
+        public virtual int Insert(string TI_Congestion, string TI_Description, string TI_Detour, string TI_Lane, int TI_Severity, int TI_Type, bool TI_RoadClosed, bool TI_Verified, int TI_LocationID, global::System.Nullable<int> TI_EndLocationID, System.DateTime TI_CreatedTimeUTC, System.DateTime TI_ModifiedTimeUTC, int TI_CreatedUserNodeID, global::System.Nullable<global::System.DateTime> TI_EndTimeUTC, global::System.Nullable<global::System.DateTime> TI_StartTimeUTC) {
             if ((TI_Congestion == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -13187,6 +13318,18 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this.Adapter.InsertCommand.Parameters[10].Value = ((System.DateTime)(TI_CreatedTimeUTC));
             this.Adapter.InsertCommand.Parameters[11].Value = ((System.DateTime)(TI_ModifiedTimeUTC));
             this.Adapter.InsertCommand.Parameters[12].Value = ((int)(TI_CreatedUserNodeID));
+            if ((TI_EndTimeUTC.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[13].Value = ((System.DateTime)(TI_EndTimeUTC.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((TI_StartTimeUTC.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((System.DateTime)(TI_StartTimeUTC.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -13221,6 +13364,8 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
                     System.DateTime TI_CreatedTimeUTC, 
                     System.DateTime TI_ModifiedTimeUTC, 
                     int TI_CreatedUserNodeID, 
+                    global::System.Nullable<global::System.DateTime> TI_EndTimeUTC, 
+                    global::System.Nullable<global::System.DateTime> TI_StartTimeUTC, 
                     long Original_TI_ID, 
                     int Original_TI_Severity, 
                     int Original_TI_Type, 
@@ -13231,6 +13376,8 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
                     System.DateTime Original_TI_CreatedTimeUTC, 
                     System.DateTime Original_TI_ModifiedTimeUTC, 
                     int Original_TI_CreatedUserNodeID, 
+                    global::System.Nullable<global::System.DateTime> Original_TI_EndTimeUTC, 
+                    global::System.Nullable<global::System.DateTime> Original_TI_StartTimeUTC, 
                     long TI_ID) {
             if ((TI_Congestion == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
@@ -13270,24 +13417,52 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
             this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(TI_CreatedTimeUTC));
             this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(TI_ModifiedTimeUTC));
             this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(TI_CreatedUserNodeID));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((long)(Original_TI_ID));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_TI_Severity));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_TI_Type));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(Original_TI_RoadClosed));
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Original_TI_Verified));
-            this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(Original_TI_LocationID));
-            if ((Original_TI_EndLocationID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(Original_TI_EndLocationID.Value));
+            if ((TI_EndTimeUTC.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(TI_EndTimeUTC.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[21].Value = ((System.DateTime)(Original_TI_CreatedTimeUTC));
-            this.Adapter.UpdateCommand.Parameters[22].Value = ((System.DateTime)(Original_TI_ModifiedTimeUTC));
-            this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(Original_TI_CreatedUserNodeID));
-            this.Adapter.UpdateCommand.Parameters[24].Value = ((long)(TI_ID));
+            if ((TI_StartTimeUTC.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(TI_StartTimeUTC.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((long)(Original_TI_ID));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_TI_Severity));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_TI_Type));
+            this.Adapter.UpdateCommand.Parameters[18].Value = ((bool)(Original_TI_RoadClosed));
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((bool)(Original_TI_Verified));
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(Original_TI_LocationID));
+            if ((Original_TI_EndLocationID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((int)(Original_TI_EndLocationID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((System.DateTime)(Original_TI_CreatedTimeUTC));
+            this.Adapter.UpdateCommand.Parameters[24].Value = ((System.DateTime)(Original_TI_ModifiedTimeUTC));
+            this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(Original_TI_CreatedUserNodeID));
+            if ((Original_TI_EndTimeUTC.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((System.DateTime)(Original_TI_EndTimeUTC.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+            }
+            if ((Original_TI_StartTimeUTC.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((System.DateTime)(Original_TI_StartTimeUTC.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[30].Value = ((long)(TI_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -13322,6 +13497,8 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
                     System.DateTime TI_CreatedTimeUTC, 
                     System.DateTime TI_ModifiedTimeUTC, 
                     int TI_CreatedUserNodeID, 
+                    global::System.Nullable<global::System.DateTime> TI_EndTimeUTC, 
+                    global::System.Nullable<global::System.DateTime> TI_StartTimeUTC, 
                     long Original_TI_ID, 
                     int Original_TI_Severity, 
                     int Original_TI_Type, 
@@ -13331,8 +13508,10 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
                     global::System.Nullable<int> Original_TI_EndLocationID, 
                     System.DateTime Original_TI_CreatedTimeUTC, 
                     System.DateTime Original_TI_ModifiedTimeUTC, 
-                    int Original_TI_CreatedUserNodeID) {
-            return this.Update(TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID, Original_TI_ID, Original_TI_Severity, Original_TI_Type, Original_TI_RoadClosed, Original_TI_Verified, Original_TI_LocationID, Original_TI_EndLocationID, Original_TI_CreatedTimeUTC, Original_TI_ModifiedTimeUTC, Original_TI_CreatedUserNodeID, Original_TI_ID);
+                    int Original_TI_CreatedUserNodeID, 
+                    global::System.Nullable<global::System.DateTime> Original_TI_EndTimeUTC, 
+                    global::System.Nullable<global::System.DateTime> Original_TI_StartTimeUTC) {
+            return this.Update(TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI_Type, TI_RoadClosed, TI_Verified, TI_LocationID, TI_EndLocationID, TI_CreatedTimeUTC, TI_ModifiedTimeUTC, TI_CreatedUserNodeID, TI_EndTimeUTC, TI_StartTimeUTC, Original_TI_ID, Original_TI_Severity, Original_TI_Type, Original_TI_RoadClosed, Original_TI_Verified, Original_TI_LocationID, Original_TI_EndLocationID, Original_TI_CreatedTimeUTC, Original_TI_ModifiedTimeUTC, Original_TI_CreatedUserNodeID, Original_TI_EndTimeUTC, Original_TI_StartTimeUTC, Original_TI_ID);
         }
     }
     
@@ -14035,6 +14214,8 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Verified", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedTimeUTC", global::System.Data.SqlDbType.DateTime2, 8, global::System.Data.ParameterDirection.Input, 27, 7, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ModifiedTimeUTC", global::System.Data.SqlDbType.DateTime2, 8, global::System.Data.ParameterDirection.Input, 27, 7, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StartTimeUTC", global::System.Data.SqlDbType.DateTime2, 8, global::System.Data.ParameterDirection.Input, 27, 7, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EndTimeUTC", global::System.Data.SqlDbType.DateTime2, 8, global::System.Data.ParameterDirection.Input, 27, 7, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocationLat", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LocationLng", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EndLocationLat", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -14115,6 +14296,8 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
                     global::System.Nullable<bool> Verified, 
                     global::System.Nullable<global::System.DateTime> CreatedTimeUTC, 
                     global::System.Nullable<global::System.DateTime> ModifiedTimeUTC, 
+                    global::System.Nullable<global::System.DateTime> StartTimeUTC, 
+                    global::System.Nullable<global::System.DateTime> EndTimeUTC, 
                     global::System.Nullable<double> LocationLat, 
                     global::System.Nullable<double> LocationLng, 
                     global::System.Nullable<double> EndLocationLat, 
@@ -14177,47 +14360,59 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
             else {
                 command.Parameters[9].Value = global::System.DBNull.Value;
             }
-            if ((LocationLat.HasValue == true)) {
-                command.Parameters[10].Value = ((double)(LocationLat.Value));
+            if ((StartTimeUTC.HasValue == true)) {
+                command.Parameters[10].Value = ((System.DateTime)(StartTimeUTC.Value));
             }
             else {
                 command.Parameters[10].Value = global::System.DBNull.Value;
             }
-            if ((LocationLng.HasValue == true)) {
-                command.Parameters[11].Value = ((double)(LocationLng.Value));
+            if ((EndTimeUTC.HasValue == true)) {
+                command.Parameters[11].Value = ((System.DateTime)(EndTimeUTC.Value));
             }
             else {
                 command.Parameters[11].Value = global::System.DBNull.Value;
             }
-            if ((EndLocationLat.HasValue == true)) {
-                command.Parameters[12].Value = ((double)(EndLocationLat.Value));
+            if ((LocationLat.HasValue == true)) {
+                command.Parameters[12].Value = ((double)(LocationLat.Value));
             }
             else {
                 command.Parameters[12].Value = global::System.DBNull.Value;
             }
-            if ((EndLocationLng.HasValue == true)) {
-                command.Parameters[13].Value = ((double)(EndLocationLng.Value));
+            if ((LocationLng.HasValue == true)) {
+                command.Parameters[13].Value = ((double)(LocationLng.Value));
             }
             else {
                 command.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((CreatorUserNodeID.HasValue == true)) {
-                command.Parameters[14].Value = ((int)(CreatorUserNodeID.Value));
+            if ((EndLocationLat.HasValue == true)) {
+                command.Parameters[14].Value = ((double)(EndLocationLat.Value));
             }
             else {
                 command.Parameters[14].Value = global::System.DBNull.Value;
             }
-            if ((SeverityID.HasValue == true)) {
-                command.Parameters[15].Value = ((int)(SeverityID.Value));
+            if ((EndLocationLng.HasValue == true)) {
+                command.Parameters[15].Value = ((double)(EndLocationLng.Value));
             }
             else {
                 command.Parameters[15].Value = global::System.DBNull.Value;
             }
-            if ((TypeID.HasValue == true)) {
-                command.Parameters[16].Value = ((int)(TypeID.Value));
+            if ((CreatorUserNodeID.HasValue == true)) {
+                command.Parameters[16].Value = ((int)(CreatorUserNodeID.Value));
             }
             else {
                 command.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            if ((SeverityID.HasValue == true)) {
+                command.Parameters[17].Value = ((int)(SeverityID.Value));
+            }
+            else {
+                command.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            if ((TypeID.HasValue == true)) {
+                command.Parameters[18].Value = ((int)(TypeID.Value));
+            }
+            else {
+                command.Parameters[18].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 

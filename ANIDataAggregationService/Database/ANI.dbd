@@ -1290,7 +1290,7 @@
                 </Location>
                 <Size>
                   <Width>267 px</Width>
-                  <Height>314 px</Height>
+                  <Height>348 px</Height>
                 </Size>
                 <DbOid>
                   <Path>SQL2008_753919_prod.dbo.TrafficIncidents</Path>
@@ -1470,7 +1470,7 @@
                   <Port xsi:type="LinkPort">
                     <Location>
                       <X>0 px</X>
-                      <Y>-30 px</Y>
+                      <Y>-13 px</Y>
                     </Location>
                     <Anchors>None</Anchors>
                     <Align>Bottom</Align>
@@ -1522,7 +1522,7 @@
               <Port>
                 <Location>
                   <X>-0.3125 px</X>
-                  <Y>157.2578125 px</Y>
+                  <Y>174.285728503185 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
                 <Align>Left</Align>
@@ -1544,6 +1544,16 @@
                 </CustomProperties>
               </Port>
             </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>1838 px</X>
+                <Y>913.285705566406 px</Y>
+              </PointD>
+              <PointD>
+                <X>1838 px</X>
+                <Y>896.2578125 px</Y>
+              </PointD>
+            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>SQL2008_753919_prod.dbo.TrafficIncidents.FK_TrafficIncidents_UserNodes_UN_ID</Path>
@@ -1560,8 +1570,8 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>307.5 px</X>
-                  <Y>0 px</Y>
+                  <X>317.5 px</X>
+                  <Y>17.0279160031847 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
@@ -1870,8 +1880,8 @@
           <ScaleMode>Free</ScaleMode>
           <Scale>0.68</Scale>
           <Location>
-            <X>404.411763328376 px</X>
-            <Y>-41.1764515196987 px</Y>
+            <X>404.411760452091 px</X>
+            <Y>99.9999985455642 px</Y>
           </Location>
         </ViewPort>
       </Model>

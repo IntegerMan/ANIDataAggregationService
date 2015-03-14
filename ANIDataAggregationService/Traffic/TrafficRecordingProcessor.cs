@@ -50,6 +50,8 @@ namespace ANIDataAggregationService.Traffic
                         incident.IsVerified,
                         DateTime.UtcNow,
                         incident.ModifiedTimeUTC,
+                        incident.StartTimeUTC,
+                        incident.EndTimeUTC,
                         incident.Latitude,
                         incident.Longitude,
                         incident.ToLatitude,

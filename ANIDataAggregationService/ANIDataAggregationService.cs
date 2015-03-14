@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Timers;
+using ANIDataAggregationService.Properties;
+using ANIDataAggregationService.Traffic;
 
 namespace ANIDataAggregationService
 {
@@ -12,8 +14,10 @@ namespace ANIDataAggregationService
     {
         private const int CreatorNodeId = 1;
         private WeatherForecastRecordingProcessor _weatherForecastProcessor;
+        private TrafficRecordingProcessor _trafficProcessor;
         private ServiceLogger _logger;
         private Timer _weatherTimer;
+        private Timer _trafficTimer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ANIDataAggregationService"/> class.
@@ -33,14 +37,38 @@ namespace ANIDataAggregationService
             _logger = new ServiceLogger(EventLog);
             _logger.Log("Starting ANI Service");
 
+            InitializeWeather();
+            InitializeTraffic();
+        }
+
+        private void InitializeTraffic()
+        {
+            _trafficProcessor = new TrafficRecordingProcessor(CreatorNodeId, _logger, Settings.Default.BingMapsKey);
+            ProcessTrafficData();
+
+            // Start the Traffic Timer
+            _trafficTimer = new Timer(TimeSpan.FromMinutes(15).TotalMilliseconds);
+            _trafficTimer.Elapsed += TrafficTimer_Tick;
+            _trafficTimer.Start();
+        }
+
+        private void TrafficTimer_Tick(object sender, ElapsedEventArgs e)
+        {
+            _logger.Log("Processing Traffic Data");
+            ProcessTrafficData();
+            _logger.Log("Done Processing Traffic Data");
+        }
+
+        private void InitializeWeather()
+        {
             // Kick into action immediately
             var watchedZipCodes = AreaMonitor.GetWatchedZipCodes();
             _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger, watchedZipCodes);
             ProcessWeatherData();
 
-            // Start the timer
+            // Start the weather timer
             _weatherTimer = new Timer(TimeSpan.FromHours(3).TotalMilliseconds);
-            _weatherTimer.Elapsed += Timer_Tick;
+            _weatherTimer.Elapsed += WeatherTimer_Tick;
             _weatherTimer.Start();
         }
 
@@ -49,10 +77,33 @@ namespace ANIDataAggregationService
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void Timer_Tick(object sender, EventArgs e)
+        private void WeatherTimer_Tick(object sender, EventArgs e)
         {
-            _logger.Log("Timer Tick");
+            _logger.Log("Processing Weather Data");
             ProcessWeatherData();
+            _logger.Log("Done Processing Weather Data");
+        }
+
+        /// <summary>
+        /// Processes the traffic data.
+        /// </summary>
+        private void ProcessTrafficData()
+        {
+            try
+            {
+                // Focus on the Columbus area
+                const double West = 40.198316;
+                const double North = -83.194528; 
+                const double East = 39.853391; 
+                const double South = -82.840906;
+
+                // Grab and record traffic data
+                _trafficProcessor.RecordTrafficIncidents(West, North, East, South);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Problem processing weather data: " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -76,6 +127,7 @@ namespace ANIDataAggregationService
         protected override void OnStop()
         {
             _weatherTimer.Stop();
+            _trafficTimer.Stop();
         }
 
         /// <summary>
@@ -84,6 +136,7 @@ namespace ANIDataAggregationService
         protected override void OnPause()
         {
             _weatherTimer.Stop();
+            _trafficTimer.Stop();
 
             base.OnPause();
         }
@@ -94,6 +147,7 @@ namespace ANIDataAggregationService
         protected override void OnContinue()
         {
             _weatherTimer.Start();
+            _trafficTimer.Start();
 
             base.OnContinue();
         }
