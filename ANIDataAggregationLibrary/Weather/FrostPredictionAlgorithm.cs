@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ANIDataAggregationLibrary.Database;
 using ANIDataAggregationLibrary.Database.AniDataSetTableAdapters;
+using Encog.ML.Data;
 using Encog.ML.Data.Versatile;
 using Encog.Neural.Data.Basic;
 using Encog.Neural.Networks;
@@ -15,7 +16,7 @@ namespace ANIDataAggregationLibrary.Weather
     {
         private readonly BasicNetwork _network;
 
-        public int MaxIterations { get; set;  } = 10000;
+        public int MaxIterations { get; set;  } = 1000;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrostPredictionAlgorithm"/> class.
@@ -25,7 +26,7 @@ namespace ANIDataAggregationLibrary.Weather
             _network = CreateNeuralNet();
         }
 
-        const int NumInputs = 8;
+        const int NumInputs = 3;
 
         public void TrainNeuralNet()
         {
@@ -69,20 +70,24 @@ namespace ANIDataAggregationLibrary.Weather
 
             foreach (AniDataSet.FrostPredictionDataViewRow row in frostDataTable.Rows)
             {
-                var inputs = new List<double>(NumInputs);
-                var ideals = new List<double>(1);
+                var inputs = new List<double>(NumInputs)
+                {
+                    GetDoubleFromExpectedRange(row.Low, -50, 100),
+                    GetDoubleFromExpectedRange(row.High, -50, 100),
+                    GetDoubleFromExpectedRange(row.WeatherCode, 0, 50)
+                };
 
+                /* I - CAN - do this, but this would make me need to know these for predictions
                 inputs.Add(GetDoubleFromBoolean(row.HasRain));
                 inputs.Add(GetDoubleFromBoolean(row.HasClouds));
                 inputs.Add(GetDoubleFromBoolean(row.HasSnow));
                 inputs.Add(GetDoubleFromBoolean(row.HasStorm));
                 inputs.Add(GetDoubleFromBoolean(row.HasWind));
-                inputs.Add(GetDoubleFromExpectedRange(row.Low, -50, 100));
-                inputs.Add(GetDoubleFromExpectedRange(row.High, -50, 100));
-                inputs.Add(GetDoubleFromExpectedRange(row.WeatherCode, 0, 50));
+                */
+
                 inputRows.Add(inputs);
 
-                ideals.Add(row.MinutesToDefrost);
+                var ideals = new List<double>(1) {row.MinutesToDefrost};
                 idealRows.Add(ideals);
             }
 
@@ -147,13 +152,32 @@ namespace ANIDataAggregationLibrary.Weather
             var network = new BasicNetwork();
 
             network.AddLayer(new BasicLayer(null, true, NumInputs));
-            network.AddLayer(new BasicLayer(null, true, NumInputs * 2));
+            network.AddLayer(new BasicLayer(null, true, NumInputs * 3));
+            network.AddLayer(new BasicLayer(null, true, NumInputs * 3));
+            network.AddLayer(new BasicLayer(null, true, NumInputs * 3));
             network.AddLayer(new BasicLayer(null, false, 1));
 
             network.Structure.FinalizeStructure();
             network.Reset();
 
             return network;
+        }
+
+        public double GetExpectedFrostInMinutes(double weatherCode, double low, double high)
+        {
+
+            var inputs = new List<double>(NumInputs)
+            {
+                GetDoubleFromExpectedRange(low, -50, 100),
+                GetDoubleFromExpectedRange(high, -50, 100),
+                GetDoubleFromExpectedRange(weatherCode, 0, 50)
+            };
+
+            var outputs = new List<double>(1) {0}.ToArray();
+
+            _network.Compute(inputs.ToArray(), outputs);
+
+            return outputs[0];
         }
     }
 }

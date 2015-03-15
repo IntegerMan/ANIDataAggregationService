@@ -1,4 +1,5 @@
-﻿using ANIDataAggregationLibrary.Traffic;
+﻿using System;
+using ANIDataAggregationLibrary.Traffic;
 using ANIDataAggregationLibrary.Weather;
 
 namespace ANIDataAggregationServiceConsoleTest
@@ -27,6 +28,8 @@ namespace ANIDataAggregationServiceConsoleTest
 
             var algorithm = new FrostPredictionAlgorithm();
             algorithm.TrainNeuralNet();
+            var expectedFrost = algorithm.GetExpectedFrostInMinutes(32, 42, 57);
+            Console.WriteLine("Expected Frost: " + expectedFrost);
         }
     }
 }
