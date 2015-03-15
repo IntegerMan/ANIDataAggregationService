@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ANIDataAggregationService
+namespace ANIDataAggregationLibrary.Util
 {
     /// <summary>
     /// Contains utility code to help monitor groups of areas

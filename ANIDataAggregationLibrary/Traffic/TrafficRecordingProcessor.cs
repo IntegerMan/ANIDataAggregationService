@@ -2,32 +2,33 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using ANIDataAggregationService.Database.AniDataSetTableAdapters;
+using ANIDataAggregationLibrary.Database.AniDataSetTableAdapters;
+using ANIDataAggregationLibrary.Properties;
+using ANIDataAggregationLibrary.Util;
 using Newtonsoft.Json.Linq;
 
-namespace ANIDataAggregationService.Traffic
+namespace ANIDataAggregationLibrary.Traffic
 {
     public class TrafficRecordingProcessor
     {
         private readonly ServiceLogger _logger;
 
         private readonly string _bingMapsKey;
-        private readonly int _userNodeID;
+        private readonly int _userNodeId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TrafficRecordingProcessor" /> class.
         /// </summary>
-        /// <param name="userNodeID">The user node identifier.</param>
+        /// <param name="userNodeId">The user node identifier.</param>
         /// <param name="logger">The logger.</param>
-        /// <param name="bingMapsKey">The bing maps key.</param>
-        public TrafficRecordingProcessor(int userNodeID, ServiceLogger logger, string bingMapsKey)
+        public TrafficRecordingProcessor(int userNodeId, ServiceLogger logger)
         {
             // Ensure logger exists
             _logger = logger ?? new ServiceLogger();
 
-            _userNodeID = userNodeID;
+            _userNodeId = userNodeId;
 
-            _bingMapsKey = bingMapsKey;
+            _bingMapsKey = Settings.Default.BingMapsKey;
         }
 
         public void RecordTrafficIncidents(double westLongitude, double northLatitude, double eastLongitude, double southLatitude)
@@ -56,7 +57,7 @@ namespace ANIDataAggregationService.Traffic
                         incident.Longitude,
                         incident.ToLatitude,
                         incident.ToLongitude,
-                        _userNodeID,
+                        _userNodeId,
                         incident.Severity,
                         incident.IncidentType);
                 }

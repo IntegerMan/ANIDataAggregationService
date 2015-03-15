@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ANIDataAggregationLibrary.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BingMapsKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Add Maps Key Here</Value>
+    </Setting>
+    <Setting Name="AniDatabaseConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=sql2k802.discountasp.net;Initial Catalog=SQL2008_753919_prod;Persist Security Info=True;User ID=SQL2008_753919_prod_user;password=PASSWORD</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

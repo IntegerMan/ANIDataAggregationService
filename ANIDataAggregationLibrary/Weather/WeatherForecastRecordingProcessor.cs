@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
-using ANIDataAggregationService.Database.AniDataSetTableAdapters;
+using ANIDataAggregationLibrary.Database.AniDataSetTableAdapters;
+using ANIDataAggregationLibrary.Util;
 
-namespace ANIDataAggregationService
+namespace ANIDataAggregationLibrary.Weather
 {
     public class WeatherForecastRecordingProcessor
     {

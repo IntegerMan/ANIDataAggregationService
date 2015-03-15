@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace ANIDataAggregationService.Database {
+namespace ANIDataAggregationLibrary.Database {
     
     
     /// <summary>
@@ -8403,7 +8403,7 @@ namespace ANIDataAggregationService.Database {
         }
     }
 }
-namespace ANIDataAggregationService.Database.AniDataSetTableAdapters {
+namespace ANIDataAggregationLibrary.Database.AniDataSetTableAdapters {
     
     
     /// <summary>
@@ -8564,7 +8564,7 @@ SELECT GPS_ID, GPS_Lat, GPS_Lng FROM GPSLocations WHERE (GPS_ID = @GPS_ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8883,7 +8883,7 @@ SELECT N_ID, N_NodeTypeID, N_LastLocationID, N_CreatedTimeUTC, N_LastActivityTim
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9251,7 +9251,7 @@ SELECT NT_ID, NT_Name, NT_Description FROM NodeTypes WHERE (NT_ID = @NT_ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9598,7 +9598,7 @@ SELECT NT_ID, NT_Name, NT_Description FROM NodeTypes WHERE (NT_ID = @NT_ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9985,7 +9985,7 @@ SELECT TR_ID, TR_StartLocID, TR_EndLocID, TR_StartTimeUTC, TR_EndTimeUTC, TR_Tar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10471,7 +10471,7 @@ SELECT UN_ID, UN_UserID, UN_NodeID, UN_CreatedTimeUTC FROM UserNodes WHERE (UN_I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10808,7 +10808,7 @@ SELECT U_ID, U_UserName, U_FirstName, U_LastName, U_EmailAddress, U_LastActivity
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11271,7 +11271,7 @@ SELECT WC_ID, WC_Name, WC_HasRain, WC_HasClouds, WC_HasStorm, WC_HasWind, WC_Has
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11650,7 +11650,7 @@ SELECT WFR_ID, WFR_CreatedTimeUTC, WFR_PredictionID, WFR_HadFrost, WFR_MinutesTo
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12022,7 +12022,7 @@ SELECT WP_ID, WP_CreatedTimeUTC, WP_PredictionDateUTC, WP_ZipCode, WP_TempLow, W
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12385,7 +12385,7 @@ SELECT WP_ID, WP_CreatedTimeUTC, WP_PredictionDateUTC, WP_ZipCode, WP_TempLow, W
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12716,7 +12716,7 @@ SELECT ZIP_ID, ZIP_Name, ZIP_State, ZIP_LocationID FROM ZipCodes WHERE (ZIP_ID =
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13155,7 +13155,7 @@ SELECT TI_ID, TI_Congestion, TI_Description, TI_Detour, TI_Lane, TI_Severity, TI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13674,7 +13674,7 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13996,7 +13996,7 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString;
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14190,7 +14190,7 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
         private void InitCommandCollection() {
             this._commandCollection = new global::System.Data.IDbCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.InsertUpdateWeatherPrediction";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -14201,7 +14201,7 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@High", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Code", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::ANIDataAggregationService.Properties.Settings.Default.AniDatabaseConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.InsertUpdateTrafficIncident";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

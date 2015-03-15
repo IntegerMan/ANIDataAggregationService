@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ANIDataAggregationService
+namespace ANIDataAggregationLibrary.Weather
 {
     /// <summary>
     /// Represents a weather forecast as it relates to Yahoo Weather forecasts.

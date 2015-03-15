@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ANIDataAggregationService;
-using ANIDataAggregationService.Traffic;
-using ANIDataAggregationServiceConsoleTest.Properties;
+﻿using ANIDataAggregationLibrary.Traffic;
 
 namespace ANIDataAggregationServiceConsoleTest
 {
@@ -19,7 +12,7 @@ namespace ANIDataAggregationServiceConsoleTest
             processor.RecordWeatherForecasts();
             */
 
-            var processor = new TrafficRecordingProcessor(1, null, Settings.Default.BingMapsKey);
+            var processor = new TrafficRecordingProcessor(1, null);
 
             // Focus on the Columbus area
             const double West = 40.198316;

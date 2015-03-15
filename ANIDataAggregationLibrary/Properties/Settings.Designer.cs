@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ANIDataAggregationServiceConsoleTest.Properties {
+namespace ANIDataAggregationLibrary.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,10 +25,20 @@ namespace ANIDataAggregationServiceConsoleTest.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("BingMapsKey")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Add Maps Key Here")]
         public string BingMapsKey {
             get {
                 return ((string)(this["BingMapsKey"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sql2k802.discountasp.net;Initial Catalog=SQL2008_753919_prod;Persist " +
+            "Security Info=True;User ID=SQL2008_753919_prod_user;password=PASSWORD")]
+        public string AniDatabaseConnectionString {
+            get {
+                return ((string)(this["AniDatabaseConnectionString"]));
             }
         }
     }

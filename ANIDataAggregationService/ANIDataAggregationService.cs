@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Timers;
-using ANIDataAggregationService.Properties;
-using ANIDataAggregationService.Traffic;
+using ANIDataAggregationLibrary.Traffic;
+using ANIDataAggregationLibrary.Util;
+using ANIDataAggregationLibrary.Weather;
 
 namespace ANIDataAggregationService
 {
@@ -43,7 +43,7 @@ namespace ANIDataAggregationService
 
         private void InitializeTraffic()
         {
-            _trafficProcessor = new TrafficRecordingProcessor(CreatorNodeId, _logger, Settings.Default.BingMapsKey);
+            _trafficProcessor = new TrafficRecordingProcessor(CreatorNodeId, _logger);
             ProcessTrafficData();
 
             // Start the Traffic Timer

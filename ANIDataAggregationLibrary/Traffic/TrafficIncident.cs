@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ANIDataAggregationService.Traffic
+namespace ANIDataAggregationLibrary.Traffic
 {
     /// <summary>
     /// Represents a traffic incident or construction item from the Bing Maps Traffic API.

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace ANIDataAggregationService
+namespace ANIDataAggregationLibrary.Util
 {
+    /// <summary>
+    /// A logging class that outputs to the event log if configured or the console otherwise.
+    /// </summary>
     public class ServiceLogger
     {
-        private readonly EventLog mEventLog;
+        private readonly EventLog _eventLog;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceLogger"/> class.
@@ -20,7 +23,7 @@ namespace ANIDataAggregationService
         /// <param name="eventLog">The event log.</param>
         public ServiceLogger(EventLog eventLog)
         {
-            this.mEventLog = eventLog;
+            this._eventLog = eventLog;
         }
 
         /// <summary>
@@ -29,9 +32,9 @@ namespace ANIDataAggregationService
         /// <param name="message">The message.</param>
         public void Log(string message)
         {
-            if (mEventLog != null)
+            if (_eventLog != null)
             {
-                mEventLog.WriteEntry(message, EventLogEntryType.Information);
+                _eventLog.WriteEntry(message, EventLogEntryType.Information);
             }
             else
             {
@@ -45,9 +48,9 @@ namespace ANIDataAggregationService
         /// <param name="message">The message.</param>
         public void Warn(string message)
         {
-            if (mEventLog != null)
+            if (_eventLog != null)
             {
-                mEventLog.WriteEntry(message, EventLogEntryType.Warning);
+                _eventLog.WriteEntry(message, EventLogEntryType.Warning);
             }
             else
             {
@@ -61,9 +64,9 @@ namespace ANIDataAggregationService
         /// <param name="message">The message.</param>
         public void Error(string message)
         {
-            if (mEventLog != null)
+            if (_eventLog != null)
             {
-                mEventLog.WriteEntry(message, EventLogEntryType.Error);
+                _eventLog.WriteEntry(message, EventLogEntryType.Error);
             }
             else
             {
