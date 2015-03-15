@@ -54,6 +54,8 @@ namespace ANIDataAggregationLibrary.Database {
         
         private TrafficIncidentTypesDataTable tableTrafficIncidentTypes;
         
+        private FrostPredictionDataViewDataTable tableFrostPredictionDataView;
+        
         private global::System.Data.DataRelation relationFK_Node_GPSLocation_GPS_ID;
         
         private global::System.Data.DataRelation relationFK_Node_NodeType_NT_ID;
@@ -166,6 +168,9 @@ namespace ANIDataAggregationLibrary.Database {
                 }
                 if ((ds.Tables["TrafficIncidentTypes"] != null)) {
                     base.Tables.Add(new TrafficIncidentTypesDataTable(ds.Tables["TrafficIncidentTypes"]));
+                }
+                if ((ds.Tables["FrostPredictionDataView"] != null)) {
+                    base.Tables.Add(new FrostPredictionDataViewDataTable(ds.Tables["FrostPredictionDataView"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -337,6 +342,16 @@ namespace ANIDataAggregationLibrary.Database {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public FrostPredictionDataViewDataTable FrostPredictionDataView {
+            get {
+                return this.tableFrostPredictionDataView;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -446,6 +461,9 @@ namespace ANIDataAggregationLibrary.Database {
                 }
                 if ((ds.Tables["TrafficIncidentTypes"] != null)) {
                     base.Tables.Add(new TrafficIncidentTypesDataTable(ds.Tables["TrafficIncidentTypes"]));
+                }
+                if ((ds.Tables["FrostPredictionDataView"] != null)) {
+                    base.Tables.Add(new FrostPredictionDataViewDataTable(ds.Tables["FrostPredictionDataView"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -570,6 +588,12 @@ namespace ANIDataAggregationLibrary.Database {
                     this.tableTrafficIncidentTypes.InitVars();
                 }
             }
+            this.tableFrostPredictionDataView = ((FrostPredictionDataViewDataTable)(base.Tables["FrostPredictionDataView"]));
+            if ((initTable == true)) {
+                if ((this.tableFrostPredictionDataView != null)) {
+                    this.tableFrostPredictionDataView.InitVars();
+                }
+            }
             this.relationFK_Node_GPSLocation_GPS_ID = this.Relations["FK_Node_GPSLocation_GPS_ID"];
             this.relationFK_Node_NodeType_NT_ID = this.Relations["FK_Node_NodeType_NT_ID"];
             this.relationFK_Drives_Nodes_N_ID_Modified = this.Relations["FK_Drives_Nodes_N_ID_Modified"];
@@ -630,6 +654,8 @@ namespace ANIDataAggregationLibrary.Database {
             base.Tables.Add(this.tableTrafficIncidentSeverities);
             this.tableTrafficIncidentTypes = new TrafficIncidentTypesDataTable();
             base.Tables.Add(this.tableTrafficIncidentTypes);
+            this.tableFrostPredictionDataView = new FrostPredictionDataViewDataTable();
+            base.Tables.Add(this.tableFrostPredictionDataView);
             this.relationFK_Node_GPSLocation_GPS_ID = new global::System.Data.DataRelation("FK_Node_GPSLocation_GPS_ID", new global::System.Data.DataColumn[] {
                         this.tableGPSLocations.GPS_IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableNodes.N_LastLocationIDColumn}, false);
@@ -804,6 +830,12 @@ namespace ANIDataAggregationLibrary.Database {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeFrostPredictionDataView() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -901,6 +933,9 @@ namespace ANIDataAggregationLibrary.Database {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void TrafficIncidentTypesRowChangeEventHandler(object sender, TrafficIncidentTypesRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void FrostPredictionDataViewRowChangeEventHandler(object sender, FrostPredictionDataViewRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -5935,6 +5970,404 @@ namespace ANIDataAggregationLibrary.Database {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class FrostPredictionDataViewDataTable : global::System.Data.TypedTableBase<FrostPredictionDataViewRow> {
+            
+            private global::System.Data.DataColumn columnHadFrost;
+            
+            private global::System.Data.DataColumn columnMinutesToDefrost;
+            
+            private global::System.Data.DataColumn columnLow;
+            
+            private global::System.Data.DataColumn columnHigh;
+            
+            private global::System.Data.DataColumn columnHadRain;
+            
+            private global::System.Data.DataColumn columnHasRain;
+            
+            private global::System.Data.DataColumn columnHasClouds;
+            
+            private global::System.Data.DataColumn columnHasStorm;
+            
+            private global::System.Data.DataColumn columnHasWind;
+            
+            private global::System.Data.DataColumn columnHasSnow;
+            
+            private global::System.Data.DataColumn columnWeatherCode;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FrostPredictionDataViewDataTable() {
+                this.TableName = "FrostPredictionDataView";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal FrostPredictionDataViewDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected FrostPredictionDataViewDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HadFrostColumn {
+                get {
+                    return this.columnHadFrost;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MinutesToDefrostColumn {
+                get {
+                    return this.columnMinutesToDefrost;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LowColumn {
+                get {
+                    return this.columnLow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HighColumn {
+                get {
+                    return this.columnHigh;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HadRainColumn {
+                get {
+                    return this.columnHadRain;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HasRainColumn {
+                get {
+                    return this.columnHasRain;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HasCloudsColumn {
+                get {
+                    return this.columnHasClouds;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HasStormColumn {
+                get {
+                    return this.columnHasStorm;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HasWindColumn {
+                get {
+                    return this.columnHasWind;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HasSnowColumn {
+                get {
+                    return this.columnHasSnow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn WeatherCodeColumn {
+                get {
+                    return this.columnWeatherCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FrostPredictionDataViewRow this[int index] {
+                get {
+                    return ((FrostPredictionDataViewRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FrostPredictionDataViewRowChangeEventHandler FrostPredictionDataViewRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FrostPredictionDataViewRowChangeEventHandler FrostPredictionDataViewRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FrostPredictionDataViewRowChangeEventHandler FrostPredictionDataViewRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FrostPredictionDataViewRowChangeEventHandler FrostPredictionDataViewRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddFrostPredictionDataViewRow(FrostPredictionDataViewRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FrostPredictionDataViewRow AddFrostPredictionDataViewRow(bool HadFrost, double MinutesToDefrost, int Low, int High, bool HadRain, bool HasRain, bool HasClouds, bool HasStorm, bool HasWind, bool HasSnow, int WeatherCode) {
+                FrostPredictionDataViewRow rowFrostPredictionDataViewRow = ((FrostPredictionDataViewRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        HadFrost,
+                        MinutesToDefrost,
+                        Low,
+                        High,
+                        HadRain,
+                        HasRain,
+                        HasClouds,
+                        HasStorm,
+                        HasWind,
+                        HasSnow,
+                        WeatherCode};
+                rowFrostPredictionDataViewRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowFrostPredictionDataViewRow);
+                return rowFrostPredictionDataViewRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                FrostPredictionDataViewDataTable cln = ((FrostPredictionDataViewDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new FrostPredictionDataViewDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnHadFrost = base.Columns["HadFrost"];
+                this.columnMinutesToDefrost = base.Columns["MinutesToDefrost"];
+                this.columnLow = base.Columns["Low"];
+                this.columnHigh = base.Columns["High"];
+                this.columnHadRain = base.Columns["HadRain"];
+                this.columnHasRain = base.Columns["HasRain"];
+                this.columnHasClouds = base.Columns["HasClouds"];
+                this.columnHasStorm = base.Columns["HasStorm"];
+                this.columnHasWind = base.Columns["HasWind"];
+                this.columnHasSnow = base.Columns["HasSnow"];
+                this.columnWeatherCode = base.Columns["WeatherCode"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnHadFrost = new global::System.Data.DataColumn("HadFrost", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHadFrost);
+                this.columnMinutesToDefrost = new global::System.Data.DataColumn("MinutesToDefrost", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMinutesToDefrost);
+                this.columnLow = new global::System.Data.DataColumn("Low", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLow);
+                this.columnHigh = new global::System.Data.DataColumn("High", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHigh);
+                this.columnHadRain = new global::System.Data.DataColumn("HadRain", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHadRain);
+                this.columnHasRain = new global::System.Data.DataColumn("HasRain", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHasRain);
+                this.columnHasClouds = new global::System.Data.DataColumn("HasClouds", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHasClouds);
+                this.columnHasStorm = new global::System.Data.DataColumn("HasStorm", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHasStorm);
+                this.columnHasWind = new global::System.Data.DataColumn("HasWind", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHasWind);
+                this.columnHasSnow = new global::System.Data.DataColumn("HasSnow", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHasSnow);
+                this.columnWeatherCode = new global::System.Data.DataColumn("WeatherCode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeatherCode);
+                this.columnHadFrost.AllowDBNull = false;
+                this.columnMinutesToDefrost.ReadOnly = true;
+                this.columnLow.AllowDBNull = false;
+                this.columnHigh.AllowDBNull = false;
+                this.columnHadRain.AllowDBNull = false;
+                this.columnHasRain.AllowDBNull = false;
+                this.columnHasClouds.AllowDBNull = false;
+                this.columnHasStorm.AllowDBNull = false;
+                this.columnHasWind.AllowDBNull = false;
+                this.columnHasSnow.AllowDBNull = false;
+                this.columnWeatherCode.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FrostPredictionDataViewRow NewFrostPredictionDataViewRow() {
+                return ((FrostPredictionDataViewRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new FrostPredictionDataViewRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(FrostPredictionDataViewRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.FrostPredictionDataViewRowChanged != null)) {
+                    this.FrostPredictionDataViewRowChanged(this, new FrostPredictionDataViewRowChangeEvent(((FrostPredictionDataViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.FrostPredictionDataViewRowChanging != null)) {
+                    this.FrostPredictionDataViewRowChanging(this, new FrostPredictionDataViewRowChangeEvent(((FrostPredictionDataViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.FrostPredictionDataViewRowDeleted != null)) {
+                    this.FrostPredictionDataViewRowDeleted(this, new FrostPredictionDataViewRowChangeEvent(((FrostPredictionDataViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.FrostPredictionDataViewRowDeleting != null)) {
+                    this.FrostPredictionDataViewRowDeleting(this, new FrostPredictionDataViewRowChangeEvent(((FrostPredictionDataViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveFrostPredictionDataViewRow(FrostPredictionDataViewRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                AniDataSet ds = new AniDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "FrostPredictionDataViewDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class GPSLocationsRow : global::System.Data.DataRow {
@@ -7893,6 +8326,160 @@ namespace ANIDataAggregationLibrary.Database {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class FrostPredictionDataViewRow : global::System.Data.DataRow {
+            
+            private FrostPredictionDataViewDataTable tableFrostPredictionDataView;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal FrostPredictionDataViewRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableFrostPredictionDataView = ((FrostPredictionDataViewDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HadFrost {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HadFrostColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HadFrostColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double MinutesToDefrost {
+                get {
+                    try {
+                        return ((double)(this[this.tableFrostPredictionDataView.MinutesToDefrostColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MinutesToDefrost\' in table \'FrostPredictionDataView\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.MinutesToDefrostColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Low {
+                get {
+                    return ((int)(this[this.tableFrostPredictionDataView.LowColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.LowColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int High {
+                get {
+                    return ((int)(this[this.tableFrostPredictionDataView.HighColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HighColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HadRain {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HadRainColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HadRainColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HasRain {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HasRainColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HasRainColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HasClouds {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HasCloudsColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HasCloudsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HasStorm {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HasStormColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HasStormColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HasWind {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HasWindColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HasWindColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool HasSnow {
+                get {
+                    return ((bool)(this[this.tableFrostPredictionDataView.HasSnowColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.HasSnowColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int WeatherCode {
+                get {
+                    return ((int)(this[this.tableFrostPredictionDataView.WeatherCodeColumn]));
+                }
+                set {
+                    this[this.tableFrostPredictionDataView.WeatherCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMinutesToDefrostNull() {
+                return this.IsNull(this.tableFrostPredictionDataView.MinutesToDefrostColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMinutesToDefrostNull() {
+                this[this.tableFrostPredictionDataView.MinutesToDefrostColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -8388,6 +8975,40 @@ namespace ANIDataAggregationLibrary.Database {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TrafficIncidentTypesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class FrostPredictionDataViewRowChangeEvent : global::System.EventArgs {
+            
+            private FrostPredictionDataViewRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FrostPredictionDataViewRowChangeEvent(FrostPredictionDataViewRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FrostPredictionDataViewRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -14158,6 +14779,184 @@ SELECT TIS_ID, TIS_Name, TIS_SeverityID FROM TrafficIncidentSeverities WHERE (TI
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string TIT_Name, int Original_TIT_ID, string Original_TIT_Name) {
             return this.Update(TIT_Name, Original_TIT_ID, Original_TIT_Name, Original_TIT_ID);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class FrostPredictionDataViewTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public FrostPredictionDataViewTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "FrostPredictionDataView";
+            tableMapping.ColumnMappings.Add("HadFrost", "HadFrost");
+            tableMapping.ColumnMappings.Add("MinutesToDefrost", "MinutesToDefrost");
+            tableMapping.ColumnMappings.Add("Low", "Low");
+            tableMapping.ColumnMappings.Add("High", "High");
+            tableMapping.ColumnMappings.Add("HadRain", "HadRain");
+            tableMapping.ColumnMappings.Add("HasRain", "HasRain");
+            tableMapping.ColumnMappings.Add("HasClouds", "HasClouds");
+            tableMapping.ColumnMappings.Add("HasStorm", "HasStorm");
+            tableMapping.ColumnMappings.Add("HasWind", "HasWind");
+            tableMapping.ColumnMappings.Add("HasSnow", "HasSnow");
+            tableMapping.ColumnMappings.Add("WeatherCode", "WeatherCode");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::ANIDataAggregationLibrary.Properties.Settings.Default.AniDatabaseConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT HadFrost, MinutesToDefrost, Low, High, HadRain, HasRain, HasClouds, HasSto" +
+                "rm, HasWind, HasSnow, WeatherCode FROM dbo.FrostPredictionDataView";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(AniDataSet.FrostPredictionDataViewDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual AniDataSet.FrostPredictionDataViewDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            AniDataSet.FrostPredictionDataViewDataTable dataTable = new AniDataSet.FrostPredictionDataViewDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
     }
     

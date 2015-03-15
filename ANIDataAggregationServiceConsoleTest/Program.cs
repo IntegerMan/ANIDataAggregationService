@@ -1,4 +1,5 @@
 ﻿using ANIDataAggregationLibrary.Traffic;
+using ANIDataAggregationLibrary.Weather;
 
 namespace ANIDataAggregationServiceConsoleTest
 {
@@ -12,6 +13,7 @@ namespace ANIDataAggregationServiceConsoleTest
             processor.RecordWeatherForecasts();
             */
 
+            /*
             var processor = new TrafficRecordingProcessor(1, null);
 
             // Focus on the Columbus area
@@ -21,6 +23,10 @@ namespace ANIDataAggregationServiceConsoleTest
             const double South = -82.840906;
 
             processor.RecordTrafficIncidents(West, North, East, South);
+            */
+
+            var algorithm = new FrostPredictionAlgorithm();
+            algorithm.TrainNeuralNet();
         }
     }
 }
