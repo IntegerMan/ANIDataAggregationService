@@ -2,26 +2,32 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using ANIDataAggregationLibrary.Database.AniDataSetTableAdapters;
+using ANIDataAggregationLibrary.Database;
 using ANIDataAggregationLibrary.Properties;
 using ANIDataAggregationLibrary.Util;
 using Newtonsoft.Json.Linq;
 
 namespace ANIDataAggregationLibrary.Traffic
 {
+    /// <summary>
+    /// A data processor that records traffic incidents
+    /// </summary>
     public class TrafficRecordingProcessor
     {
         private readonly ServiceLogger _logger;
 
         private readonly string _bingMapsKey;
         private readonly int _userNodeId;
+        private readonly AniEntities _entities;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TrafficRecordingProcessor" /> class.
         /// </summary>
         /// <param name="userNodeId">The user node identifier.</param>
         /// <param name="logger">The logger.</param>
-        public TrafficRecordingProcessor(int userNodeId, ServiceLogger logger)
+        /// <param name="entities">The entity.</param>
+        /// <exception cref="System.ArgumentNullException">entities</exception>
+        public TrafficRecordingProcessor(int userNodeId, ServiceLogger logger, AniEntities entities)
         {
             // Ensure logger exists
             _logger = logger ?? new ServiceLogger();
@@ -29,6 +35,12 @@ namespace ANIDataAggregationLibrary.Traffic
             _userNodeId = userNodeId;
 
             _bingMapsKey = Settings.Default.BingMapsKey;
+
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+            _entities = entities;
         }
 
         public void RecordTrafficIncidents(double westLongitude, double northLatitude, double eastLongitude, double southLatitude)
@@ -36,13 +48,11 @@ namespace ANIDataAggregationLibrary.Traffic
             try
             {
                 var incidents = GetTrafficIncidents(westLongitude, northLatitude, eastLongitude, southLatitude);
-
-                var adapter = new QueriesTableAdapter();
-
+                
                 foreach (var incident in incidents)
                 {
                     _logger.Log(string.Format("Logging incident at {0}, {1}: {2}", incident.Latitude, incident.Longitude, incident.Description));
-                    adapter.InsertUpdateTrafficIncident(incident.IncidentId,
+                    _entities.InsertUpdateTrafficIncident(incident.IncidentId,
                         incident.Description,
                         incident.Congestion,
                         incident.Detour,

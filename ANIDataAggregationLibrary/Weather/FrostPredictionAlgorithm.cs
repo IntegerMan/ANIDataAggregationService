@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ANIDataAggregationLibrary.Database;
-using ANIDataAggregationLibrary.Database.AniDataSetTableAdapters;
-using Encog.ML.Data;
-using Encog.ML.Data.Versatile;
 using Encog.Neural.Data.Basic;
 using Encog.Neural.Networks;
 using Encog.Neural.Networks.Layers;
@@ -15,15 +12,32 @@ namespace ANIDataAggregationLibrary.Weather
     public class FrostPredictionAlgorithm
     {
         private readonly BasicNetwork _network;
+        private readonly AniEntities _entities;
 
         public int MaxIterations { get; set;  } = 1000;
+
+        public double ErrorRate { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrostPredictionAlgorithm"/> class.
         /// </summary>
-        public FrostPredictionAlgorithm()
+        public FrostPredictionAlgorithm() : this(new AniEntities())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FrostPredictionAlgorithm"/> class.
+        /// </summary>
+        public FrostPredictionAlgorithm(AniEntities entities)
         {
             _network = CreateNeuralNet();
+
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            _entities = entities;
         }
 
         const int NumInputs = 3;
@@ -46,6 +60,7 @@ namespace ANIDataAggregationLibrary.Weather
 
             } while ((epoch < MaxIterations) && (train.Error > 0.001));
 
+            /*
             Console.WriteLine("Neural Network Results: Err: {0}, Iterations: {1}, Max: {2}", train.Error, epoch, maxError);
             foreach (var pair in trainingSet)
             {
@@ -53,22 +68,24 @@ namespace ANIDataAggregationLibrary.Weather
 
                 Console.WriteLine("{0}, actual={1},ideal={2}", pair.Input, output[0], pair.Ideal[0]);
             }
+            */
 
+            this.Iterations = train.IterationNumber;
+            this.ErrorRate = train.Error;
         }
+
+        public int Iterations { get; set; }
 
         /// <summary>
         /// Gets the training data set from the database (based on recorded frost observations)
         /// </summary>
         /// <returns>The training data set.</returns>
-        private static BasicNeuralDataSet GetTrainingDataSet()
+        private BasicNeuralDataSet GetTrainingDataSet()
         {
-            var adapter = new FrostPredictionDataViewTableAdapter();
-            var frostDataTable = adapter.GetData();
-
             var inputRows = new List<List<double>>();
             var idealRows = new List<List<double>>();
 
-            foreach (AniDataSet.FrostPredictionDataViewRow row in frostDataTable.Rows)
+            foreach (var row in _entities.FrostPredictionDataViews)
             {
                 var inputs = new List<double>(NumInputs)
                 {
@@ -163,7 +180,12 @@ namespace ANIDataAggregationLibrary.Weather
             return network;
         }
 
-        public double GetExpectedFrostInMinutes(double weatherCode, double low, double high)
+        public double GetExpectedFrostInMinutes(WeatherForecast prediction)
+        {
+            return GetExpectedFrostInMinutes(prediction.Code, prediction.Low, prediction.High);
+        }
+
+        public double GetExpectedFrostInMinutes(int weatherCode, double low, double high)
         {
 
             var inputs = new List<double>(NumInputs)

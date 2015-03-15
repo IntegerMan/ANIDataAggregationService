@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceProcess;
 using System.Timers;
+using ANIDataAggregationLibrary.Database;
 using ANIDataAggregationLibrary.Traffic;
 using ANIDataAggregationLibrary.Util;
 using ANIDataAggregationLibrary.Weather;
@@ -18,6 +19,7 @@ namespace ANIDataAggregationService
         private ServiceLogger _logger;
         private Timer _weatherTimer;
         private Timer _trafficTimer;
+        private readonly AniEntities _entities;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ANIDataAggregationService"/> class.
@@ -25,6 +27,8 @@ namespace ANIDataAggregationService
         public ANIDataAggregationService()
         {
             InitializeComponent();
+
+            _entities = new AniEntities();
         }
 
         /// <summary>
@@ -43,7 +47,7 @@ namespace ANIDataAggregationService
 
         private void InitializeTraffic()
         {
-            _trafficProcessor = new TrafficRecordingProcessor(CreatorNodeId, _logger);
+            _trafficProcessor = new TrafficRecordingProcessor(CreatorNodeId, _logger, _entities);
             ProcessTrafficData();
 
             // Start the Traffic Timer
@@ -63,7 +67,7 @@ namespace ANIDataAggregationService
         {
             // Kick into action immediately
             var watchedZipCodes = AreaMonitor.GetWatchedZipCodes();
-            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger, watchedZipCodes);
+            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger, watchedZipCodes, _entities);
             ProcessWeatherData();
 
             // Start the weather timer
@@ -113,6 +117,10 @@ namespace ANIDataAggregationService
         {
             try
             {
+                // We need to recalibrate our frost prediction matrix
+                _weatherForecastProcessor.UpdateNeuralNetwork();
+
+                // Now use things to record our predictions
                 _weatherForecastProcessor.RecordWeatherForecasts();
             }
             catch (Exception ex)

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using ANIDataAggregationLibrary.Database;
 using ANIDataAggregationLibrary.Traffic;
+using ANIDataAggregationLibrary.Util;
 using ANIDataAggregationLibrary.Weather;
 
 namespace ANIDataAggregationServiceConsoleTest
@@ -8,11 +11,9 @@ namespace ANIDataAggregationServiceConsoleTest
     {
         static void Main(string[] args)
         {
-            /*
-            var zipCodes = AreaMonitor.GetWatchedZipCodes();
-            var processor = new WeatherForecastRecordingProcessor(1, null, zipCodes);
+
+            var processor = new WeatherForecastRecordingProcessor(1, null, new List<int> { 43035}, new AniEntities());
             processor.RecordWeatherForecasts();
-            */
 
             /*
             var processor = new TrafficRecordingProcessor(1, null);
@@ -26,10 +27,12 @@ namespace ANIDataAggregationServiceConsoleTest
             processor.RecordTrafficIncidents(West, North, East, South);
             */
 
+            /*
             var algorithm = new FrostPredictionAlgorithm();
             algorithm.TrainNeuralNet();
             var expectedFrost = algorithm.GetExpectedFrostInMinutes(32, 42, 57);
             Console.WriteLine("Expected Frost: " + expectedFrost);
+            */
         }
     }
 }

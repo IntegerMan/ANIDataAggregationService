@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
-using ANIDataAggregationLibrary.Database.AniDataSetTableAdapters;
+using ANIDataAggregationLibrary.Database;
 using ANIDataAggregationLibrary.Util;
 
 namespace ANIDataAggregationLibrary.Weather
@@ -14,6 +14,8 @@ namespace ANIDataAggregationLibrary.Weather
         const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
 
         private readonly ServiceLogger _logger;
+        private readonly AniEntities _entities;
+        private readonly FrostPredictionAlgorithm _frostAlgorithm;
 
         /// <summary>
         /// Gets or sets the zip codes to monitor.
@@ -27,13 +29,24 @@ namespace ANIDataAggregationLibrary.Weather
         /// <param name="creatorNodeId">The creator node identifier.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="zipCodes">The zip codes to monitor.</param>
-        public WeatherForecastRecordingProcessor(int creatorNodeId, ServiceLogger logger, IEnumerable<int> zipCodes)
+        /// <param name="entities">The entities.</param>
+        /// <exception cref="System.ArgumentNullException">entities</exception>
+        public WeatherForecastRecordingProcessor(int creatorNodeId, ServiceLogger logger, IEnumerable<int> zipCodes, AniEntities entities)
         {
             // Ensure logger exists
             _logger = logger ?? new ServiceLogger();
 
-            this.CreatorNodeId = creatorNodeId;
-            this.ZipCodes = zipCodes.ToList();
+            CreatorNodeId = creatorNodeId;
+            ZipCodes = zipCodes.ToList();
+
+            // Ensure entities is not null
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+            _entities = entities;
+
+            _frostAlgorithm = new FrostPredictionAlgorithm(_entities);
         }
 
         /// <summary>
@@ -41,6 +54,16 @@ namespace ANIDataAggregationLibrary.Weather
         /// </summary>
         /// <value>The creator node identifier.</value>
         public int CreatorNodeId { get; set; }
+
+        public void UpdateNeuralNetwork()
+        {
+            _logger.Log("Retraining Frost Prediction Neural Net");
+
+            // Ensure the neural net is trained up
+            _frostAlgorithm.TrainNeuralNet();
+
+            _logger.Log("Frost Prediction Neural Net Calibrated at error rate of: " + _frostAlgorithm.ErrorRate);
+        }
 
         /// <summary>
         /// Gets tomorrow's weather prediction for this zip code and records it in the database.
@@ -53,15 +76,19 @@ namespace ANIDataAggregationLibrary.Weather
                 {
                     var forecasts = GetWeatherForecast(zipCode);
 
-                    var adapter = new QueriesTableAdapter();
-
                     foreach (var forecast in forecasts)
                     {
-                        _logger.Log(string.Format("Logging Forecast for {4} on {0}: {1}/{2} and code: {3}",
+                        // Calculate the frost from the neural net
+                        var frostTimeInMinutes = _frostAlgorithm.GetExpectedFrostInMinutes(forecast);
+
+                        // Log what we're doing
+                        _logger.Log(string.Format("Logging Forecast for {4} on {0}: {1}/{2},  code: {3} and frost time: {5}",
                             forecast.Date.ToShortDateString(), forecast.Low, forecast.High, forecast.Code,
-                            forecast.ZipCode));
-                        adapter.InsertUpdateWeatherPrediction(forecast.Date, this.CreatorNodeId, forecast.ZipCode,
-                            forecast.Low, forecast.High, forecast.Code);
+                            forecast.ZipCode, frostTimeInMinutes));
+
+                        // Put the values into the database - this will update an existing entry or make a new one as needed
+                        _entities.InsertUpdateWeatherPrediction(forecast.Date, CreatorNodeId, forecast.ZipCode,
+                            forecast.Low, forecast.High, forecast.Code, frostTimeInMinutes);
                     }
                 }
                 catch (Exception ex)

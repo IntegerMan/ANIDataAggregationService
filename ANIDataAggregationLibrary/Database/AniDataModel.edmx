@@ -1,0 +1,1373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AniDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GPSLocations">
+          <Key>
+            <PropertyRef Name="GPS_ID" />
+          </Key>
+          <Property Name="GPS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GPS_Lat" Type="float" Nullable="false" />
+          <Property Name="GPS_Lng" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nodes">
+          <Key>
+            <PropertyRef Name="N_ID" />
+          </Key>
+          <Property Name="N_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="N_NodeTypeID" Type="int" Nullable="false" />
+          <Property Name="N_LastLocationID" Type="int" />
+          <Property Name="N_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="N_LastActivityTimeUTC" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="NodeTypes">
+          <Key>
+            <PropertyRef Name="NT_ID" />
+          </Key>
+          <Property Name="NT_ID" Type="int" Nullable="false" />
+          <Property Name="NT_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NT_Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Severities">
+          <Key>
+            <PropertyRef Name="SEV_ID" />
+          </Key>
+          <Property Name="SEV_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SEV_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrafficIncidents">
+          <Key>
+            <PropertyRef Name="TI_ID" />
+          </Key>
+          <Property Name="TI_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TI_Congestion" Type="nvarchar(max)" />
+          <Property Name="TI_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TI_Detour" Type="nvarchar(max)" />
+          <Property Name="TI_Lane" Type="nvarchar(max)" />
+          <Property Name="TI_Severity" Type="int" Nullable="false" />
+          <Property Name="TI_Type" Type="int" Nullable="false" />
+          <Property Name="TI_RoadClosed" Type="bit" Nullable="false" />
+          <Property Name="TI_Verified" Type="bit" Nullable="false" />
+          <Property Name="TI_LocationID" Type="int" Nullable="false" />
+          <Property Name="TI_EndLocationID" Type="int" />
+          <Property Name="TI_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TI_ModifiedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TI_StartTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="TI_EndTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="TI_LastEncounteredTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TI_CreatedUserNodeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrafficIncidentSeverities">
+          <Key>
+            <PropertyRef Name="TIS_ID" />
+          </Key>
+          <Property Name="TIS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIS_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIS_SeverityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrafficIncidentTypes">
+          <Key>
+            <PropertyRef Name="TIT_ID" />
+          </Key>
+          <Property Name="TIT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIT_Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transits">
+          <Key>
+            <PropertyRef Name="TR_ID" />
+          </Key>
+          <Property Name="TR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TR_StartLocID" Type="int" Nullable="false" />
+          <Property Name="TR_EndLocID" Type="int" Nullable="false" />
+          <Property Name="TR_StartTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="TR_EndTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="TR_TargetStartTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="TR_TargetEndTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="TR_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TR_ModifiedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TR_CreatorUserNodeID" Type="int" Nullable="false" />
+          <Property Name="TR_ModifiedByNodeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserNodes">
+          <Key>
+            <PropertyRef Name="UN_ID" />
+          </Key>
+          <Property Name="UN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UN_UserID" Type="int" Nullable="false" />
+          <Property Name="UN_NodeID" Type="int" Nullable="false" />
+          <Property Name="UN_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="U_ID" />
+          </Key>
+          <Property Name="U_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="U_UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="U_FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="U_LastName" Type="varchar" MaxLength="50" />
+          <Property Name="U_EmailAddress" Type="varchar" MaxLength="255" />
+          <Property Name="U_LastActivityTimeUTC" Type="datetime2" Precision="7" />
+          <Property Name="U_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeatherCodes">
+          <Key>
+            <PropertyRef Name="WC_ID" />
+          </Key>
+          <Property Name="WC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WC_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WC_HasRain" Type="bit" Nullable="false" />
+          <Property Name="WC_HasClouds" Type="bit" Nullable="false" />
+          <Property Name="WC_HasStorm" Type="bit" Nullable="false" />
+          <Property Name="WC_HasWind" Type="bit" Nullable="false" />
+          <Property Name="WC_HasSnow" Type="bit" Nullable="false" />
+          <Property Name="WC_SeverityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeatherFrostResults">
+          <Key>
+            <PropertyRef Name="WFR_ID" />
+          </Key>
+          <Property Name="WFR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WFR_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="WFR_PredictionID" Type="int" Nullable="false" />
+          <Property Name="WFR_CreatorUserNodeID" Type="int" Nullable="false" />
+          <Property Name="WFR_HadFrost" Type="bit" Nullable="false" />
+          <Property Name="WFR_RainedOvernight" Type="bit" Nullable="false" />
+          <Property Name="WFR_MinutesToDefrost" Type="float" />
+        </EntityType>
+        <EntityType Name="WeatherPredictions">
+          <Key>
+            <PropertyRef Name="WP_ID" />
+          </Key>
+          <Property Name="WP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WP_CreatedTimeUTC" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="WP_PredictionDateUTC" Type="date" Nullable="false" />
+          <Property Name="WP_CreatorUserNodeID" Type="int" Nullable="false" />
+          <Property Name="WP_ZipCode" Type="int" Nullable="false" />
+          <Property Name="WP_TempLow" Type="int" Nullable="false" />
+          <Property Name="WP_TempHigh" Type="int" Nullable="false" />
+          <Property Name="WP_WeatherCode" Type="int" Nullable="false" />
+          <Property Name="WP_WeatherSourceID" Type="int" Nullable="false" />
+          <Property Name="WP_MinutesToDefrost" Type="float" />
+        </EntityType>
+        <EntityType Name="WeatherSources">
+          <Key>
+            <PropertyRef Name="WS_ID" />
+          </Key>
+          <Property Name="WS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WS_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZipCodes">
+          <Key>
+            <PropertyRef Name="ZIP_ID" />
+          </Key>
+          <Property Name="ZIP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ZIP_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ZIP_State" Type="char" MaxLength="2" />
+          <Property Name="ZIP_LocationID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SQL2008_753919_prod.dbo.FrostPredictionDataView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FrostPredictionDataView">
+          <Key>
+            <PropertyRef Name="HadFrost" />
+            <PropertyRef Name="MinutesToDefrost" />
+            <PropertyRef Name="Low" />
+            <PropertyRef Name="High" />
+            <PropertyRef Name="HadRain" />
+            <PropertyRef Name="HasRain" />
+            <PropertyRef Name="HasClouds" />
+            <PropertyRef Name="HasStorm" />
+            <PropertyRef Name="HasWind" />
+            <PropertyRef Name="HasSnow" />
+            <PropertyRef Name="WeatherCode" />
+          </Key>
+          <Property Name="HadFrost" Type="bit" Nullable="false" />
+          <Property Name="MinutesToDefrost" Type="float" Nullable="false" />
+          <Property Name="Low" Type="int" Nullable="false" />
+          <Property Name="High" Type="int" Nullable="false" />
+          <Property Name="HadRain" Type="bit" Nullable="false" />
+          <Property Name="HasRain" Type="bit" Nullable="false" />
+          <Property Name="HasClouds" Type="bit" Nullable="false" />
+          <Property Name="HasStorm" Type="bit" Nullable="false" />
+          <Property Name="HasWind" Type="bit" Nullable="false" />
+          <Property Name="HasSnow" Type="bit" Nullable="false" />
+          <Property Name="WeatherCode" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Drives_Nodes_N_ID_Modified">
+          <End Role="Nodes" Type="Self.Nodes" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nodes">
+              <PropertyRef Name="N_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_ModifiedByNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Node_GPSLocation_GPS_ID">
+          <End Role="GPSLocations" Type="Self.GPSLocations" Multiplicity="0..1" />
+          <End Role="Nodes" Type="Self.Nodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="Nodes">
+              <PropertyRef Name="N_LastLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Node_NodeType_NT_ID">
+          <End Role="NodeTypes" Type="Self.NodeTypes" Multiplicity="1" />
+          <End Role="Nodes" Type="Self.Nodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NodeTypes">
+              <PropertyRef Name="NT_ID" />
+            </Principal>
+            <Dependent Role="Nodes">
+              <PropertyRef Name="N_NodeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID">
+          <End Role="TrafficIncidentSeverities" Type="Self.TrafficIncidentSeverities" Multiplicity="1" />
+          <End Role="TrafficIncidents" Type="Self.TrafficIncidents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrafficIncidentSeverities">
+              <PropertyRef Name="TIS_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidents">
+              <PropertyRef Name="TI_Severity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidents_TrafficIncidentType_TIT_ID">
+          <End Role="TrafficIncidentTypes" Type="Self.TrafficIncidentTypes" Multiplicity="1" />
+          <End Role="TrafficIncidents" Type="Self.TrafficIncidents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrafficIncidentTypes">
+              <PropertyRef Name="TIT_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidents">
+              <PropertyRef Name="TI_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidents_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNodes" Multiplicity="1" />
+          <End Role="TrafficIncidents" Type="Self.TrafficIncidents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidents">
+              <PropertyRef Name="TI_CreatedUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidentSeverity_Severities_SEV_ID">
+          <End Role="Severities" Type="Self.Severities" Multiplicity="1" />
+          <End Role="TrafficIncidentSeverities" Type="Self.TrafficIncidentSeverities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Severities">
+              <PropertyRef Name="SEV_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidentSeverities">
+              <PropertyRef Name="TIS_SeverityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transits_GPSLocations_GPS_ID_End">
+          <End Role="GPSLocations" Type="Self.GPSLocations" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_EndLocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transits_GPSLocations_GPS_ID_Start">
+          <End Role="GPSLocations" Type="Self.GPSLocations" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_StartLocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transits_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNodes" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_CreatorUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNodes_Node_N_ID">
+          <End Role="Nodes" Type="Self.Nodes" Multiplicity="1" />
+          <End Role="UserNodes" Type="Self.UserNodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nodes">
+              <PropertyRef Name="N_ID" />
+            </Principal>
+            <Dependent Role="UserNodes">
+              <PropertyRef Name="UN_NodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNodes_Users_U_ID">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserNodes" Type="Self.UserNodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="UserNodes">
+              <PropertyRef Name="UN_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherCodes_Severities_SEV_ID">
+          <End Role="Severities" Type="Self.Severities" Multiplicity="1" />
+          <End Role="WeatherCodes" Type="Self.WeatherCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Severities">
+              <PropertyRef Name="SEV_ID" />
+            </Principal>
+            <Dependent Role="WeatherCodes">
+              <PropertyRef Name="WC_SeverityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherFrostResult_WeatherPrediction_WP_ID">
+          <End Role="WeatherPredictions" Type="Self.WeatherPredictions" Multiplicity="1" />
+          <End Role="WeatherFrostResults" Type="Self.WeatherFrostResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeatherPredictions">
+              <PropertyRef Name="WP_ID" />
+            </Principal>
+            <Dependent Role="WeatherFrostResults">
+              <PropertyRef Name="WFR_PredictionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherFrostResults_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNodes" Multiplicity="1" />
+          <End Role="WeatherFrostResults" Type="Self.WeatherFrostResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="WeatherFrostResults">
+              <PropertyRef Name="WFR_CreatorUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherPrediction_WeatherCode_WC_ID">
+          <End Role="WeatherCodes" Type="Self.WeatherCodes" Multiplicity="1" />
+          <End Role="WeatherPredictions" Type="Self.WeatherPredictions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeatherCodes">
+              <PropertyRef Name="WC_ID" />
+            </Principal>
+            <Dependent Role="WeatherPredictions">
+              <PropertyRef Name="WP_WeatherCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherPrediction_WeatherSource_WS_ID">
+          <End Role="WeatherSources" Type="Self.WeatherSources" Multiplicity="1" />
+          <End Role="WeatherPredictions" Type="Self.WeatherPredictions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeatherSources">
+              <PropertyRef Name="WS_ID" />
+            </Principal>
+            <Dependent Role="WeatherPredictions">
+              <PropertyRef Name="WP_WeatherSourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherPredictions_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNodes" Multiplicity="1" />
+          <End Role="WeatherPredictions" Type="Self.WeatherPredictions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="WeatherPredictions">
+              <PropertyRef Name="WP_CreatorUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipCode_GPSLocation_GPS_ID">
+          <End Role="GPSLocations" Type="Self.GPSLocations" Multiplicity="1" />
+          <End Role="ZipCodes" Type="Self.ZipCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="ZipCodes">
+              <PropertyRef Name="ZIP_LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="InsertUpdateTrafficIncident" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IncidentID" Type="bigint" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Congsestion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Detour" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Lane" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="RoadClosed" Type="bit" Mode="In" />
+          <Parameter Name="Verified" Type="bit" Mode="In" />
+          <Parameter Name="CreatedTimeUTC" Type="datetime2" Mode="In" />
+          <Parameter Name="ModifiedTimeUTC" Type="datetime2" Mode="In" />
+          <Parameter Name="StartTimeUTC" Type="datetime2" Mode="In" />
+          <Parameter Name="EndTimeUTC" Type="datetime2" Mode="In" />
+          <Parameter Name="LocationLat" Type="float" Mode="In" />
+          <Parameter Name="LocationLng" Type="float" Mode="In" />
+          <Parameter Name="EndLocationLat" Type="float" Mode="In" />
+          <Parameter Name="EndLocationLng" Type="float" Mode="In" />
+          <Parameter Name="CreatorUserNodeID" Type="int" Mode="In" />
+          <Parameter Name="SeverityID" Type="int" Mode="In" />
+          <Parameter Name="TypeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertUpdateWeatherPrediction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PredictionDateUTC" Type="date" Mode="In" />
+          <Parameter Name="CreatorNodeID" Type="int" Mode="In" />
+          <Parameter Name="ZipCode" Type="int" Mode="In" />
+          <Parameter Name="Low" Type="float" Mode="In" />
+          <Parameter Name="High" Type="float" Mode="In" />
+          <Parameter Name="Code" Type="int" Mode="In" />
+          <Parameter Name="MinutesToDefrost" Type="float" Mode="In" />
+        </Function>
+        <EntityContainer Name="AniDataModelStoreContainer">
+          <EntitySet Name="GPSLocations" EntityType="Self.GPSLocations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nodes" EntityType="Self.Nodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NodeTypes" EntityType="Self.NodeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Severities" EntityType="Self.Severities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrafficIncidents" EntityType="Self.TrafficIncidents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrafficIncidentSeverities" EntityType="Self.TrafficIncidentSeverities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrafficIncidentTypes" EntityType="Self.TrafficIncidentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transits" EntityType="Self.Transits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserNodes" EntityType="Self.UserNodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeatherCodes" EntityType="Self.WeatherCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeatherFrostResults" EntityType="Self.WeatherFrostResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeatherPredictions" EntityType="Self.WeatherPredictions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeatherSources" EntityType="Self.WeatherSources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZipCodes" EntityType="Self.ZipCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrostPredictionDataView" EntityType="Self.FrostPredictionDataView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FrostPredictionDataView].[HadFrost] AS [HadFrost], 
+    [FrostPredictionDataView].[MinutesToDefrost] AS [MinutesToDefrost], 
+    [FrostPredictionDataView].[Low] AS [Low], 
+    [FrostPredictionDataView].[High] AS [High], 
+    [FrostPredictionDataView].[HadRain] AS [HadRain], 
+    [FrostPredictionDataView].[HasRain] AS [HasRain], 
+    [FrostPredictionDataView].[HasClouds] AS [HasClouds], 
+    [FrostPredictionDataView].[HasStorm] AS [HasStorm], 
+    [FrostPredictionDataView].[HasWind] AS [HasWind], 
+    [FrostPredictionDataView].[HasSnow] AS [HasSnow], 
+    [FrostPredictionDataView].[WeatherCode] AS [WeatherCode]
+    FROM [dbo].[FrostPredictionDataView] AS [FrostPredictionDataView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Drives_Nodes_N_ID_Modified" Association="Self.FK_Drives_Nodes_N_ID_Modified">
+            <End Role="Nodes" EntitySet="Nodes" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Node_GPSLocation_GPS_ID" Association="Self.FK_Node_GPSLocation_GPS_ID">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="Nodes" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Node_NodeType_NT_ID" Association="Self.FK_Node_NodeType_NT_ID">
+            <End Role="NodeTypes" EntitySet="NodeTypes" />
+            <End Role="Nodes" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID" Association="Self.FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID">
+            <End Role="TrafficIncidentSeverities" EntitySet="TrafficIncidentSeverities" />
+            <End Role="TrafficIncidents" EntitySet="TrafficIncidents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidents_TrafficIncidentType_TIT_ID" Association="Self.FK_TrafficIncidents_TrafficIncidentType_TIT_ID">
+            <End Role="TrafficIncidentTypes" EntitySet="TrafficIncidentTypes" />
+            <End Role="TrafficIncidents" EntitySet="TrafficIncidents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidents_UserNodes_UN_ID" Association="Self.FK_TrafficIncidents_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="TrafficIncidents" EntitySet="TrafficIncidents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidentSeverity_Severities_SEV_ID" Association="Self.FK_TrafficIncidentSeverity_Severities_SEV_ID">
+            <End Role="Severities" EntitySet="Severities" />
+            <End Role="TrafficIncidentSeverities" EntitySet="TrafficIncidentSeverities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transits_GPSLocations_GPS_ID_End" Association="Self.FK_Transits_GPSLocations_GPS_ID_End">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transits_GPSLocations_GPS_ID_Start" Association="Self.FK_Transits_GPSLocations_GPS_ID_Start">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transits_UserNodes_UN_ID" Association="Self.FK_Transits_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNodes_Node_N_ID" Association="Self.FK_UserNodes_Node_N_ID">
+            <End Role="Nodes" EntitySet="Nodes" />
+            <End Role="UserNodes" EntitySet="UserNodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNodes_Users_U_ID" Association="Self.FK_UserNodes_Users_U_ID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserNodes" EntitySet="UserNodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherCodes_Severities_SEV_ID" Association="Self.FK_WeatherCodes_Severities_SEV_ID">
+            <End Role="Severities" EntitySet="Severities" />
+            <End Role="WeatherCodes" EntitySet="WeatherCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherFrostResult_WeatherPrediction_WP_ID" Association="Self.FK_WeatherFrostResult_WeatherPrediction_WP_ID">
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+            <End Role="WeatherFrostResults" EntitySet="WeatherFrostResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherFrostResults_UserNodes_UN_ID" Association="Self.FK_WeatherFrostResults_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="WeatherFrostResults" EntitySet="WeatherFrostResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherPrediction_WeatherCode_WC_ID" Association="Self.FK_WeatherPrediction_WeatherCode_WC_ID">
+            <End Role="WeatherCodes" EntitySet="WeatherCodes" />
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherPrediction_WeatherSource_WS_ID" Association="Self.FK_WeatherPrediction_WeatherSource_WS_ID">
+            <End Role="WeatherSources" EntitySet="WeatherSources" />
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherPredictions_UserNodes_UN_ID" Association="Self.FK_WeatherPredictions_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipCode_GPSLocation_GPS_ID" Association="Self.FK_ZipCode_GPSLocation_GPS_ID">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="ZipCodes" EntitySet="ZipCodes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AniDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GPSLocation">
+          <Key>
+            <PropertyRef Name="GPS_ID" />
+          </Key>
+          <Property Name="GPS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GPS_Lat" Type="Double" Nullable="false" />
+          <Property Name="GPS_Lng" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Nodes" Relationship="Self.FK_Node_GPSLocation_GPS_ID" FromRole="GPSLocations" ToRole="Nodes" />
+          <NavigationProperty Name="Transits" Relationship="Self.FK_Transits_GPSLocations_GPS_ID_End" FromRole="GPSLocations" ToRole="Transits" />
+          <NavigationProperty Name="Transits1" Relationship="Self.FK_Transits_GPSLocations_GPS_ID_Start" FromRole="GPSLocations" ToRole="Transits" />
+          <NavigationProperty Name="ZipCodes" Relationship="Self.FK_ZipCode_GPSLocation_GPS_ID" FromRole="GPSLocations" ToRole="ZipCodes" />
+        </EntityType>
+        <EntityType Name="Node">
+          <Key>
+            <PropertyRef Name="N_ID" />
+          </Key>
+          <Property Name="N_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="N_NodeTypeID" Type="Int32" Nullable="false" />
+          <Property Name="N_LastLocationID" Type="Int32" />
+          <Property Name="N_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="N_LastActivityTimeUTC" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="GPSLocation" Relationship="Self.FK_Node_GPSLocation_GPS_ID" FromRole="Nodes" ToRole="GPSLocations" />
+          <NavigationProperty Name="Transits" Relationship="Self.FK_Drives_Nodes_N_ID_Modified" FromRole="Nodes" ToRole="Transits" />
+          <NavigationProperty Name="NodeType" Relationship="Self.FK_Node_NodeType_NT_ID" FromRole="Nodes" ToRole="NodeTypes" />
+          <NavigationProperty Name="UserNodes" Relationship="Self.FK_UserNodes_Node_N_ID" FromRole="Nodes" ToRole="UserNodes" />
+        </EntityType>
+        <EntityType Name="NodeType">
+          <Key>
+            <PropertyRef Name="NT_ID" />
+          </Key>
+          <Property Name="NT_ID" Type="Int32" Nullable="false" />
+          <Property Name="NT_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NT_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Nodes" Relationship="Self.FK_Node_NodeType_NT_ID" FromRole="NodeTypes" ToRole="Nodes" />
+        </EntityType>
+        <EntityType Name="Severity">
+          <Key>
+            <PropertyRef Name="SEV_ID" />
+          </Key>
+          <Property Name="SEV_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SEV_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TrafficIncidentSeverities" Relationship="Self.FK_TrafficIncidentSeverity_Severities_SEV_ID" FromRole="Severities" ToRole="TrafficIncidentSeverities" />
+          <NavigationProperty Name="WeatherCodes" Relationship="Self.FK_WeatherCodes_Severities_SEV_ID" FromRole="Severities" ToRole="WeatherCodes" />
+        </EntityType>
+        <EntityType Name="TrafficIncident">
+          <Key>
+            <PropertyRef Name="TI_ID" />
+          </Key>
+          <Property Name="TI_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TI_Congestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TI_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TI_Detour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TI_Lane" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TI_Severity" Type="Int32" Nullable="false" />
+          <Property Name="TI_Type" Type="Int32" Nullable="false" />
+          <Property Name="TI_RoadClosed" Type="Boolean" Nullable="false" />
+          <Property Name="TI_Verified" Type="Boolean" Nullable="false" />
+          <Property Name="TI_LocationID" Type="Int32" Nullable="false" />
+          <Property Name="TI_EndLocationID" Type="Int32" />
+          <Property Name="TI_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TI_ModifiedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TI_StartTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="TI_EndTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="TI_LastEncounteredTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TI_CreatedUserNodeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TrafficIncidentSeverity" Relationship="Self.FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID" FromRole="TrafficIncidents" ToRole="TrafficIncidentSeverities" />
+          <NavigationProperty Name="TrafficIncidentType" Relationship="Self.FK_TrafficIncidents_TrafficIncidentType_TIT_ID" FromRole="TrafficIncidents" ToRole="TrafficIncidentTypes" />
+          <NavigationProperty Name="UserNode" Relationship="Self.FK_TrafficIncidents_UserNodes_UN_ID" FromRole="TrafficIncidents" ToRole="UserNodes" />
+        </EntityType>
+        <EntityType Name="TrafficIncidentSeverity">
+          <Key>
+            <PropertyRef Name="TIS_ID" />
+          </Key>
+          <Property Name="TIS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIS_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIS_SeverityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Severity" Relationship="Self.FK_TrafficIncidentSeverity_Severities_SEV_ID" FromRole="TrafficIncidentSeverities" ToRole="Severities" />
+          <NavigationProperty Name="TrafficIncidents" Relationship="Self.FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID" FromRole="TrafficIncidentSeverities" ToRole="TrafficIncidents" />
+        </EntityType>
+        <EntityType Name="TrafficIncidentType">
+          <Key>
+            <PropertyRef Name="TIT_ID" />
+          </Key>
+          <Property Name="TIT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIT_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TrafficIncidents" Relationship="Self.FK_TrafficIncidents_TrafficIncidentType_TIT_ID" FromRole="TrafficIncidentTypes" ToRole="TrafficIncidents" />
+        </EntityType>
+        <EntityType Name="Transit">
+          <Key>
+            <PropertyRef Name="TR_ID" />
+          </Key>
+          <Property Name="TR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TR_StartLocID" Type="Int32" Nullable="false" />
+          <Property Name="TR_EndLocID" Type="Int32" Nullable="false" />
+          <Property Name="TR_StartTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="TR_EndTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="TR_TargetStartTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="TR_TargetEndTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="TR_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TR_ModifiedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TR_CreatorUserNodeID" Type="Int32" Nullable="false" />
+          <Property Name="TR_ModifiedByNodeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GPSLocation" Relationship="Self.FK_Transits_GPSLocations_GPS_ID_End" FromRole="Transits" ToRole="GPSLocations" />
+          <NavigationProperty Name="GPSLocation1" Relationship="Self.FK_Transits_GPSLocations_GPS_ID_Start" FromRole="Transits" ToRole="GPSLocations" />
+          <NavigationProperty Name="Node" Relationship="Self.FK_Drives_Nodes_N_ID_Modified" FromRole="Transits" ToRole="Nodes" />
+          <NavigationProperty Name="UserNode" Relationship="Self.FK_Transits_UserNodes_UN_ID" FromRole="Transits" ToRole="UserNodes" />
+        </EntityType>
+        <EntityType Name="UserNode">
+          <Key>
+            <PropertyRef Name="UN_ID" />
+          </Key>
+          <Property Name="UN_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UN_UserID" Type="Int32" Nullable="false" />
+          <Property Name="UN_NodeID" Type="Int32" Nullable="false" />
+          <Property Name="UN_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Node" Relationship="Self.FK_UserNodes_Node_N_ID" FromRole="UserNodes" ToRole="Nodes" />
+          <NavigationProperty Name="TrafficIncidents" Relationship="Self.FK_TrafficIncidents_UserNodes_UN_ID" FromRole="UserNodes" ToRole="TrafficIncidents" />
+          <NavigationProperty Name="Transits" Relationship="Self.FK_Transits_UserNodes_UN_ID" FromRole="UserNodes" ToRole="Transits" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserNodes_Users_U_ID" FromRole="UserNodes" ToRole="Users" />
+          <NavigationProperty Name="WeatherFrostResults" Relationship="Self.FK_WeatherFrostResults_UserNodes_UN_ID" FromRole="UserNodes" ToRole="WeatherFrostResults" />
+          <NavigationProperty Name="WeatherPredictions" Relationship="Self.FK_WeatherPredictions_UserNodes_UN_ID" FromRole="UserNodes" ToRole="WeatherPredictions" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="U_ID" />
+          </Key>
+          <Property Name="U_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="U_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U_EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="U_LastActivityTimeUTC" Type="DateTime" Precision="7" />
+          <Property Name="U_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="UserNodes" Relationship="Self.FK_UserNodes_Users_U_ID" FromRole="Users" ToRole="UserNodes" />
+        </EntityType>
+        <EntityType Name="WeatherCode">
+          <Key>
+            <PropertyRef Name="WC_ID" />
+          </Key>
+          <Property Name="WC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WC_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WC_HasRain" Type="Boolean" Nullable="false" />
+          <Property Name="WC_HasClouds" Type="Boolean" Nullable="false" />
+          <Property Name="WC_HasStorm" Type="Boolean" Nullable="false" />
+          <Property Name="WC_HasWind" Type="Boolean" Nullable="false" />
+          <Property Name="WC_HasSnow" Type="Boolean" Nullable="false" />
+          <Property Name="WC_SeverityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Severity" Relationship="Self.FK_WeatherCodes_Severities_SEV_ID" FromRole="WeatherCodes" ToRole="Severities" />
+          <NavigationProperty Name="WeatherPredictions" Relationship="Self.FK_WeatherPrediction_WeatherCode_WC_ID" FromRole="WeatherCodes" ToRole="WeatherPredictions" />
+        </EntityType>
+        <EntityType Name="WeatherFrostResult">
+          <Key>
+            <PropertyRef Name="WFR_ID" />
+          </Key>
+          <Property Name="WFR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WFR_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="WFR_PredictionID" Type="Int32" Nullable="false" />
+          <Property Name="WFR_CreatorUserNodeID" Type="Int32" Nullable="false" />
+          <Property Name="WFR_HadFrost" Type="Boolean" Nullable="false" />
+          <Property Name="WFR_RainedOvernight" Type="Boolean" Nullable="false" />
+          <Property Name="WFR_MinutesToDefrost" Type="Double" />
+          <NavigationProperty Name="UserNode" Relationship="Self.FK_WeatherFrostResults_UserNodes_UN_ID" FromRole="WeatherFrostResults" ToRole="UserNodes" />
+          <NavigationProperty Name="WeatherPrediction" Relationship="Self.FK_WeatherFrostResult_WeatherPrediction_WP_ID" FromRole="WeatherFrostResults" ToRole="WeatherPredictions" />
+        </EntityType>
+        <EntityType Name="WeatherPrediction">
+          <Key>
+            <PropertyRef Name="WP_ID" />
+          </Key>
+          <Property Name="WP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WP_CreatedTimeUTC" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="WP_PredictionDateUTC" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WP_CreatorUserNodeID" Type="Int32" Nullable="false" />
+          <Property Name="WP_ZipCode" Type="Int32" Nullable="false" />
+          <Property Name="WP_TempLow" Type="Int32" Nullable="false" />
+          <Property Name="WP_TempHigh" Type="Int32" Nullable="false" />
+          <Property Name="WP_WeatherCode" Type="Int32" Nullable="false" />
+          <Property Name="WP_WeatherSourceID" Type="Int32" Nullable="false" />
+          <Property Name="WP_MinutesToDefrost" Type="Double" />
+          <NavigationProperty Name="UserNode" Relationship="Self.FK_WeatherPredictions_UserNodes_UN_ID" FromRole="WeatherPredictions" ToRole="UserNodes" />
+          <NavigationProperty Name="WeatherCode" Relationship="Self.FK_WeatherPrediction_WeatherCode_WC_ID" FromRole="WeatherPredictions" ToRole="WeatherCodes" />
+          <NavigationProperty Name="WeatherFrostResults" Relationship="Self.FK_WeatherFrostResult_WeatherPrediction_WP_ID" FromRole="WeatherPredictions" ToRole="WeatherFrostResults" />
+          <NavigationProperty Name="WeatherSource" Relationship="Self.FK_WeatherPrediction_WeatherSource_WS_ID" FromRole="WeatherPredictions" ToRole="WeatherSources" />
+        </EntityType>
+        <EntityType Name="WeatherSource">
+          <Key>
+            <PropertyRef Name="WS_ID" />
+          </Key>
+          <Property Name="WS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WS_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WeatherPredictions" Relationship="Self.FK_WeatherPrediction_WeatherSource_WS_ID" FromRole="WeatherSources" ToRole="WeatherPredictions" />
+        </EntityType>
+        <EntityType Name="ZipCode">
+          <Key>
+            <PropertyRef Name="ZIP_ID" />
+          </Key>
+          <Property Name="ZIP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ZIP_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ZIP_State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="ZIP_LocationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GPSLocation" Relationship="Self.FK_ZipCode_GPSLocation_GPS_ID" FromRole="ZipCodes" ToRole="GPSLocations" />
+        </EntityType>
+        <EntityType Name="FrostPredictionDataView">
+          <Key>
+            <PropertyRef Name="HadFrost" />
+            <PropertyRef Name="MinutesToDefrost" />
+            <PropertyRef Name="Low" />
+            <PropertyRef Name="High" />
+            <PropertyRef Name="HadRain" />
+            <PropertyRef Name="HasRain" />
+            <PropertyRef Name="HasClouds" />
+            <PropertyRef Name="HasStorm" />
+            <PropertyRef Name="HasWind" />
+            <PropertyRef Name="HasSnow" />
+            <PropertyRef Name="WeatherCode" />
+          </Key>
+          <Property Name="HadFrost" Type="Boolean" Nullable="false" />
+          <Property Name="MinutesToDefrost" Type="Double" Nullable="false" />
+          <Property Name="Low" Type="Int32" Nullable="false" />
+          <Property Name="High" Type="Int32" Nullable="false" />
+          <Property Name="HadRain" Type="Boolean" Nullable="false" />
+          <Property Name="HasRain" Type="Boolean" Nullable="false" />
+          <Property Name="HasClouds" Type="Boolean" Nullable="false" />
+          <Property Name="HasStorm" Type="Boolean" Nullable="false" />
+          <Property Name="HasWind" Type="Boolean" Nullable="false" />
+          <Property Name="HasSnow" Type="Boolean" Nullable="false" />
+          <Property Name="WeatherCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Node_GPSLocation_GPS_ID">
+          <End Role="GPSLocations" Type="Self.GPSLocation" Multiplicity="0..1" />
+          <End Role="Nodes" Type="Self.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="Nodes">
+              <PropertyRef Name="N_LastLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transits_GPSLocations_GPS_ID_End">
+          <End Role="GPSLocations" Type="Self.GPSLocation" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_EndLocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transits_GPSLocations_GPS_ID_Start">
+          <End Role="GPSLocations" Type="Self.GPSLocation" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_StartLocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipCode_GPSLocation_GPS_ID">
+          <End Role="GPSLocations" Type="Self.GPSLocation" Multiplicity="1" />
+          <End Role="ZipCodes" Type="Self.ZipCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPSLocations">
+              <PropertyRef Name="GPS_ID" />
+            </Principal>
+            <Dependent Role="ZipCodes">
+              <PropertyRef Name="ZIP_LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drives_Nodes_N_ID_Modified">
+          <End Role="Nodes" Type="Self.Node" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nodes">
+              <PropertyRef Name="N_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_ModifiedByNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Node_NodeType_NT_ID">
+          <End Role="NodeTypes" Type="Self.NodeType" Multiplicity="1" />
+          <End Role="Nodes" Type="Self.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NodeTypes">
+              <PropertyRef Name="NT_ID" />
+            </Principal>
+            <Dependent Role="Nodes">
+              <PropertyRef Name="N_NodeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNodes_Node_N_ID">
+          <End Role="Nodes" Type="Self.Node" Multiplicity="1" />
+          <End Role="UserNodes" Type="Self.UserNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nodes">
+              <PropertyRef Name="N_ID" />
+            </Principal>
+            <Dependent Role="UserNodes">
+              <PropertyRef Name="UN_NodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidentSeverity_Severities_SEV_ID">
+          <End Role="Severities" Type="Self.Severity" Multiplicity="1" />
+          <End Role="TrafficIncidentSeverities" Type="Self.TrafficIncidentSeverity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Severities">
+              <PropertyRef Name="SEV_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidentSeverities">
+              <PropertyRef Name="TIS_SeverityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherCodes_Severities_SEV_ID">
+          <End Role="Severities" Type="Self.Severity" Multiplicity="1" />
+          <End Role="WeatherCodes" Type="Self.WeatherCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Severities">
+              <PropertyRef Name="SEV_ID" />
+            </Principal>
+            <Dependent Role="WeatherCodes">
+              <PropertyRef Name="WC_SeverityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID">
+          <End Role="TrafficIncidentSeverities" Type="Self.TrafficIncidentSeverity" Multiplicity="1" />
+          <End Role="TrafficIncidents" Type="Self.TrafficIncident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrafficIncidentSeverities">
+              <PropertyRef Name="TIS_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidents">
+              <PropertyRef Name="TI_Severity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidents_TrafficIncidentType_TIT_ID">
+          <End Role="TrafficIncidentTypes" Type="Self.TrafficIncidentType" Multiplicity="1" />
+          <End Role="TrafficIncidents" Type="Self.TrafficIncident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrafficIncidentTypes">
+              <PropertyRef Name="TIT_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidents">
+              <PropertyRef Name="TI_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrafficIncidents_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNode" Multiplicity="1" />
+          <End Role="TrafficIncidents" Type="Self.TrafficIncident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="TrafficIncidents">
+              <PropertyRef Name="TI_CreatedUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transits_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNode" Multiplicity="1" />
+          <End Role="Transits" Type="Self.Transit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="Transits">
+              <PropertyRef Name="TR_CreatorUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNodes_Users_U_ID">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserNodes" Type="Self.UserNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="U_ID" />
+            </Principal>
+            <Dependent Role="UserNodes">
+              <PropertyRef Name="UN_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherFrostResults_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNode" Multiplicity="1" />
+          <End Role="WeatherFrostResults" Type="Self.WeatherFrostResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="WeatherFrostResults">
+              <PropertyRef Name="WFR_CreatorUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherPredictions_UserNodes_UN_ID">
+          <End Role="UserNodes" Type="Self.UserNode" Multiplicity="1" />
+          <End Role="WeatherPredictions" Type="Self.WeatherPrediction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserNodes">
+              <PropertyRef Name="UN_ID" />
+            </Principal>
+            <Dependent Role="WeatherPredictions">
+              <PropertyRef Name="WP_CreatorUserNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherPrediction_WeatherCode_WC_ID">
+          <End Role="WeatherCodes" Type="Self.WeatherCode" Multiplicity="1" />
+          <End Role="WeatherPredictions" Type="Self.WeatherPrediction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeatherCodes">
+              <PropertyRef Name="WC_ID" />
+            </Principal>
+            <Dependent Role="WeatherPredictions">
+              <PropertyRef Name="WP_WeatherCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherFrostResult_WeatherPrediction_WP_ID">
+          <End Role="WeatherPredictions" Type="Self.WeatherPrediction" Multiplicity="1" />
+          <End Role="WeatherFrostResults" Type="Self.WeatherFrostResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeatherPredictions">
+              <PropertyRef Name="WP_ID" />
+            </Principal>
+            <Dependent Role="WeatherFrostResults">
+              <PropertyRef Name="WFR_PredictionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherPrediction_WeatherSource_WS_ID">
+          <End Role="WeatherSources" Type="Self.WeatherSource" Multiplicity="1" />
+          <End Role="WeatherPredictions" Type="Self.WeatherPrediction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeatherSources">
+              <PropertyRef Name="WS_ID" />
+            </Principal>
+            <Dependent Role="WeatherPredictions">
+              <PropertyRef Name="WP_WeatherSourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AniEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GPSLocations" EntityType="Self.GPSLocation" />
+          <EntitySet Name="Nodes" EntityType="Self.Node" />
+          <EntitySet Name="NodeTypes" EntityType="Self.NodeType" />
+          <EntitySet Name="Severities" EntityType="Self.Severity" />
+          <EntitySet Name="TrafficIncidents" EntityType="Self.TrafficIncident" />
+          <EntitySet Name="TrafficIncidentSeverities" EntityType="Self.TrafficIncidentSeverity" />
+          <EntitySet Name="TrafficIncidentTypes" EntityType="Self.TrafficIncidentType" />
+          <EntitySet Name="Transits" EntityType="Self.Transit" />
+          <EntitySet Name="UserNodes" EntityType="Self.UserNode" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="WeatherCodes" EntityType="Self.WeatherCode" />
+          <EntitySet Name="WeatherFrostResults" EntityType="Self.WeatherFrostResult" />
+          <EntitySet Name="WeatherPredictions" EntityType="Self.WeatherPrediction" />
+          <EntitySet Name="WeatherSources" EntityType="Self.WeatherSource" />
+          <EntitySet Name="ZipCodes" EntityType="Self.ZipCode" />
+          <EntitySet Name="FrostPredictionDataViews" EntityType="Self.FrostPredictionDataView" />
+          <AssociationSet Name="FK_Node_GPSLocation_GPS_ID" Association="Self.FK_Node_GPSLocation_GPS_ID">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="Nodes" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transits_GPSLocations_GPS_ID_End" Association="Self.FK_Transits_GPSLocations_GPS_ID_End">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transits_GPSLocations_GPS_ID_Start" Association="Self.FK_Transits_GPSLocations_GPS_ID_Start">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipCode_GPSLocation_GPS_ID" Association="Self.FK_ZipCode_GPSLocation_GPS_ID">
+            <End Role="GPSLocations" EntitySet="GPSLocations" />
+            <End Role="ZipCodes" EntitySet="ZipCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drives_Nodes_N_ID_Modified" Association="Self.FK_Drives_Nodes_N_ID_Modified">
+            <End Role="Nodes" EntitySet="Nodes" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Node_NodeType_NT_ID" Association="Self.FK_Node_NodeType_NT_ID">
+            <End Role="NodeTypes" EntitySet="NodeTypes" />
+            <End Role="Nodes" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNodes_Node_N_ID" Association="Self.FK_UserNodes_Node_N_ID">
+            <End Role="Nodes" EntitySet="Nodes" />
+            <End Role="UserNodes" EntitySet="UserNodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidentSeverity_Severities_SEV_ID" Association="Self.FK_TrafficIncidentSeverity_Severities_SEV_ID">
+            <End Role="Severities" EntitySet="Severities" />
+            <End Role="TrafficIncidentSeverities" EntitySet="TrafficIncidentSeverities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherCodes_Severities_SEV_ID" Association="Self.FK_WeatherCodes_Severities_SEV_ID">
+            <End Role="Severities" EntitySet="Severities" />
+            <End Role="WeatherCodes" EntitySet="WeatherCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID" Association="Self.FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID">
+            <End Role="TrafficIncidentSeverities" EntitySet="TrafficIncidentSeverities" />
+            <End Role="TrafficIncidents" EntitySet="TrafficIncidents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidents_TrafficIncidentType_TIT_ID" Association="Self.FK_TrafficIncidents_TrafficIncidentType_TIT_ID">
+            <End Role="TrafficIncidentTypes" EntitySet="TrafficIncidentTypes" />
+            <End Role="TrafficIncidents" EntitySet="TrafficIncidents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrafficIncidents_UserNodes_UN_ID" Association="Self.FK_TrafficIncidents_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="TrafficIncidents" EntitySet="TrafficIncidents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transits_UserNodes_UN_ID" Association="Self.FK_Transits_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="Transits" EntitySet="Transits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNodes_Users_U_ID" Association="Self.FK_UserNodes_Users_U_ID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserNodes" EntitySet="UserNodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherFrostResults_UserNodes_UN_ID" Association="Self.FK_WeatherFrostResults_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="WeatherFrostResults" EntitySet="WeatherFrostResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherPredictions_UserNodes_UN_ID" Association="Self.FK_WeatherPredictions_UserNodes_UN_ID">
+            <End Role="UserNodes" EntitySet="UserNodes" />
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherPrediction_WeatherCode_WC_ID" Association="Self.FK_WeatherPrediction_WeatherCode_WC_ID">
+            <End Role="WeatherCodes" EntitySet="WeatherCodes" />
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherFrostResult_WeatherPrediction_WP_ID" Association="Self.FK_WeatherFrostResult_WeatherPrediction_WP_ID">
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+            <End Role="WeatherFrostResults" EntitySet="WeatherFrostResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherPrediction_WeatherSource_WS_ID" Association="Self.FK_WeatherPrediction_WeatherSource_WS_ID">
+            <End Role="WeatherSources" EntitySet="WeatherSources" />
+            <End Role="WeatherPredictions" EntitySet="WeatherPredictions" />
+          </AssociationSet>
+          <FunctionImport Name="InsertUpdateTrafficIncident">
+            <Parameter Name="IncidentID" Mode="In" Type="Int64" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Congsestion" Mode="In" Type="String" />
+            <Parameter Name="Detour" Mode="In" Type="String" />
+            <Parameter Name="Lane" Mode="In" Type="String" />
+            <Parameter Name="RoadClosed" Mode="In" Type="Boolean" />
+            <Parameter Name="Verified" Mode="In" Type="Boolean" />
+            <Parameter Name="CreatedTimeUTC" Mode="In" Type="DateTime" />
+            <Parameter Name="ModifiedTimeUTC" Mode="In" Type="DateTime" />
+            <Parameter Name="StartTimeUTC" Mode="In" Type="DateTime" />
+            <Parameter Name="EndTimeUTC" Mode="In" Type="DateTime" />
+            <Parameter Name="LocationLat" Mode="In" Type="Double" />
+            <Parameter Name="LocationLng" Mode="In" Type="Double" />
+            <Parameter Name="EndLocationLat" Mode="In" Type="Double" />
+            <Parameter Name="EndLocationLng" Mode="In" Type="Double" />
+            <Parameter Name="CreatorUserNodeID" Mode="In" Type="Int32" />
+            <Parameter Name="SeverityID" Mode="In" Type="Int32" />
+            <Parameter Name="TypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUpdateWeatherPrediction">
+            <Parameter Name="PredictionDateUTC" Mode="In" Type="DateTime" />
+            <Parameter Name="CreatorNodeID" Mode="In" Type="Int32" />
+            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
+            <Parameter Name="Low" Mode="In" Type="Double" />
+            <Parameter Name="High" Mode="In" Type="Double" />
+            <Parameter Name="Code" Mode="In" Type="Int32" />
+            <Parameter Name="MinutesToDefrost" Mode="In" Type="Double" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AniDataModelStoreContainer" CdmEntityContainer="AniEntities">
+          <EntitySetMapping Name="GPSLocations">
+            <EntityTypeMapping TypeName="AniDataModel.GPSLocation">
+              <MappingFragment StoreEntitySet="GPSLocations">
+                <ScalarProperty Name="GPS_ID" ColumnName="GPS_ID" />
+                <ScalarProperty Name="GPS_Lat" ColumnName="GPS_Lat" />
+                <ScalarProperty Name="GPS_Lng" ColumnName="GPS_Lng" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nodes">
+            <EntityTypeMapping TypeName="AniDataModel.Node">
+              <MappingFragment StoreEntitySet="Nodes">
+                <ScalarProperty Name="N_ID" ColumnName="N_ID" />
+                <ScalarProperty Name="N_NodeTypeID" ColumnName="N_NodeTypeID" />
+                <ScalarProperty Name="N_LastLocationID" ColumnName="N_LastLocationID" />
+                <ScalarProperty Name="N_CreatedTimeUTC" ColumnName="N_CreatedTimeUTC" />
+                <ScalarProperty Name="N_LastActivityTimeUTC" ColumnName="N_LastActivityTimeUTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NodeTypes">
+            <EntityTypeMapping TypeName="AniDataModel.NodeType">
+              <MappingFragment StoreEntitySet="NodeTypes">
+                <ScalarProperty Name="NT_ID" ColumnName="NT_ID" />
+                <ScalarProperty Name="NT_Name" ColumnName="NT_Name" />
+                <ScalarProperty Name="NT_Description" ColumnName="NT_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Severities">
+            <EntityTypeMapping TypeName="AniDataModel.Severity">
+              <MappingFragment StoreEntitySet="Severities">
+                <ScalarProperty Name="SEV_ID" ColumnName="SEV_ID" />
+                <ScalarProperty Name="SEV_Name" ColumnName="SEV_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrafficIncidents">
+            <EntityTypeMapping TypeName="AniDataModel.TrafficIncident">
+              <MappingFragment StoreEntitySet="TrafficIncidents">
+                <ScalarProperty Name="TI_ID" ColumnName="TI_ID" />
+                <ScalarProperty Name="TI_Congestion" ColumnName="TI_Congestion" />
+                <ScalarProperty Name="TI_Description" ColumnName="TI_Description" />
+                <ScalarProperty Name="TI_Detour" ColumnName="TI_Detour" />
+                <ScalarProperty Name="TI_Lane" ColumnName="TI_Lane" />
+                <ScalarProperty Name="TI_Severity" ColumnName="TI_Severity" />
+                <ScalarProperty Name="TI_Type" ColumnName="TI_Type" />
+                <ScalarProperty Name="TI_RoadClosed" ColumnName="TI_RoadClosed" />
+                <ScalarProperty Name="TI_Verified" ColumnName="TI_Verified" />
+                <ScalarProperty Name="TI_LocationID" ColumnName="TI_LocationID" />
+                <ScalarProperty Name="TI_EndLocationID" ColumnName="TI_EndLocationID" />
+                <ScalarProperty Name="TI_CreatedTimeUTC" ColumnName="TI_CreatedTimeUTC" />
+                <ScalarProperty Name="TI_ModifiedTimeUTC" ColumnName="TI_ModifiedTimeUTC" />
+                <ScalarProperty Name="TI_StartTimeUTC" ColumnName="TI_StartTimeUTC" />
+                <ScalarProperty Name="TI_EndTimeUTC" ColumnName="TI_EndTimeUTC" />
+                <ScalarProperty Name="TI_LastEncounteredTimeUTC" ColumnName="TI_LastEncounteredTimeUTC" />
+                <ScalarProperty Name="TI_CreatedUserNodeID" ColumnName="TI_CreatedUserNodeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrafficIncidentSeverities">
+            <EntityTypeMapping TypeName="AniDataModel.TrafficIncidentSeverity">
+              <MappingFragment StoreEntitySet="TrafficIncidentSeverities">
+                <ScalarProperty Name="TIS_ID" ColumnName="TIS_ID" />
+                <ScalarProperty Name="TIS_Name" ColumnName="TIS_Name" />
+                <ScalarProperty Name="TIS_SeverityID" ColumnName="TIS_SeverityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrafficIncidentTypes">
+            <EntityTypeMapping TypeName="AniDataModel.TrafficIncidentType">
+              <MappingFragment StoreEntitySet="TrafficIncidentTypes">
+                <ScalarProperty Name="TIT_ID" ColumnName="TIT_ID" />
+                <ScalarProperty Name="TIT_Name" ColumnName="TIT_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transits">
+            <EntityTypeMapping TypeName="AniDataModel.Transit">
+              <MappingFragment StoreEntitySet="Transits">
+                <ScalarProperty Name="TR_ID" ColumnName="TR_ID" />
+                <ScalarProperty Name="TR_StartLocID" ColumnName="TR_StartLocID" />
+                <ScalarProperty Name="TR_EndLocID" ColumnName="TR_EndLocID" />
+                <ScalarProperty Name="TR_StartTimeUTC" ColumnName="TR_StartTimeUTC" />
+                <ScalarProperty Name="TR_EndTimeUTC" ColumnName="TR_EndTimeUTC" />
+                <ScalarProperty Name="TR_TargetStartTimeUTC" ColumnName="TR_TargetStartTimeUTC" />
+                <ScalarProperty Name="TR_TargetEndTimeUTC" ColumnName="TR_TargetEndTimeUTC" />
+                <ScalarProperty Name="TR_CreatedTimeUTC" ColumnName="TR_CreatedTimeUTC" />
+                <ScalarProperty Name="TR_ModifiedTimeUTC" ColumnName="TR_ModifiedTimeUTC" />
+                <ScalarProperty Name="TR_CreatorUserNodeID" ColumnName="TR_CreatorUserNodeID" />
+                <ScalarProperty Name="TR_ModifiedByNodeID" ColumnName="TR_ModifiedByNodeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserNodes">
+            <EntityTypeMapping TypeName="AniDataModel.UserNode">
+              <MappingFragment StoreEntitySet="UserNodes">
+                <ScalarProperty Name="UN_ID" ColumnName="UN_ID" />
+                <ScalarProperty Name="UN_UserID" ColumnName="UN_UserID" />
+                <ScalarProperty Name="UN_NodeID" ColumnName="UN_NodeID" />
+                <ScalarProperty Name="UN_CreatedTimeUTC" ColumnName="UN_CreatedTimeUTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AniDataModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="U_UserName" ColumnName="U_UserName" />
+                <ScalarProperty Name="U_FirstName" ColumnName="U_FirstName" />
+                <ScalarProperty Name="U_LastName" ColumnName="U_LastName" />
+                <ScalarProperty Name="U_EmailAddress" ColumnName="U_EmailAddress" />
+                <ScalarProperty Name="U_LastActivityTimeUTC" ColumnName="U_LastActivityTimeUTC" />
+                <ScalarProperty Name="U_CreatedTimeUTC" ColumnName="U_CreatedTimeUTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeatherCodes">
+            <EntityTypeMapping TypeName="AniDataModel.WeatherCode">
+              <MappingFragment StoreEntitySet="WeatherCodes">
+                <ScalarProperty Name="WC_ID" ColumnName="WC_ID" />
+                <ScalarProperty Name="WC_Name" ColumnName="WC_Name" />
+                <ScalarProperty Name="WC_HasRain" ColumnName="WC_HasRain" />
+                <ScalarProperty Name="WC_HasClouds" ColumnName="WC_HasClouds" />
+                <ScalarProperty Name="WC_HasStorm" ColumnName="WC_HasStorm" />
+                <ScalarProperty Name="WC_HasWind" ColumnName="WC_HasWind" />
+                <ScalarProperty Name="WC_HasSnow" ColumnName="WC_HasSnow" />
+                <ScalarProperty Name="WC_SeverityID" ColumnName="WC_SeverityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeatherFrostResults">
+            <EntityTypeMapping TypeName="AniDataModel.WeatherFrostResult">
+              <MappingFragment StoreEntitySet="WeatherFrostResults">
+                <ScalarProperty Name="WFR_ID" ColumnName="WFR_ID" />
+                <ScalarProperty Name="WFR_CreatedTimeUTC" ColumnName="WFR_CreatedTimeUTC" />
+                <ScalarProperty Name="WFR_PredictionID" ColumnName="WFR_PredictionID" />
+                <ScalarProperty Name="WFR_CreatorUserNodeID" ColumnName="WFR_CreatorUserNodeID" />
+                <ScalarProperty Name="WFR_HadFrost" ColumnName="WFR_HadFrost" />
+                <ScalarProperty Name="WFR_RainedOvernight" ColumnName="WFR_RainedOvernight" />
+                <ScalarProperty Name="WFR_MinutesToDefrost" ColumnName="WFR_MinutesToDefrost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeatherPredictions">
+            <EntityTypeMapping TypeName="AniDataModel.WeatherPrediction">
+              <MappingFragment StoreEntitySet="WeatherPredictions">
+                <ScalarProperty Name="WP_ID" ColumnName="WP_ID" />
+                <ScalarProperty Name="WP_CreatedTimeUTC" ColumnName="WP_CreatedTimeUTC" />
+                <ScalarProperty Name="WP_PredictionDateUTC" ColumnName="WP_PredictionDateUTC" />
+                <ScalarProperty Name="WP_CreatorUserNodeID" ColumnName="WP_CreatorUserNodeID" />
+                <ScalarProperty Name="WP_ZipCode" ColumnName="WP_ZipCode" />
+                <ScalarProperty Name="WP_TempLow" ColumnName="WP_TempLow" />
+                <ScalarProperty Name="WP_TempHigh" ColumnName="WP_TempHigh" />
+                <ScalarProperty Name="WP_WeatherCode" ColumnName="WP_WeatherCode" />
+                <ScalarProperty Name="WP_WeatherSourceID" ColumnName="WP_WeatherSourceID" />
+                <ScalarProperty Name="WP_MinutesToDefrost" ColumnName="WP_MinutesToDefrost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeatherSources">
+            <EntityTypeMapping TypeName="AniDataModel.WeatherSource">
+              <MappingFragment StoreEntitySet="WeatherSources">
+                <ScalarProperty Name="WS_ID" ColumnName="WS_ID" />
+                <ScalarProperty Name="WS_Name" ColumnName="WS_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZipCodes">
+            <EntityTypeMapping TypeName="AniDataModel.ZipCode">
+              <MappingFragment StoreEntitySet="ZipCodes">
+                <ScalarProperty Name="ZIP_ID" ColumnName="ZIP_ID" />
+                <ScalarProperty Name="ZIP_Name" ColumnName="ZIP_Name" />
+                <ScalarProperty Name="ZIP_State" ColumnName="ZIP_State" />
+                <ScalarProperty Name="ZIP_LocationID" ColumnName="ZIP_LocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FrostPredictionDataViews">
+            <EntityTypeMapping TypeName="AniDataModel.FrostPredictionDataView">
+              <MappingFragment StoreEntitySet="FrostPredictionDataView">
+                <ScalarProperty Name="HadFrost" ColumnName="HadFrost" />
+                <ScalarProperty Name="MinutesToDefrost" ColumnName="MinutesToDefrost" />
+                <ScalarProperty Name="Low" ColumnName="Low" />
+                <ScalarProperty Name="High" ColumnName="High" />
+                <ScalarProperty Name="HadRain" ColumnName="HadRain" />
+                <ScalarProperty Name="HasRain" ColumnName="HasRain" />
+                <ScalarProperty Name="HasClouds" ColumnName="HasClouds" />
+                <ScalarProperty Name="HasStorm" ColumnName="HasStorm" />
+                <ScalarProperty Name="HasWind" ColumnName="HasWind" />
+                <ScalarProperty Name="HasSnow" ColumnName="HasSnow" />
+                <ScalarProperty Name="WeatherCode" ColumnName="WeatherCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertUpdateTrafficIncident" FunctionName="AniDataModel.Store.InsertUpdateTrafficIncident" />
+          <FunctionImportMapping FunctionImportName="InsertUpdateWeatherPrediction" FunctionName="AniDataModel.Store.InsertUpdateWeatherPrediction" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
