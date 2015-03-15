@@ -55,7 +55,11 @@ namespace ANIDataAggregationLibrary.Weather
 
         }
 
-        private BasicNeuralDataSet GetTrainingDataSet()
+        /// <summary>
+        /// Gets the training data set from the database (based on recorded frost observations)
+        /// </summary>
+        /// <returns>The training data set.</returns>
+        private static BasicNeuralDataSet GetTrainingDataSet()
         {
             var adapter = new FrostPredictionDataViewTableAdapter();
             var frostDataTable = adapter.GetData();
@@ -73,9 +77,9 @@ namespace ANIDataAggregationLibrary.Weather
                 inputs.Add(GetDoubleFromBoolean(row.HasSnow));
                 inputs.Add(GetDoubleFromBoolean(row.HasStorm));
                 inputs.Add(GetDoubleFromBoolean(row.HasWind));
-                inputs.Add(row.Low);
-                inputs.Add(row.High);
-                inputs.Add(row.WeatherCode);
+                inputs.Add(GetDoubleFromExpectedRange(row.Low, -50, 100));
+                inputs.Add(GetDoubleFromExpectedRange(row.High, -50, 100));
+                inputs.Add(GetDoubleFromExpectedRange(row.WeatherCode, 0, 50));
                 inputRows.Add(inputs);
 
                 ideals.Add(row.MinutesToDefrost);
@@ -89,17 +93,60 @@ namespace ANIDataAggregationLibrary.Weather
             return trainingSet;
         }
 
-        private double GetDoubleFromBoolean(bool value)
+        /// <summary>
+        /// Normalizes a double value based on an expected range of values
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="low">The low.</param>
+        /// <param name="high">The high.</param>
+        /// <returns>System.Double.</returns>
+        private static double GetDoubleFromExpectedRange(double value, double low, double high)
+        {
+            // Calculate the range of the items
+            var range = high - low;
+
+            // Prevent division by zero
+            if (range == 0)
+            {
+                return 0;
+            }
+
+            // Normalize our value
+            if (low < 0)
+            {
+                value += -low;
+            }
+            else
+            {
+                value -= low;
+            }
+
+            // Calculate percentage and offset from -1
+            var calculated = -1 + (2 * (value/range));
+
+            // Respect our ranges
+            return Math.Max(-1, Math.Min(1, calculated));
+        }
+
+        /// <summary>
+        /// Gets a double value from a boolean.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>A double value for the boolean</returns>
+        private static double GetDoubleFromBoolean(bool value)
         {
             return value ? 1 : -1;
         }
 
+        /// <summary>
+        /// Creates the neural network structure and primes it for usage.
+        /// </summary>
+        /// <returns>A primed neural network</returns>
         private static BasicNetwork CreateNeuralNet()
         {
             var network = new BasicNetwork();
 
             network.AddLayer(new BasicLayer(null, true, NumInputs));
-            network.AddLayer(new BasicLayer(null, true, NumInputs * 2));
             network.AddLayer(new BasicLayer(null, true, NumInputs * 2));
             network.AddLayer(new BasicLayer(null, false, 1));
 
