@@ -5,9 +5,9 @@
   <SchemaVersion>1.2</SchemaVersion>
   <DatabaseProvider>aa8afe9c-7d62-4564-b477-c12e62e0f440</DatabaseProvider>
   <Connection>
-    <Name>SQL2008_753919_prod.sql2k802.discountasp.net</Name>
+    <Name>AniDatabase.sql2k802.discountasp.net</Name>
     <Category>00000000-0000-0000-0000-000000000000</Category>
-    <ConnectionString>Data Source=sql2k802.discountasp.net;Initial Catalog=SQL2008_753919_prod;Integrated Security=False;User ID=SQL2008_753919_prod_user</ConnectionString>
+    <ConnectionString>Data Source=jxn4ink04m.database.windows.net,1433;Initial Catalog=AniDatabase;Integrated Security=False;User ID=AniAdministrator@jxn4ink04m</ConnectionString>
   </Connection>
   <Settings>
     <DbDiagramOptions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -85,7 +85,7 @@
             </PortAnchors>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.Nodes.FK_Node_GPSLocation_GPS_ID</Path>
+              <Path>AniDatabase.dbo.Nodes.FK_Node_GPSLocation_GPS_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -130,7 +130,7 @@
               <Height>124 px</Height>
             </Size>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.Severities</Path>
+              <Path>AniDatabase.dbo.Severities</Path>
               <TypeName>Table</TypeName>
             </DbOid>
             <Compartments>
@@ -160,7 +160,7 @@
                   <Height>229 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherPredictions</Path>
+                  <Path>AniDatabase.dbo.WeatherPredictions</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -183,7 +183,7 @@
                   <Height>124 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherSources</Path>
+                  <Path>AniDatabase.dbo.WeatherSources</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -230,7 +230,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherPredictions.FK_WeatherPrediction_WeatherSource_WS_ID</Path>
+                  <Path>AniDatabase.dbo.WeatherPredictions.FK_WeatherPrediction_WeatherSource_WS_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -275,7 +275,7 @@
                   <Height>178 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherFrostResults</Path>
+                  <Path>AniDatabase.dbo.WeatherFrostResults</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -322,7 +322,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherFrostResults.FK_WeatherFrostResult_WeatherPrediction_WP_ID</Path>
+                  <Path>AniDatabase.dbo.WeatherFrostResults.FK_WeatherFrostResult_WeatherPrediction_WP_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -367,7 +367,7 @@
                   <Height>212 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherCodes</Path>
+                  <Path>AniDatabase.dbo.WeatherCodes</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -414,7 +414,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.WeatherPredictions.FK_WeatherPrediction_WeatherCode_WC_ID</Path>
+                  <Path>AniDatabase.dbo.WeatherPredictions.FK_WeatherPrediction_WeatherCode_WC_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -488,7 +488,7 @@
                   <Height>144 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.ZipCodes</Path>
+                  <Path>AniDatabase.dbo.ZipCodes</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -511,7 +511,7 @@
                   <Height>127 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.GPSLocations</Path>
+                  <Path>AniDatabase.dbo.GPSLocations</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -558,7 +558,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.ZipCodes.FK_ZipCode_GPSLocation_GPS_ID</Path>
+                  <Path>AniDatabase.dbo.ZipCodes.FK_ZipCode_GPSLocation_GPS_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -603,7 +603,7 @@
                   <Height>263 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.Transits</Path>
+                  <Path>AniDatabase.dbo.Transits</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -660,7 +660,7 @@
                 </BendPoints>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.Transits.FK_Transits_GPSLocations_GPS_ID_Start</Path>
+                  <Path>AniDatabase.dbo.Transits.FK_Transits_GPSLocations_GPS_ID_Start</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -735,7 +735,7 @@
                 </BendPoints>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.Transits.FK_Transits_GPSLocations_GPS_ID_End</Path>
+                  <Path>AniDatabase.dbo.Transits.FK_Transits_GPSLocations_GPS_ID_End</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -809,7 +809,7 @@
                   <Height>161 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.Nodes</Path>
+                  <Path>AniDatabase.dbo.Nodes</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -832,7 +832,7 @@
                   <Height>127 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.NodeTypes</Path>
+                  <Path>AniDatabase.dbo.NodeTypes</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -879,7 +879,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.Nodes.FK_Node_NodeType_NT_ID</Path>
+                  <Path>AniDatabase.dbo.Nodes.FK_Node_NodeType_NT_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -924,7 +924,7 @@
                   <Height>195 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.Users</Path>
+                  <Path>AniDatabase.dbo.Users</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -947,7 +947,7 @@
                   <Height>144 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.UserNodes</Path>
+                  <Path>AniDatabase.dbo.UserNodes</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -994,7 +994,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.UserNodes.FK_UserNodes_Users_U_ID</Path>
+                  <Path>AniDatabase.dbo.UserNodes.FK_UserNodes_Users_U_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -1063,7 +1063,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.UserNodes.FK_UserNodes_Node_N_ID</Path>
+                  <Path>AniDatabase.dbo.UserNodes.FK_UserNodes_Node_N_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -1172,7 +1172,7 @@
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.Transits.FK_Drives_Nodes_N_ID_Modified</Path>
+              <Path>AniDatabase.dbo.Transits.FK_Drives_Nodes_N_ID_Modified</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1241,7 +1241,7 @@
             </PortAnchors>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.WeatherCodes.FK_WeatherCodes_Severities_SEV_ID</Path>
+              <Path>AniDatabase.dbo.WeatherCodes.FK_WeatherCodes_Severities_SEV_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1293,7 +1293,7 @@
                   <Height>365 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.TrafficIncidents</Path>
+                  <Path>AniDatabase.dbo.TrafficIncidents</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -1316,7 +1316,7 @@
                   <Height>124 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.TrafficIncidentTypes</Path>
+                  <Path>AniDatabase.dbo.TrafficIncidentTypes</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -1363,7 +1363,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.TrafficIncidents.FK_TrafficIncidents_TrafficIncidentType_TIT_ID</Path>
+                  <Path>AniDatabase.dbo.TrafficIncidents.FK_TrafficIncidents_TrafficIncidentType_TIT_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -1408,7 +1408,7 @@
                   <Height>127 px</Height>
                 </Size>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.TrafficIncidentSeverities</Path>
+                  <Path>AniDatabase.dbo.TrafficIncidentSeverities</Path>
                   <TypeName>Table</TypeName>
                 </DbOid>
                 <Compartments>
@@ -1455,7 +1455,7 @@
                 </PortAnchors>
                 <IsManuallyRouted>false</IsManuallyRouted>
                 <DbOid>
-                  <Path>SQL2008_753919_prod.dbo.TrafficIncidents.FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID</Path>
+                  <Path>AniDatabase.dbo.TrafficIncidents.FK_TrafficIncidents_TrafficIncidentSeverity_TIS_ID</Path>
                   <TypeName>ForeignKey</TypeName>
                 </DbOid>
               </Model>
@@ -1546,7 +1546,7 @@
             </PortAnchors>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.TrafficIncidents.FK_TrafficIncidents_UserNodes_UN_ID</Path>
+              <Path>AniDatabase.dbo.TrafficIncidents.FK_TrafficIncidents_UserNodes_UN_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1621,7 +1621,7 @@
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.Transits.FK_Transits_UserNodes_UN_ID</Path>
+              <Path>AniDatabase.dbo.Transits.FK_Transits_UserNodes_UN_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1696,7 +1696,7 @@
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.WeatherPredictions.FK_WeatherPredictions_UserNodes_UN_ID</Path>
+              <Path>AniDatabase.dbo.WeatherPredictions.FK_WeatherPredictions_UserNodes_UN_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1765,7 +1765,7 @@
             </PortAnchors>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.WeatherFrostResults.FK_WeatherFrostResults_UserNodes_UN_ID</Path>
+              <Path>AniDatabase.dbo.WeatherFrostResults.FK_WeatherFrostResults_UserNodes_UN_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1834,7 +1834,7 @@
             </PortAnchors>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>SQL2008_753919_prod.dbo.TrafficIncidentSeverities.FK_TrafficIncidentSeverity_Severities_SEV_ID</Path>
+              <Path>AniDatabase.dbo.TrafficIncidentSeverities.FK_TrafficIncidentSeverity_Severities_SEV_ID</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
