@@ -12,6 +12,7 @@ namespace ANIDataAggregationLibrary.Weather
     public class WeatherForecastRecordingProcessor
     {
         const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
+        const string GeoNamespace = "http://www.w3.org/2003/01/geo/wgs84_pos#";
 
         private readonly ServiceLogger _logger;
         private readonly AniEntities _entities;
@@ -74,9 +75,30 @@ namespace ANIDataAggregationLibrary.Weather
             {
                 try
                 {
-                    var forecasts = GetWeatherForecast(zipCode);
+                    var weatherData = GetWeatherData(zipCode);
 
-                    foreach (var forecast in forecasts)
+                    // Store the current weather
+                    _entities.RecordWeatherObservation(weatherData.ZipCode,
+                        weatherData.WeatherCode,
+                        weatherData.Temperature,
+                        weatherData.Description,
+                        weatherData.RecordDateUTC,
+                        this.CreatorNodeId,
+                        weatherData.Sunrise,
+                        weatherData.Sunset,
+                        weatherData.Humidity,
+                        weatherData.Visibility,
+                        weatherData.Pressure,
+                        weatherData.Rising,
+                        weatherData.WindChill,
+                        weatherData.WindDirection,
+                        weatherData.WindSpeed,
+                        weatherData.Lat,
+                        weatherData.Lng,
+                        1);
+
+                    // Store the frost predictions
+                    foreach (var forecast in weatherData.Forecasts)
                     {
                         // Calculate the frost from the neural net
                         var frostTimeInMinutes = _frostAlgorithm.GetExpectedFrostInMinutes(forecast);
@@ -99,11 +121,11 @@ namespace ANIDataAggregationLibrary.Weather
         }
 
         /// <summary>
-        /// Gets the weather forecasts from a web service and converts them into domain objects which are then yielded.
+        /// Gets the weather data and forecasts from a web service and converts them into a domain objects.
         /// </summary>
         /// <param name="zipCode">The zip code.</param>
-        /// <returns>A yielded enumerable of WeatherForecast objects representing forecasts for the next 5 days including today.</returns>
-        private IEnumerable<WeatherForecast> GetWeatherForecast(int zipCode)
+        /// <returns>A WeatherData object containing the current weather and forecasted other weather entries.</returns>
+        private static WeatherData GetWeatherData(int zipCode)
         {
 
             // Grab the data from a GET request based on our zip code.
@@ -125,36 +147,72 @@ namespace ANIDataAggregationLibrary.Weather
                 }
             }
 
-            // If we actually got data, interpret it
-            if (responseData != null)
+            // No data. Ignore it.
+            if (responseData == null)
             {
-
-                // Parse the XML into a document and identify the forecasts contained in it
-                var document = XDocument.Parse(responseData);
-                var forecasts = document.Descendants(XName.Get("forecast", YahooNamespace));
-
-                // Parse the forecast elements into forecast objects
-                foreach (var forecastElement in forecasts)
-                {
-                    var forecast = new WeatherForecast {ZipCode = zipCode};
-
-                    var dateAttribute = forecastElement.Attribute("date");
-                    forecast.Date = DateTime.Parse(dateAttribute.Value);
-
-                    var lowAttribute = forecastElement.Attribute("low");
-                    forecast.Low = double.Parse(lowAttribute.Value);
-
-                    var highAttribute = forecastElement.Attribute("high");
-                    forecast.High = double.Parse(highAttribute.Value);
-
-                    var codeAttribute = forecastElement.Attribute("code");
-                    forecast.Code = int.Parse(codeAttribute.Value);
-
-                    yield return forecast;
-                }
-
+                return null;
             }
 
+            // Parse the XML into a document and identify the forecasts contained in it
+            var document = XDocument.Parse(responseData);
+
+            var weatherData = new WeatherData
+            {
+                ZipCode = zipCode,
+                Lat = double.Parse(document.Descendants(XName.Get("lat", GeoNamespace)).First().Value),
+                Lng = double.Parse(document.Descendants(XName.Get("lng", GeoNamespace)).First().Value),
+            };
+
+            // Interpret Conditions
+            var condition = document.Descendants(XName.Get("condition", YahooNamespace)).First();
+            weatherData.Description = condition.Attribute("text").Value;
+            weatherData.WeatherCode = int.Parse(condition.Attribute("code").Value);
+            weatherData.Temperature = int.Parse(condition.Attribute("temp").Value);
+            weatherData.RecordDateUTC = DateTime.Parse(condition.Attribute("date").Value).ToUniversalTime();
+
+            // Interpret Wind
+            var windNode = document.Descendants(XName.Get("wind", YahooNamespace)).First();
+            weatherData.WindChill = int.Parse(windNode.Attribute("chill").Value);
+            weatherData.WindDirection = int.Parse(windNode.Attribute("direction").Value);
+            weatherData.WindSpeed = int.Parse(windNode.Attribute("speed").Value);
+
+            // Interpret Atmosphere
+            var atmosNode = document.Descendants(XName.Get("atmosphere", YahooNamespace)).First();
+            weatherData.Humidity = int.Parse(atmosNode.Attribute("humidity").Value);
+            weatherData.Visibility = int.Parse(atmosNode.Attribute("visibility").Value);
+            weatherData.Pressure = double.Parse(atmosNode.Attribute("pressure").Value);
+            weatherData.Rising = int.Parse(atmosNode.Attribute("rising").Value);
+
+            // Interpret Astronomy
+            var astroNode = document.Descendants(XName.Get("astronomy", YahooNamespace)).First();
+            weatherData.Sunrise = astroNode.Attribute("sunrise").Value;
+            weatherData.Sunset = astroNode.Attribute("sunset").Value;
+
+            // Parse the forecast elements into forecast objects
+            var forecasts = document.Descendants(XName.Get("forecast", YahooNamespace));
+            weatherData.Forecasts = new List<WeatherForecast>();
+            foreach (var forecastElement in forecasts)
+            {
+                var forecast = new WeatherForecast {ZipCode = zipCode};
+
+                var dateAttribute = forecastElement.Attribute("date");
+                forecast.Date = DateTime.Parse(dateAttribute.Value);
+
+                var lowAttribute = forecastElement.Attribute("low");
+                forecast.Low = double.Parse(lowAttribute.Value);
+
+                var highAttribute = forecastElement.Attribute("high");
+                forecast.High = double.Parse(highAttribute.Value);
+
+                var codeAttribute = forecastElement.Attribute("code");
+                forecast.Code = int.Parse(codeAttribute.Value);
+
+                forecast.Description = forecastElement.Attribute("text").Value;
+
+                weatherData.Forecasts.Add(forecast);
+            }
+
+            return weatherData;
         }
     }
 }

@@ -36,5 +36,11 @@ namespace ANIDataAggregationLibrary.Weather
         /// </summary>
         /// <value>The zip code for the location this prediction is centered around.</value>
         public int ZipCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the weather forecast.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
     }
 }

@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\ActiveTrafficIncidentInfoSelect_Result.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ActiveWeatherPredictionsSelect_Result.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\AniDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,6 +77,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AniDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Database\AspNetRole.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUser.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUserClaim.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\AspNetUserLogin.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\FrostPredictionDataView.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
@@ -81,6 +99,9 @@
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\NodeType.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\ServiceStatu.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Severity.cs">
@@ -107,10 +128,16 @@
     <Compile Include="Database\WeatherCode.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\WeatherFrostPredictionsVsActualsSelect_Result.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\WeatherFrostResult.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\WeatherPrediction.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\WeatherRecord.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\WeatherSource.cs">
@@ -130,6 +157,7 @@
     <Compile Include="Util\AreaMonitor.cs" />
     <Compile Include="Util\ServiceLogger.cs" />
     <Compile Include="Weather\FrostPredictionAlgorithm.cs" />
+    <Compile Include="Weather\WeatherData.cs" />
     <Compile Include="Weather\WeatherForecast.cs" />
     <Compile Include="Weather\WeatherForecastRecordingProcessor.cs" />
   </ItemGroup>
