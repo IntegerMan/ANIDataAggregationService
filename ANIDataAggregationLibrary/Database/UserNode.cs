@@ -33,10 +33,10 @@ namespace ANIDataAggregationLibrary.Database
         public virtual ICollection<TrafficIncident> TrafficIncidents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transit> Transits { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeatherFrostResult> WeatherFrostResults { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeatherPrediction> WeatherPredictions { get; set; }
+        public virtual User User { get; set; }
     }
 }

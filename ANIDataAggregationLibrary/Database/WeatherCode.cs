@@ -18,6 +18,7 @@ namespace ANIDataAggregationLibrary.Database
         public WeatherCode()
         {
             this.WeatherPredictions = new HashSet<WeatherPrediction>();
+            this.WeatherRecords = new HashSet<WeatherRecord>();
         }
     
         public int WC_ID { get; set; }
@@ -28,9 +29,13 @@ namespace ANIDataAggregationLibrary.Database
         public bool WC_HasWind { get; set; }
         public bool WC_HasSnow { get; set; }
         public int WC_SeverityID { get; set; }
+        public string WC_IconClass { get; set; }
+        public string WC_ImageUrl { get; set; }
     
         public virtual Severity Severity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeatherPrediction> WeatherPredictions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeatherRecord> WeatherRecords { get; set; }
     }
 }

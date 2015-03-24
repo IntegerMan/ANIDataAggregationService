@@ -30,11 +30,13 @@ namespace ANIDataAggregationLibrary.Database
         public int WP_WeatherCode { get; set; }
         public int WP_WeatherSourceID { get; set; }
         public Nullable<double> WP_MinutesToDefrost { get; set; }
+        public string WP_Description { get; set; }
     
         public virtual UserNode UserNode { get; set; }
         public virtual WeatherCode WeatherCode { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeatherFrostResult> WeatherFrostResults { get; set; }
         public virtual WeatherSource WeatherSource { get; set; }
+        public virtual User User { get; set; }
     }
 }

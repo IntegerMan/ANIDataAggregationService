@@ -24,5 +24,6 @@ namespace ANIDataAggregationLibrary.Database
     
         public virtual UserNode UserNode { get; set; }
         public virtual WeatherPrediction WeatherPrediction { get; set; }
+        public virtual User User { get; set; }
     }
 }

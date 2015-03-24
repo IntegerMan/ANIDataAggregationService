@@ -30,5 +30,6 @@ namespace ANIDataAggregationLibrary.Database
         public virtual GPSLocation GPSLocation1 { get; set; }
         public virtual Node Node { get; set; }
         public virtual UserNode UserNode { get; set; }
+        public virtual User User { get; set; }
     }
 }

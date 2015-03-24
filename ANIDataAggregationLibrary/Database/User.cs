@@ -17,18 +17,32 @@ namespace ANIDataAggregationLibrary.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.TrafficIncidents = new HashSet<TrafficIncident>();
+            this.Transits = new HashSet<Transit>();
             this.UserNodes = new HashSet<UserNode>();
+            this.WeatherFrostResults = new HashSet<WeatherFrostResult>();
+            this.WeatherPredictions = new HashSet<WeatherPrediction>();
+            this.WeatherRecords = new HashSet<WeatherRecord>();
         }
     
         public int U_ID { get; set; }
-        public string U_UserName { get; set; }
+        public string U_ASPNET_ID { get; set; }
         public string U_FirstName { get; set; }
         public string U_LastName { get; set; }
-        public string U_EmailAddress { get; set; }
-        public Nullable<System.DateTime> U_LastActivityTimeUTC { get; set; }
-        public System.DateTime U_CreatedTimeUTC { get; set; }
+        public int U_ZipCode { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrafficIncident> TrafficIncidents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transit> Transits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserNode> UserNodes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeatherFrostResult> WeatherFrostResults { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeatherPrediction> WeatherPredictions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeatherRecord> WeatherRecords { get; set; }
     }
 }

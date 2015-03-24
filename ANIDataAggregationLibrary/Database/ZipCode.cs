@@ -14,11 +14,22 @@ namespace ANIDataAggregationLibrary.Database
     
     public partial class ZipCode
     {
-        public int ZIP_ID { get; set; }
-        public string ZIP_Name { get; set; }
-        public string ZIP_State { get; set; }
-        public int ZIP_LocationID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ZipCode()
+        {
+            this.WeatherRecords = new HashSet<WeatherRecord>();
+        }
     
-        public virtual GPSLocation GPSLocation { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string State { get; set; }
+        public Nullable<double> Lat { get; set; }
+        public Nullable<double> Lng { get; set; }
+        public int ServiceStatusID { get; set; }
+        public System.DateTime CreatedDateUTC { get; set; }
+    
+        public virtual ServiceStatu ServiceStatu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeatherRecord> WeatherRecords { get; set; }
     }
 }

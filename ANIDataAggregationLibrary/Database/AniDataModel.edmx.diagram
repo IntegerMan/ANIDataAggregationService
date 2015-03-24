@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1006265b92364b66be5c470003b37348" Name="Diagram1" ZoomLevel="82">
+      <Diagram DiagramId="1006265b92364b66be5c470003b37348" Name="Diagram1" ZoomLevel="70">
         <EntityTypeShape EntityType="AniDataModel.GPSLocation" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.Node" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.NodeType" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
@@ -14,17 +14,14 @@
         <EntityTypeShape EntityType="AniDataModel.TrafficIncidentType" Width="1.5" PointX="8.25" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.Transit" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.UserNode" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AniDataModel.User" Width="1.5" PointX="6" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.WeatherCode" Width="1.5" PointX="11.25" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.WeatherFrostResult" Width="1.5" PointX="13.5" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.WeatherPrediction" Width="1.5" PointX="13.5" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.WeatherSource" Width="1.5" PointX="11.25" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="AniDataModel.ZipCode" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AniDataModel.FrostPredictionDataView" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="AniDataModel.FK_Node_GPSLocation_GPS_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_Transits_GPSLocations_GPS_ID_End" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_Transits_GPSLocations_GPS_ID_Start" ManuallyRouted="false" />
-        <AssociationConnector Association="AniDataModel.FK_ZipCode_GPSLocation_GPS_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_Drives_Nodes_N_ID_Modified" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_Node_NodeType_NT_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_UserNodes_Node_N_ID" ManuallyRouted="false" />
@@ -34,12 +31,33 @@
         <AssociationConnector Association="AniDataModel.FK_TrafficIncidents_TrafficIncidentType_TIT_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_TrafficIncidents_UserNodes_UN_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_Transits_UserNodes_UN_ID" ManuallyRouted="false" />
-        <AssociationConnector Association="AniDataModel.FK_UserNodes_Users_U_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherFrostResults_UserNodes_UN_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherPredictions_UserNodes_UN_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherPrediction_WeatherCode_WC_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherFrostResult_WeatherPrediction_WP_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherPrediction_WeatherSource_WS_ID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AniDataModel.ServiceStatu" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="AniDataModel.WeatherRecord" Width="1.5" PointX="16.5" PointY="6.25" />
+        <AssociationConnector Association="AniDataModel.FK_WeatherRecord_WeatherCodes_WC_ID" />
+        <AssociationConnector Association="AniDataModel.FK_WeatherRecord_WeatherSources_WS_ID" />
+        <EntityTypeShape EntityType="AniDataModel.AspNetRole" Width="1.5" PointX="13.375" PointY="18.75" />
+        <EntityTypeShape EntityType="AniDataModel.AspNetUserClaim" Width="1.5" PointX="17.875" PointY="19.375" />
+        <EntityTypeShape EntityType="AniDataModel.AspNetUserLogin" Width="1.5" PointX="17.875" PointY="22" />
+        <EntityTypeShape EntityType="AniDataModel.AspNetUser" Width="1.5" PointX="15.625" PointY="17.5" />
+        <EntityTypeShape EntityType="AniDataModel.User" Width="1.5" PointX="17.875" PointY="15.25" />
+        <EntityTypeShape EntityType="AniDataModel.ZipCode" Width="1.5" PointX="14.25" PointY="1.75" />
+        <AssociationConnector Association="AniDataModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AniDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AniDataModel.FK_Users_AspNetUsers_Id" />
+        <AssociationConnector Association="AniDataModel.FK_ZipCodes_ServiceStatus_ID" />
+        <AssociationConnector Association="AniDataModel.FK_TrafficIncidents_UserNodes_UN_ID1" />
+        <AssociationConnector Association="AniDataModel.FK_Transits_UserNodes_UN_ID1" />
+        <AssociationConnector Association="AniDataModel.FK_UserNodes_Users_U_ID" />
+        <AssociationConnector Association="AniDataModel.FK_WeatherFrostResults_UserNodes_UN_ID1" />
+        <AssociationConnector Association="AniDataModel.FK_WeatherPredictions_Users_U_ID" />
+        <AssociationConnector Association="AniDataModel.FK_WeatherRecord_Users_U_ID" />
+        <AssociationConnector Association="AniDataModel.FK_WeatherRecord_ZipCodes_ID" />
+        <AssociationConnector Association="AniDataModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,6 +18,7 @@ namespace ANIDataAggregationLibrary.Database
         public WeatherSource()
         {
             this.WeatherPredictions = new HashSet<WeatherPrediction>();
+            this.WeatherRecords = new HashSet<WeatherRecord>();
         }
     
         public int WS_ID { get; set; }
@@ -25,5 +26,7 @@ namespace ANIDataAggregationLibrary.Database
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeatherPrediction> WeatherPredictions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeatherRecord> WeatherRecords { get; set; }
     }
 }
