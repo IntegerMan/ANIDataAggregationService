@@ -168,6 +168,7 @@
           <Property Name="U_FirstName" Type="varchar" MaxLength="50" />
           <Property Name="U_LastName" Type="varchar" MaxLength="50" />
           <Property Name="U_ZipCode" Type="int" Nullable="false" />
+          <Property Name="U_WebThemeID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="WeatherCodes">
           <Key>
@@ -193,6 +194,7 @@
           <Property Name="WFR_PredictionID" Type="int" Nullable="false" />
           <Property Name="WFR_CreatorUserNodeID" Type="int" Nullable="false" />
           <Property Name="WFR_HadFrost" Type="bit" Nullable="false" />
+          <Property Name="WFR_HadSnow" Type="bit" />
           <Property Name="WFR_RainedOvernight" Type="bit" Nullable="false" />
           <Property Name="WFR_MinutesToDefrost" Type="float" />
         </EntityType>
@@ -243,6 +245,16 @@
           </Key>
           <Property Name="WS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WS_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WebThemes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="WebCssURL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WebJsUrl" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ZipCodes">
           <Key>
@@ -496,6 +508,18 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_WebThemes_ID">
+          <End Role="WebThemes" Type="Self.WebThemes" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebThemes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="U_WebThemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WeatherCodes_Severities_SEV_ID">
           <End Role="Severities" Type="Self.Severities" Multiplicity="1" />
           <End Role="WeatherCodes" Type="Self.WeatherCodes" Multiplicity="*" />
@@ -664,6 +688,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <Parameter Name="High" Type="float" Mode="In" />
           <Parameter Name="Code" Type="int" Mode="In" />
           <Parameter Name="MinutesToDefrost" Type="float" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="InsertUpdateZipCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ZipCode" Type="int" Mode="In" />
@@ -677,6 +702,9 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <Parameter Name="ZipCode" Type="int" Mode="In" />
           <Parameter Name="FirstName" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="LatestWeatherEntrySelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ZipCode" Type="int" Mode="In" />
         </Function>
         <Function Name="RecordWeatherObservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ZipCode" Type="int" Mode="In" />
@@ -698,10 +726,11 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <Parameter Name="Lng" Type="float" Mode="In" />
           <Parameter Name="SourceID" Type="int" Mode="In" />
         </Function>
-        <Function Name="WeatherFrostPredictionsVsActualsSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="WeatherFrostDataSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="WeatherFrostResultsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CreatorUserNodeID" Type="int" Mode="In" />
           <Parameter Name="RainedOvernight" Type="bit" Mode="In" />
+          <Parameter Name="SnowedOvernight" Type="bit" Mode="In" />
           <Parameter Name="MinutesToDefrost" Type="float" Mode="In" />
           <Parameter Name="ZipCode" Type="int" Mode="In" />
           <Parameter Name="PredictionDate" Type="datetime2" Mode="In" />
@@ -728,6 +757,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <EntitySet Name="WeatherPredictions" EntityType="Self.WeatherPredictions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WeatherRecord" EntityType="Self.WeatherRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WeatherSources" EntityType="Self.WeatherSources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebThemes" EntityType="Self.WebThemes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZipCodes" EntityType="Self.ZipCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FrostPredictionDataView" EntityType="Self.FrostPredictionDataView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -810,6 +840,10 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           </AssociationSet>
           <AssociationSet Name="FK_Users_AspNetUsers_Id" Association="Self.FK_Users_AspNetUsers_Id">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_WebThemes_ID" Association="Self.FK_Users_WebThemes_ID">
+            <End Role="WebThemes" EntitySet="WebThemes" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_WeatherCodes_Severities_SEV_ID" Association="Self.FK_WeatherCodes_Severities_SEV_ID">
@@ -1016,6 +1050,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <NavigationProperty Name="UserNode" Relationship="Self.FK_WeatherFrostResults_UserNodes_UN_ID" FromRole="WeatherFrostResults" ToRole="UserNodes" />
           <NavigationProperty Name="WeatherPrediction" Relationship="Self.FK_WeatherFrostResult_WeatherPrediction_WP_ID" FromRole="WeatherFrostResults" ToRole="WeatherPredictions" />
           <NavigationProperty Name="User" Relationship="AniDataModel.FK_WeatherFrostResults_UserNodes_UN_ID1" FromRole="WeatherFrostResult" ToRole="User" />
+          <Property Name="WFR_HadSnow" Type="Boolean" />
         </EntityType>
         <EntityType Name="WeatherPrediction">
           <Key>
@@ -1380,16 +1415,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             <Parameter Name="SeverityID" Mode="In" Type="Int32" />
             <Parameter Name="TypeID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="InsertUpdateWeatherPrediction">
-            <Parameter Name="PredictionDateUTC" Mode="In" Type="DateTime" />
-            <Parameter Name="CreatorNodeID" Mode="In" Type="Int32" />
-            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
-            <Parameter Name="Low" Mode="In" Type="Double" />
-            <Parameter Name="High" Mode="In" Type="Double" />
-            <Parameter Name="Code" Mode="In" Type="Int32" />
-            <Parameter Name="MinutesToDefrost" Mode="In" Type="Double" />
-          </FunctionImport>
-          <EntitySet Name="ServiceStatus" EntityType="AniDataModel.ServiceStatu" />
+          <EntitySet Name="ServiceStatusEntity" EntityType="AniDataModel.ServiceStatus" />
           <EntitySet Name="WeatherRecords" EntityType="AniDataModel.WeatherRecord" />
           <AssociationSet Name="FK_WeatherRecord_WeatherCodes_WC_ID" Association="AniDataModel.FK_WeatherRecord_WeatherCodes_WC_ID">
             <End Role="WeatherCode" EntitySet="WeatherCodes" />
@@ -1433,13 +1459,6 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             <Parameter Name="SourceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="WeatherFrostPredictionsVsActualsSelect" ReturnType="Collection(AniDataModel.WeatherFrostPredictionsVsActualsSelect_Result)" />
-          <FunctionImport Name="WeatherFrostResultsInsert" ReturnType="Collection(Int32)">
-            <Parameter Name="CreatorUserNodeID" Mode="In" Type="Int32" />
-            <Parameter Name="RainedOvernight" Mode="In" Type="Boolean" />
-            <Parameter Name="MinutesToDefrost" Mode="In" Type="Double" />
-            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
-            <Parameter Name="PredictionDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <EntitySet Name="AspNetRoles" EntityType="AniDataModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="AniDataModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="AniDataModel.AspNetUserLogin" />
@@ -1459,7 +1478,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_ZipCodes_ServiceStatus_ID" Association="AniDataModel.FK_ZipCodes_ServiceStatus_ID">
-            <End Role="ServiceStatu" EntitySet="ServiceStatus" />
+            <End Role="ServiceStatu" EntitySet="ServiceStatusEntity" />
             <End Role="ZipCode" EntitySet="ZipCodes" />
           </AssociationSet>
           <AssociationSet Name="FK_TrafficIncidents_UserNodes_UN_ID1" Association="AniDataModel.FK_TrafficIncidents_UserNodes_UN_ID1">
@@ -1502,8 +1521,35 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             <Parameter Name="ZipCode" Mode="In" Type="Int32" />
             <Parameter Name="AfterDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="InsertUpdateWeatherPrediction">
+            <Parameter Name="PredictionDateUTC" Mode="In" Type="DateTime" />
+            <Parameter Name="CreatorNodeID" Mode="In" Type="Int32" />
+            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
+            <Parameter Name="Low" Mode="In" Type="Double" />
+            <Parameter Name="High" Mode="In" Type="Double" />
+            <Parameter Name="Code" Mode="In" Type="Int32" />
+            <Parameter Name="MinutesToDefrost" Mode="In" Type="Double" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="WeatherFrostResultsInsert" ReturnType="Collection(Int32)">
+            <Parameter Name="CreatorUserNodeID" Mode="In" Type="Int32" />
+            <Parameter Name="RainedOvernight" Mode="In" Type="Boolean" />
+            <Parameter Name="SnowedOvernight" Mode="In" Type="Boolean" />
+            <Parameter Name="MinutesToDefrost" Mode="In" Type="Double" />
+            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
+            <Parameter Name="PredictionDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="WebThemes" EntityType="AniDataModel.WebTheme" />
+          <AssociationSet Name="FK_Users_WebThemes_ID" Association="AniDataModel.FK_Users_WebThemes_ID">
+            <End Role="WebTheme" EntitySet="WebThemes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="LatestWeatherEntrySelect" ReturnType="Collection(AniDataModel.LatestWeatherEntrySelect_Result)">
+            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WeatherFrostDataSelect" ReturnType="Collection(AniDataModel.WeatherFrostDataSelect_Result)" />
         </EntityContainer>
-        <EntityType Name="ServiceStatu">
+        <EntityType Name="ServiceStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -1656,6 +1702,8 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <NavigationProperty Name="WeatherFrostResults" Relationship="AniDataModel.FK_WeatherFrostResults_UserNodes_UN_ID1" FromRole="User" ToRole="WeatherFrostResult" />
           <NavigationProperty Name="WeatherPredictions" Relationship="AniDataModel.FK_WeatherPredictions_Users_U_ID" FromRole="User" ToRole="WeatherPrediction" />
           <NavigationProperty Name="WeatherRecords" Relationship="AniDataModel.FK_WeatherRecord_Users_U_ID" FromRole="User" ToRole="WeatherRecord" />
+          <Property Name="U_WebThemeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WebTheme" Relationship="AniDataModel.FK_Users_WebThemes_ID" FromRole="User" ToRole="WebTheme" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -1668,7 +1716,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <Property Name="Lng" Type="Double" />
           <Property Name="ServiceStatusID" Type="Int32" Nullable="false" />
           <Property Name="CreatedDateUTC" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="ServiceStatu" Relationship="AniDataModel.FK_ZipCodes_ServiceStatus_ID" FromRole="ZipCode" ToRole="ServiceStatu" />
+          <NavigationProperty Name="ServiceStatus" Relationship="AniDataModel.FK_ZipCodes_ServiceStatus_ID" FromRole="ZipCode" ToRole="ServiceStatu" />
           <NavigationProperty Name="WeatherRecords" Relationship="AniDataModel.FK_WeatherRecord_ZipCodes_ID" FromRole="ZipCode" ToRole="WeatherRecord" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -1712,7 +1760,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ZipCodes_ServiceStatus_ID">
-          <End Type="AniDataModel.ServiceStatu" Role="ServiceStatu" Multiplicity="1" />
+          <End Type="AniDataModel.ServiceStatus" Role="ServiceStatu" Multiplicity="1" />
           <End Type="AniDataModel.ZipCode" Role="ZipCode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ServiceStatu">
@@ -1847,6 +1895,84 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <Property Type="String" Name="IconClass" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="ImageUrl" Nullable="true" />
         </ComplexType>
+        <EntityType Name="WebTheme">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="WebCssURL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WebJsUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="AniDataModel.FK_Users_WebThemes_ID" FromRole="WebTheme" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Users_WebThemes_ID">
+          <End Type="AniDataModel.WebTheme" Role="WebTheme" Multiplicity="1" />
+          <End Type="AniDataModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebTheme">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="U_WebThemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="LatestWeatherEntrySelect_Result">
+          <Property Type="Int32" Name="WeatherCode" Nullable="false" />
+          <Property Type="String" Name="WeatherCodeName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Temperature" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="RecordTimeUTC" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDateUTC" Nullable="false" />
+          <Property Type="String" Name="Sunrise" Nullable="false" MaxLength="10" />
+          <Property Type="Double" Name="Lng" Nullable="false" />
+          <Property Type="Double" Name="Lat" Nullable="false" />
+          <Property Type="Int32" Name="WindSpeed" Nullable="false" />
+          <Property Type="Int32" Name="WindDirection" Nullable="false" />
+          <Property Type="Int32" Name="WindChill" Nullable="false" />
+          <Property Type="Int32" Name="Rising" Nullable="false" />
+          <Property Type="Double" Name="Pressure" Nullable="false" />
+          <Property Type="Int32" Name="Visibility" Nullable="false" />
+          <Property Type="Int32" Name="Humidity" Nullable="false" />
+          <Property Type="String" Name="Sunset" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="ZipCode" Nullable="false" />
+          <Property Type="Int32" Name="SeverityID" Nullable="false" />
+          <Property Type="String" Name="SeverityName" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="HasRain" Nullable="false" />
+          <Property Type="Boolean" Name="HasClouds" Nullable="false" />
+          <Property Type="Boolean" Name="HasStorm" Nullable="false" />
+          <Property Type="Boolean" Name="HasWind" Nullable="false" />
+          <Property Type="Boolean" Name="HasSnow" Nullable="false" />
+          <Property Type="String" Name="IconClass" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="WeatherFrostDataSelect_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Boolean" Name="HadFrost" Nullable="false" />
+          <Property Type="Boolean" Name="RainedOvernight" Nullable="false" />
+          <Property Type="Boolean" Name="SnowedOvernight" Nullable="true" />
+          <Property Type="Double" Name="PredictedMinutes" Nullable="true" />
+          <Property Type="Double" Name="ActualMinutes" Nullable="true" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="RecordedTimeUTC" Nullable="false" />
+          <Property Type="DateTime" Name="PredictionDateUTC" Nullable="false" />
+          <Property Type="Int32" Name="ZipCode" Nullable="false" />
+          <Property Type="Int32" Name="Low" Nullable="false" />
+          <Property Type="Int32" Name="High" Nullable="false" />
+          <Property Type="Int32" Name="WeatherCodeID" Nullable="false" />
+          <Property Type="String" Name="WeatherCodeName" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="HasRain" Nullable="false" />
+          <Property Type="Boolean" Name="HasClouds" Nullable="false" />
+          <Property Type="Boolean" Name="HasStorm" Nullable="false" />
+          <Property Type="Boolean" Name="HasWind" Nullable="false" />
+          <Property Type="Boolean" Name="HasSnow" Nullable="false" />
+          <Property Type="Int32" Name="SeverityID" Nullable="false" />
+          <Property Type="String" Name="SeverityName" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1976,6 +2102,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <EntitySetMapping Name="WeatherFrostResults">
             <EntityTypeMapping TypeName="AniDataModel.WeatherFrostResult">
               <MappingFragment StoreEntitySet="WeatherFrostResults">
+                <ScalarProperty Name="WFR_HadSnow" ColumnName="WFR_HadSnow" />
                 <ScalarProperty Name="WFR_ID" ColumnName="WFR_ID" />
                 <ScalarProperty Name="WFR_CreatedTimeUTC" ColumnName="WFR_CreatedTimeUTC" />
                 <ScalarProperty Name="WFR_PredictionID" ColumnName="WFR_PredictionID" />
@@ -2029,9 +2156,8 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertUpdateTrafficIncident" FunctionName="AniDataModel.Store.InsertUpdateTrafficIncident" />
-          <FunctionImportMapping FunctionImportName="InsertUpdateWeatherPrediction" FunctionName="AniDataModel.Store.InsertUpdateWeatherPrediction" />
-          <EntitySetMapping Name="ServiceStatus">
-            <EntityTypeMapping TypeName="AniDataModel.ServiceStatu">
+          <EntitySetMapping Name="ServiceStatusEntity">
+            <EntityTypeMapping TypeName="AniDataModel.ServiceStatus">
               <MappingFragment StoreEntitySet="ServiceStatus">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2068,36 +2194,6 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <FunctionImportMapping FunctionImportName="InsertUpdateZipCode" FunctionName="AniDataModel.Store.InsertUpdateZipCode" />
           <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="AniDataModel.Store.InsertUser" />
           <FunctionImportMapping FunctionImportName="RecordWeatherObservation" FunctionName="AniDataModel.Store.RecordWeatherObservation" />
-          <FunctionImportMapping FunctionImportName="WeatherFrostPredictionsVsActualsSelect" FunctionName="AniDataModel.Store.WeatherFrostPredictionsVsActualsSelect">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AniDataModel.WeatherFrostPredictionsVsActualsSelect_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="HadFrost" ColumnName="HadFrost" />
-                <ScalarProperty Name="RainedOvernight" ColumnName="RainedOvernight" />
-                <ScalarProperty Name="PredictedMinutes" ColumnName="PredictedMinutes" />
-                <ScalarProperty Name="ActualMinutes" ColumnName="ActualMinutes" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="RecordedTimeUTC" ColumnName="RecordedTimeUTC" />
-                <ScalarProperty Name="PredictionDateUTC" ColumnName="PredictionDateUTC" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Low" ColumnName="Low" />
-                <ScalarProperty Name="High" ColumnName="High" />
-                <ScalarProperty Name="WeatherCodeID" ColumnName="WeatherCodeID" />
-                <ScalarProperty Name="WeatherCodeName" ColumnName="WeatherCodeName" />
-                <ScalarProperty Name="HasRain" ColumnName="HasRain" />
-                <ScalarProperty Name="HasClouds" ColumnName="HasClouds" />
-                <ScalarProperty Name="HasStorm" ColumnName="HasStorm" />
-                <ScalarProperty Name="HasWind" ColumnName="HasWind" />
-                <ScalarProperty Name="HasSnow" ColumnName="HasSnow" />
-                <ScalarProperty Name="SeverityID" ColumnName="SeverityID" />
-                <ScalarProperty Name="SeverityName" ColumnName="SeverityName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="WeatherFrostResultsInsert" FunctionName="AniDataModel.Store.WeatherFrostResultsInsert" />
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="AniDataModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -2146,6 +2242,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AniDataModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="U_WebThemeID" ColumnName="U_WebThemeID" />
                 <ScalarProperty Name="U_ZipCode" ColumnName="U_ZipCode" />
                 <ScalarProperty Name="U_LastName" ColumnName="U_LastName" />
                 <ScalarProperty Name="U_FirstName" ColumnName="U_FirstName" />
@@ -2216,6 +2313,82 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
                 <ScalarProperty Name="HasSnow" ColumnName="HasSnow" />
                 <ScalarProperty Name="IconClass" ColumnName="IconClass" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertUpdateWeatherPrediction" FunctionName="AniDataModel.Store.InsertUpdateWeatherPrediction" />
+          <FunctionImportMapping FunctionImportName="WeatherFrostResultsInsert" FunctionName="AniDataModel.Store.WeatherFrostResultsInsert" />
+          <EntitySetMapping Name="WebThemes">
+            <EntityTypeMapping TypeName="AniDataModel.WebTheme">
+              <MappingFragment StoreEntitySet="WebThemes">
+                <ScalarProperty Name="WebJsUrl" ColumnName="WebJsUrl" />
+                <ScalarProperty Name="WebCssURL" ColumnName="WebCssURL" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="LatestWeatherEntrySelect" FunctionName="AniDataModel.Store.LatestWeatherEntrySelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AniDataModel.LatestWeatherEntrySelect_Result">
+                <ScalarProperty Name="WeatherCode" ColumnName="WeatherCode" />
+                <ScalarProperty Name="WeatherCodeName" ColumnName="WeatherCodeName" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RecordTimeUTC" ColumnName="RecordTimeUTC" />
+                <ScalarProperty Name="CreatedDateUTC" ColumnName="CreatedDateUTC" />
+                <ScalarProperty Name="Sunrise" ColumnName="Sunrise" />
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="WindSpeed" ColumnName="WindSpeed" />
+                <ScalarProperty Name="WindDirection" ColumnName="WindDirection" />
+                <ScalarProperty Name="WindChill" ColumnName="WindChill" />
+                <ScalarProperty Name="Rising" ColumnName="Rising" />
+                <ScalarProperty Name="Pressure" ColumnName="Pressure" />
+                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+                <ScalarProperty Name="Humidity" ColumnName="Humidity" />
+                <ScalarProperty Name="Sunset" ColumnName="Sunset" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="SeverityID" ColumnName="SeverityID" />
+                <ScalarProperty Name="SeverityName" ColumnName="SeverityName" />
+                <ScalarProperty Name="HasRain" ColumnName="HasRain" />
+                <ScalarProperty Name="HasClouds" ColumnName="HasClouds" />
+                <ScalarProperty Name="HasStorm" ColumnName="HasStorm" />
+                <ScalarProperty Name="HasWind" ColumnName="HasWind" />
+                <ScalarProperty Name="HasSnow" ColumnName="HasSnow" />
+                <ScalarProperty Name="IconClass" ColumnName="IconClass" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="WeatherFrostDataSelect" FunctionName="AniDataModel.Store.WeatherFrostDataSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AniDataModel.WeatherFrostDataSelect_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="HadFrost" ColumnName="HadFrost" />
+                <ScalarProperty Name="RainedOvernight" ColumnName="RainedOvernight" />
+                <ScalarProperty Name="SnowedOvernight" ColumnName="SnowedOvernight" />
+                <ScalarProperty Name="PredictedMinutes" ColumnName="PredictedMinutes" />
+                <ScalarProperty Name="ActualMinutes" ColumnName="ActualMinutes" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="RecordedTimeUTC" ColumnName="RecordedTimeUTC" />
+                <ScalarProperty Name="PredictionDateUTC" ColumnName="PredictionDateUTC" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Low" ColumnName="Low" />
+                <ScalarProperty Name="High" ColumnName="High" />
+                <ScalarProperty Name="WeatherCodeID" ColumnName="WeatherCodeID" />
+                <ScalarProperty Name="WeatherCodeName" ColumnName="WeatherCodeName" />
+                <ScalarProperty Name="HasRain" ColumnName="HasRain" />
+                <ScalarProperty Name="HasClouds" ColumnName="HasClouds" />
+                <ScalarProperty Name="HasStorm" ColumnName="HasStorm" />
+                <ScalarProperty Name="HasWind" ColumnName="HasWind" />
+                <ScalarProperty Name="HasSnow" ColumnName="HasSnow" />
+                <ScalarProperty Name="SeverityID" ColumnName="SeverityID" />
+                <ScalarProperty Name="SeverityName" ColumnName="SeverityName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

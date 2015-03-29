@@ -11,8 +11,8 @@ namespace ANIDataAggregationLibrary.Weather
 {
     public class WeatherForecastRecordingProcessor
     {
-        const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
-        const string GeoNamespace = "http://www.w3.org/2003/01/geo/wgs84_pos#";
+        private const string YahooNamespace = "http://xml.weather.yahoo.com/ns/rss/1.0";
+        private const string GeoNamespace = "http://www.w3.org/2003/01/geo/wgs84_pos#";
 
         private readonly ServiceLogger _logger;
         private readonly AniEntities _entities;
@@ -29,16 +29,16 @@ namespace ANIDataAggregationLibrary.Weather
         /// </summary>
         /// <param name="creatorNodeId">The creator node identifier.</param>
         /// <param name="logger">The logger.</param>
-        /// <param name="zipCodes">The zip codes to monitor.</param>
         /// <param name="entities">The entities.</param>
         /// <exception cref="System.ArgumentNullException">entities</exception>
-        public WeatherForecastRecordingProcessor(int creatorNodeId, ServiceLogger logger, IEnumerable<int> zipCodes, AniEntities entities)
+        public WeatherForecastRecordingProcessor(int creatorNodeId,
+            ServiceLogger logger,
+            AniEntities entities)
         {
             // Ensure logger exists
             _logger = logger ?? new ServiceLogger();
 
             CreatorNodeId = creatorNodeId;
-            ZipCodes = zipCodes.ToList();
 
             // Ensure entities is not null
             if (entities == null)
@@ -77,6 +77,14 @@ namespace ANIDataAggregationLibrary.Weather
                 {
                     var weatherData = GetWeatherData(zipCode);
 
+                    // Log what we're doing
+                    _logger.Log(string.Format("Logging weather for {0} on {1}: {2} Temp: {3}, Code: {4}",
+                        weatherData.ZipCode,
+                        weatherData.RecordDateUTC,
+                        weatherData.Description,
+                        weatherData.Temperature,
+                        weatherData.WeatherCode));
+
                     // Store the current weather
                     _entities.RecordWeatherObservation(weatherData.ZipCode,
                         weatherData.WeatherCode,
@@ -104,13 +112,24 @@ namespace ANIDataAggregationLibrary.Weather
                         var frostTimeInMinutes = _frostAlgorithm.GetExpectedFrostInMinutes(forecast);
 
                         // Log what we're doing
-                        _logger.Log(string.Format("Logging Forecast for {4} on {0}: {1}/{2},  code: {3} and frost time: {5}",
-                            forecast.Date.ToShortDateString(), forecast.Low, forecast.High, forecast.Code,
-                            forecast.ZipCode, frostTimeInMinutes));
+                        _logger.Log(
+                            string.Format("Logging Forecast for {4} on {0}: {1}/{2},  code: {3} and frost time: {5}",
+                                forecast.Date.ToShortDateString(),
+                                forecast.Low,
+                                forecast.High,
+                                forecast.Code,
+                                forecast.ZipCode,
+                                frostTimeInMinutes));
 
                         // Put the values into the database - this will update an existing entry or make a new one as needed
-                        _entities.InsertUpdateWeatherPrediction(forecast.Date, CreatorNodeId, forecast.ZipCode,
-                            forecast.Low, forecast.High, forecast.Code, frostTimeInMinutes);
+                        _entities.InsertUpdateWeatherPrediction(forecast.Date,
+                            CreatorNodeId,
+                            forecast.ZipCode,
+                            forecast.Low,
+                            forecast.High,
+                            forecast.Code,
+                            frostTimeInMinutes,
+                            forecast.Description);
                     }
                 }
                 catch (Exception ex)
@@ -127,7 +146,6 @@ namespace ANIDataAggregationLibrary.Weather
         /// <returns>A WeatherData object containing the current weather and forecasted other weather entries.</returns>
         private static WeatherData GetWeatherData(int zipCode)
         {
-
             // Grab the data from a GET request based on our zip code.
             var uriString = string.Format("http://xml.weather.yahoo.com/forecastrss/{0}_f.xml", zipCode);
             var request = WebRequest.Create(uriString);
@@ -160,7 +178,7 @@ namespace ANIDataAggregationLibrary.Weather
             {
                 ZipCode = zipCode,
                 Lat = double.Parse(document.Descendants(XName.Get("lat", GeoNamespace)).First().Value),
-                Lng = double.Parse(document.Descendants(XName.Get("lng", GeoNamespace)).First().Value),
+                Lng = double.Parse(document.Descendants(XName.Get("long", GeoNamespace)).First().Value),
             };
 
             // Interpret Conditions
@@ -168,7 +186,7 @@ namespace ANIDataAggregationLibrary.Weather
             weatherData.Description = condition.Attribute("text").Value;
             weatherData.WeatherCode = int.Parse(condition.Attribute("code").Value);
             weatherData.Temperature = int.Parse(condition.Attribute("temp").Value);
-            weatherData.RecordDateUTC = DateTime.Parse(condition.Attribute("date").Value).ToUniversalTime();
+            weatherData.RecordDateUTC = DateTime.UtcNow; // DateTime.Parse(condition.Attribute("date").Value).ToUniversalTime();
 
             // Interpret Wind
             var windNode = document.Descendants(XName.Get("wind", YahooNamespace)).First();

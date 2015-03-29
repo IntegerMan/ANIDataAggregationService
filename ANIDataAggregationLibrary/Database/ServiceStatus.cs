@@ -12,24 +12,19 @@ namespace ANIDataAggregationLibrary.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class ZipCode
+    public partial class ServiceStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ZipCode()
+        public ServiceStatus()
         {
-            this.WeatherRecords = new HashSet<WeatherRecord>();
+            this.ZipCodes = new HashSet<ZipCode>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public string State { get; set; }
-        public Nullable<double> Lat { get; set; }
-        public Nullable<double> Lng { get; set; }
-        public int ServiceStatusID { get; set; }
-        public System.DateTime CreatedDateUTC { get; set; }
+        public bool IsActive { get; set; }
     
-        public virtual ServiceStatus ServiceStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WeatherRecord> WeatherRecords { get; set; }
+        public virtual ICollection<ZipCode> ZipCodes { get; set; }
     }
 }

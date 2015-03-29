@@ -36,7 +36,7 @@
         <AssociationConnector Association="AniDataModel.FK_WeatherPrediction_WeatherCode_WC_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherFrostResult_WeatherPrediction_WP_ID" ManuallyRouted="false" />
         <AssociationConnector Association="AniDataModel.FK_WeatherPrediction_WeatherSource_WS_ID" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="AniDataModel.ServiceStatu" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="AniDataModel.ServiceStatus" Width="1.5" PointX="0.75" PointY="15.5" />
         <EntityTypeShape EntityType="AniDataModel.WeatherRecord" Width="1.5" PointX="16.5" PointY="6.25" />
         <AssociationConnector Association="AniDataModel.FK_WeatherRecord_WeatherCodes_WC_ID" />
         <AssociationConnector Association="AniDataModel.FK_WeatherRecord_WeatherSources_WS_ID" />
@@ -58,6 +58,8 @@
         <AssociationConnector Association="AniDataModel.FK_WeatherRecord_Users_U_ID" />
         <AssociationConnector Association="AniDataModel.FK_WeatherRecord_ZipCodes_ID" />
         <AssociationConnector Association="AniDataModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="AniDataModel.WebTheme" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="AniDataModel.FK_Users_WebThemes_ID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

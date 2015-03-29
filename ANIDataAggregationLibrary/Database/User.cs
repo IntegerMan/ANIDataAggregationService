@@ -30,6 +30,7 @@ namespace ANIDataAggregationLibrary.Database
         public string U_FirstName { get; set; }
         public string U_LastName { get; set; }
         public int U_ZipCode { get; set; }
+        public int U_WebThemeID { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -44,5 +45,6 @@ namespace ANIDataAggregationLibrary.Database
         public virtual ICollection<WeatherPrediction> WeatherPredictions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeatherRecord> WeatherRecords { get; set; }
+        public virtual WebTheme WebTheme { get; set; }
     }
 }

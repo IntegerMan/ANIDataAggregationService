@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Timers;
 using ANIDataAggregationLibrary.Database;
@@ -63,15 +64,18 @@ namespace ANIDataAggregationService
             _logger.Log("Done Processing Traffic Data");
         }
 
+        /// <summary>
+        /// Initializes the weather processor.
+        /// </summary>
         private void InitializeWeather()
         {
             // Kick into action immediately
-            var watchedZipCodes = AreaMonitor.GetWatchedZipCodes();
-            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger, watchedZipCodes, _entities);
+            _weatherForecastProcessor = new WeatherForecastRecordingProcessor(CreatorNodeId, _logger, _entities);
+
             ProcessWeatherData();
 
             // Start the weather timer
-            _weatherTimer = new Timer(TimeSpan.FromHours(3).TotalMilliseconds);
+            _weatherTimer = new Timer(TimeSpan.FromHours(1).TotalMilliseconds);
             _weatherTimer.Elapsed += WeatherTimer_Tick;
             _weatherTimer.Start();
         }
@@ -119,6 +123,8 @@ namespace ANIDataAggregationService
             {
                 // We need to recalibrate our frost prediction matrix
                 _weatherForecastProcessor.UpdateNeuralNetwork();
+
+                _weatherForecastProcessor.ZipCodes = AreaMonitor.GetWatchedZipCodes(_entities);
 
                 // Now use things to record our predictions
                 _weatherForecastProcessor.RecordWeatherForecasts();

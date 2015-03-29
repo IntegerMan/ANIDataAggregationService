@@ -95,13 +95,16 @@
     <Compile Include="Database\GPSLocation.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\LatestWeatherEntrySelect_Result.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\Node.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\NodeType.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\ServiceStatu.cs">
+    <Compile Include="Database\ServiceStatus.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Severity.cs">
@@ -128,6 +131,9 @@
     <Compile Include="Database\WeatherCode.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\WeatherFrostDataSelect_Result.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\WeatherFrostPredictionsVsActualsSelect_Result.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
@@ -141,6 +147,9 @@
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\WeatherSource.cs">
+      <DependentUpon>AniDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\WebTheme.cs">
       <DependentUpon>AniDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\ZipCode.cs">
