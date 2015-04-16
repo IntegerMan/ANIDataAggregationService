@@ -14,6 +14,12 @@ namespace ANIDataAggregationLibrary.Weather
         private readonly BasicNetwork _network;
         private readonly AniEntities _entities;
 
+        private readonly HashSet<int> _hasClouds = new HashSet<int>();
+        private readonly HashSet<int> _hasWind = new HashSet<int>();
+        private readonly HashSet<int> _hasRain = new HashSet<int>();
+        private readonly HashSet<int> _hasStorm = new HashSet<int>();
+        private readonly HashSet<int> _hasSnow = new HashSet<int>();
+
         public int MaxIterations { get; set; }
 
         public double ErrorRate { get; set; }
@@ -38,10 +44,43 @@ namespace ANIDataAggregationLibrary.Weather
             }
 
             _entities = entities;
-            MaxIterations = 1000;
+            MaxIterations = 10000;
+
+            GetWeatherCodeInformation();
         }
 
-        const int NumInputs = 3;
+        private void GetWeatherCodeInformation()
+        {
+            foreach (WeatherCode code in _entities.WeatherCodes)
+            {
+                if (code.WC_HasClouds)
+                {
+                    _hasClouds.Add(code.WC_ID);
+                }
+
+                if (code.WC_HasRain)
+                {
+                    _hasRain.Add(code.WC_ID);
+                }
+
+                if (code.WC_HasSnow)
+                {
+                    _hasSnow.Add(code.WC_ID);
+                }
+
+                if (code.WC_HasStorm)
+                {
+                    _hasStorm.Add(code.WC_ID);
+                }
+
+                if (code.WC_HasWind)
+                {
+                    _hasWind.Add(code.WC_ID);
+                }
+            }
+        }
+
+        const int NumInputs = 8;
 
         public void TrainNeuralNet()
         {
@@ -92,16 +131,13 @@ namespace ANIDataAggregationLibrary.Weather
                 {
                     GetDoubleFromExpectedRange(row.Low, -50, 100),
                     GetDoubleFromExpectedRange(row.High, -50, 100),
-                    GetDoubleFromExpectedRange(row.WeatherCode, 0, 50)
+                    GetDoubleFromExpectedRange(row.WeatherCode, 0, 50),
+                    GetDoubleFromBoolean(row.HasRain),
+                    GetDoubleFromBoolean(row.HasClouds),
+                    GetDoubleFromBoolean(row.HasSnow),
+                    GetDoubleFromBoolean(row.HasStorm),
+                    GetDoubleFromBoolean(row.HasWind)
                 };
-
-                /* I - CAN - do this, but this would make me need to know these for predictions
-                inputs.Add(GetDoubleFromBoolean(row.HasRain));
-                inputs.Add(GetDoubleFromBoolean(row.HasClouds));
-                inputs.Add(GetDoubleFromBoolean(row.HasSnow));
-                inputs.Add(GetDoubleFromBoolean(row.HasStorm));
-                inputs.Add(GetDoubleFromBoolean(row.HasWind));
-                */
 
                 inputRows.Add(inputs);
 
@@ -129,7 +165,7 @@ namespace ANIDataAggregationLibrary.Weather
             var range = high - low;
 
             // Prevent division by zero
-            if (range == 0)
+            if (Math.Abs(range) < Double.Epsilon)
             {
                 return 0;
             }
@@ -172,7 +208,6 @@ namespace ANIDataAggregationLibrary.Weather
             network.AddLayer(new BasicLayer(null, true, NumInputs));
             network.AddLayer(new BasicLayer(null, true, NumInputs * 3));
             network.AddLayer(new BasicLayer(null, true, NumInputs * 3));
-            network.AddLayer(new BasicLayer(null, true, NumInputs * 3));
             network.AddLayer(new BasicLayer(null, false, 1));
 
             network.Structure.FinalizeStructure();
@@ -193,7 +228,12 @@ namespace ANIDataAggregationLibrary.Weather
             {
                 GetDoubleFromExpectedRange(low, -50, 100),
                 GetDoubleFromExpectedRange(high, -50, 100),
-                GetDoubleFromExpectedRange(weatherCode, 0, 50)
+                GetDoubleFromExpectedRange(weatherCode, 0, 50),
+                GetDoubleFromBoolean(_hasRain.Contains(weatherCode)),
+                GetDoubleFromBoolean(_hasClouds.Contains(weatherCode)),
+                GetDoubleFromBoolean(_hasSnow.Contains(weatherCode)),
+                GetDoubleFromBoolean(_hasStorm.Contains(weatherCode)),
+                GetDoubleFromBoolean(_hasWind.Contains(weatherCode))
             };
 
             var outputs = new List<double>(1) {0}.ToArray();
