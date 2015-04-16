@@ -128,7 +128,7 @@ namespace ANIDataAggregationLibrary.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUpdateTrafficIncident", incidentIDParameter, descriptionParameter, congsestionParameter, detourParameter, laneParameter, roadClosedParameter, verifiedParameter, createdTimeUTCParameter, modifiedTimeUTCParameter, startTimeUTCParameter, endTimeUTCParameter, locationLatParameter, locationLngParameter, endLocationLatParameter, endLocationLngParameter, creatorUserNodeIDParameter, severityIDParameter, typeIDParameter);
         }
     
-        public virtual int InsertUpdateZipCode(Nullable<int> zipCode, Nullable<double> lat, Nullable<double> lng, string name, string state)
+        public virtual int InsertUpdateZipCode(Nullable<int> zipCode, Nullable<double> lat, Nullable<double> lng, string name, string state, Nullable<int> status)
         {
             var zipCodeParameter = zipCode.HasValue ?
                 new ObjectParameter("ZipCode", zipCode) :
@@ -150,7 +150,11 @@ namespace ANIDataAggregationLibrary.Database
                 new ObjectParameter("State", state) :
                 new ObjectParameter("State", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUpdateZipCode", zipCodeParameter, latParameter, lngParameter, nameParameter, stateParameter);
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUpdateZipCode", zipCodeParameter, latParameter, lngParameter, nameParameter, stateParameter, statusParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> InsertUser(string iD, Nullable<int> zipCode, string firstName, string lastName)

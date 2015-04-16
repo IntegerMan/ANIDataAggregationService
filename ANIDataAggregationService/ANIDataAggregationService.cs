@@ -75,7 +75,7 @@ namespace ANIDataAggregationService
             ProcessWeatherData();
 
             // Start the weather timer
-            _weatherTimer = new Timer(TimeSpan.FromHours(1).TotalMilliseconds);
+            _weatherTimer = new Timer(TimeSpan.FromMinutes(15).TotalMilliseconds);
             _weatherTimer.Elapsed += WeatherTimer_Tick;
             _weatherTimer.Start();
         }

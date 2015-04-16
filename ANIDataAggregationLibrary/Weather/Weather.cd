@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ANIDataAggregationLibrary.Weather.WeatherData">
+    <Position X="12.75" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AUAAQABBICAgBAAAAAAGAAAAAAQAAAABAAAEAgAEAAE=</HashCode>
+      <FileName>Weather\WeatherData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Forecasts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ANIDataAggregationLibrary.Weather.WeatherForecastRecordingProcessor">
+    <Position X="0.75" Y="1.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAGEAAIAAAAAAAIAAAAIAAIAAAAAAAAAAAAAoA=</HashCode>
+      <FileName>Weather\WeatherForecastRecordingProcessor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_frostAlgorithm" />
+      <Field Name="_entities" />
+      <Field Name="_logger" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ANIDataAggregationLibrary.Weather.FrostPredictionAlgorithm">
+    <Position X="3.5" Y="6" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAIBAYAAgAAAAIAIAAAAABACAAAAAgAAIA=</HashCode>
+      <FileName>Weather\FrostPredictionAlgorithm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_network" />
+      <Field Name="_entities" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ANIDataAggregationLibrary.Database.AniEntities" Collapsed="true">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAgACETEAABpBAEAAEAECEEEAAAQAAAgAIQQBAxAgE=</HashCode>
+      <FileName>Database\AniDataModel.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ANIDataAggregationLibrary.Util.ServiceLogger" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAgAAAEAAAAAAQAAAAA=</HashCode>
+      <FileName>Util\ServiceLogger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Encog.Neural.Networks.BasicNetwork" Collapsed="true">
+    <Position X="4.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Struct Name="ANIDataAggregationLibrary.Weather.WeatherForecast">
+    <Position X="10" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAgAgAAAAAAgAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Weather\WeatherForecast.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

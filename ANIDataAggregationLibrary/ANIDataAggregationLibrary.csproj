@@ -185,6 +185,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Weather\Weather.cd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\AniDataModel.Context.tt">

@@ -14,7 +14,7 @@ namespace ANIDataAggregationLibrary.Weather
         private readonly BasicNetwork _network;
         private readonly AniEntities _entities;
 
-        public int MaxIterations { get; set;  } = 1000;
+        public int MaxIterations { get; set; }
 
         public double ErrorRate { get; set; }
 
@@ -38,6 +38,7 @@ namespace ANIDataAggregationLibrary.Weather
             }
 
             _entities = entities;
+            MaxIterations = 1000;
         }
 
         const int NumInputs = 3;

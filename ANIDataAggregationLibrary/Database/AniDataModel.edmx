@@ -696,6 +696,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
           <Parameter Name="Lng" Type="float" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
           <Parameter Name="State" Type="char" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="In" />
         </Function>
         <Function Name="InsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="nvarchar" Mode="In" />
@@ -1431,6 +1432,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             <Parameter Name="Lng" Mode="In" Type="Double" />
             <Parameter Name="Name" Mode="In" Type="String" />
             <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertUser" ReturnType="Collection(Decimal)">
             <Parameter Name="ID" Mode="In" Type="String" />
@@ -1545,7 +1547,7 @@ warning 6002: The table/view 'AniDatabase.dbo.FrostPredictionDataView' does not 
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <FunctionImport Name="LatestWeatherEntrySelect" ReturnType="Collection(AniDataModel.LatestWeatherEntrySelect_Result)">
-            <Parameter Name="ZipCode" Mode="In" Type="Int32" />
+          <Parameter Name="ZipCode" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="WeatherFrostDataSelect" ReturnType="Collection(AniDataModel.WeatherFrostDataSelect_Result)" />
         </EntityContainer>
