@@ -141,7 +141,7 @@ namespace ANIDataAggregationLibrary.Weather
 
                 inputRows.Add(inputs);
 
-                var ideals = new List<double>(1) {row.MinutesToDefrost};
+                var ideals = new List<double>(1) {GetMinutesToDefrostNeuralNetValue(row.MinutesToDefrost)};
                 idealRows.Add(ideals);
             }
 
@@ -150,6 +150,16 @@ namespace ANIDataAggregationLibrary.Weather
 
             var trainingSet = new BasicNeuralDataSet(trainInputs, trainIdeals);
             return trainingSet;
+        }
+
+        private static double GetMinutesToDefrostNeuralNetValue(double value)
+        {
+            if (value <= 0)
+            {
+                return -1;
+            }
+
+            return value;
         }
 
         /// <summary>
@@ -240,7 +250,7 @@ namespace ANIDataAggregationLibrary.Weather
 
             _network.Compute(inputs.ToArray(), outputs);
 
-            return outputs[0];
+            return GetMinutesToDefrostNeuralNetValue(outputs[0]);
         }
     }
 }
